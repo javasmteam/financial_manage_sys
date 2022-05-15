@@ -31,7 +31,7 @@
 
                     <el-form-item>
                         <span class="login-button">
-                            <el-button type="primary" @click="userLogin">登录</el-button>
+                            <el-button type="primary" @click="userLogin('user')">登录</el-button>
                             <el-button type="warning" @click="loginDialog=true">注册</el-button>
                         </span> 
                     </el-form-item>
@@ -43,12 +43,32 @@
         <!--注册弹窗-->
         <el-dialog title="注册" :visible.sync="loginDialog">
             <!-- 注册表单 -->
-            <el-form :model="regUser">
+            <el-form :model="regUser" class="reg-form" label-width="60px" :rules="regRules">
+
+                <el-form-item label="账号:" prop="userAct">
+                    <el-input v-model="regUser.userAct"></el-input>
+                </el-form-item>
+
+                <el-form-item label="密码:" prop="userPwd">
+                    <el-input v-model="regUser.userPwd" show-password></el-input>
+                </el-form-item>
+
+                <el-form-item label="用户姓名" prop="userName">
+                    <el-input v-model="regUser.userName"></el-input>
+                </el-form-item>
+
+                <el-form-item label="生日" prop="userBirthday">
+                    <el-date-picker v-model="regUser.userBirthday" type="date" placeholder="选择日期"></el-date-picker>
+                </el-form-item>
+
+                <el-form-item label="联系方式" prop="userPhone">
+                    <el-input v-model="regUser.userPhone"></el-input>
+                </el-form-item>
 
             </el-form>
             <div slot="footer" class="dialog-footer">
               <el-button @click="loginDialog=false" >取 消</el-button>
-              <el-button type="primary" @click="userReg">确 定</el-button>
+              <el-button type="primary" @click="userReg('regUser')">确 定</el-button>
             </div>
           </el-dialog>
         </el-main>
