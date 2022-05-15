@@ -1,5 +1,9 @@
 var app = new Vue({
     el:"#app",
-    data:{},
+    data:{
+        userMenu:{
+
+        }
+    },
     methods: {},
 })
