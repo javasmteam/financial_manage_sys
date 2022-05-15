@@ -1,14 +1,14 @@
 function regUserF() {
-    userAct = '';
-    userPwd = '';
-    userName = '';
-    userBirthday = '';
-    userPhone = '';
+    this.userAct = '';
+    this.userPwd = '';
+    this.userName = '';
+    this.userBirthday = '';
+    this.userPhone = '';
 }
 
 function userF() {
-    userAct = '';
-    userPwd = '';
+    this.userAct = '';
+    this.userPwd = '';
 }
 
 var app = new Vue({
@@ -45,7 +45,7 @@ var app = new Vue({
                 {required: true, message: "请输入生日", trigger: 'change'}
             ],
             userPhone: [
-                {required: true, message: "请输入良心方式", trigger: 'change'}
+                {required: true, message: "请输入联系方式", trigger: 'change'}
             ],
         }
     },
@@ -57,7 +57,7 @@ var app = new Vue({
                     this.$message.error("注册失败")
                 } else {
                     this.$message({message: "注册成功", type: "success"})
-                    this.reguser = new reguserF();
+                    this.regUser = new reguserF();
                     this.loginDialog = false;
                 }
             })
@@ -74,14 +74,14 @@ var app = new Vue({
             })
         },
         //用户登录
-        userLogin(rules) {
+        userLogin:function(rules) {
             this.$refs[rules].validate((valid) => {
                 if (valid) {
                     this.reqLogin();
                 } else {
                     return false;
                 }
-            })
+            });
         },
         //用户注册
         userReg: function (rules) {
@@ -91,7 +91,7 @@ var app = new Vue({
                 } else {
                     return false
                 }
-            })
+            });
         }
 
     },

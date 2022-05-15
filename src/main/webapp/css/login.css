@@ -21,7 +21,11 @@
     width: 80%;
     margin: 0 auto;
 }
-.login-button{
-    text-align: center;
+
+.reg-button {
+    text-align: right;
+}
+.reg-dialog {
     margin: 0 auto;
+    width: 50%;
 }
