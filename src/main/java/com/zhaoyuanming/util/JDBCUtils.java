@@ -212,7 +212,7 @@ public class JDBCUtils {
      * @param <T>
      * @return
      */
-    public static  <T> List<T> query(String sql, Class<T> clazz, Object... o) {
+    public static <T> List<T> query(String sql, Class<T> clazz, Object... o) {
         Connection conn = getConnection();
         PreparedStatement prst = null;
         ResultSet rs = null;
