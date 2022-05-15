@@ -1,5 +1,7 @@
 package com.javasm.bean;
 
+import com.javasm.util.DataUtil;
+
 import java.util.List;
 
 /**
@@ -51,13 +53,21 @@ public class PageInfo<T> {
     public PageInfo() {
     }
 
-    public PageInfo(Integer nowPage, Integer pageNum, Integer startIndex, Integer allCount) {
-        this.nowPage = nowPage;
-        this.pageNum = pageNum;
-        this.startIndex = startIndex;
+    public PageInfo(String nowPageStr, String pageNumStr, Integer allCount) {
+        Integer nowPage = DataUtil.stringConvertToInteger(nowPageStr);
+        Integer pageNum = DataUtil.stringConvertToInteger(pageNumStr);
+
+        //赋值
+        this.nowPage = nowPage == null || nowPage < 1 ? 1 : nowPage;
+        this.pageNum = pageNum == null || pageNum < 2 ? 3 : pageNum;
         this.allCount = allCount;
-        this.sumPage = sumPage;
-        this.dataList = dataList;
+
+        //计算
+        this.sumPage = this.allCount % this.pageNum == 0 ? this.allCount / this.pageNum : this.allCount / this.pageNum + 1;
+        this.sumPage = this.sumPage < 1 ? 1 : this.sumPage;
+
+        this.nowPage = this.nowPage > this.sumPage ? this.sumPage : this.nowPage;
+        this.startIndex = (this.nowPage - 1) * this.pageNum;
     }
 
     public Integer getNowPage() {
