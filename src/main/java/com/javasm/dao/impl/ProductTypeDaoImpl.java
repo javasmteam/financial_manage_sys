@@ -1,6 +1,12 @@
 package com.javasm.dao.impl;
 
+import com.javasm.bean.PageInfo;
+import com.javasm.bean.ProductType;
 import com.javasm.dao.ProductTypeDao;
+
+import java.util.List;
+
+import static com.javasm.util.JDBCUtils.update;
 
 /**
  * <h4>Financial_manage_sys</h4>
@@ -11,4 +17,50 @@ import com.javasm.dao.ProductTypeDao;
  * @Version : 1.0
  **/
 public class ProductTypeDaoImpl implements ProductTypeDao {
+    /**
+     * 增加产品信息
+     *
+     * @param productType 产品系列
+     * @return 影响行数
+     */
+    @Override
+    public Integer addProductType(ProductType productType) {
+        String sql = "insert into product_type\n" +
+                "values (product_type_id, ?, ?, ?, ?, ?, product_type_state);";
+        return update(sql,)
+    }
+
+    /**
+     * 更新产品信息
+     *
+     * @param productType 产品系列
+     * @return 影响行数
+     */
+    @Override
+    public Integer updateProductType(ProductType productType) {
+        return null;
+    }
+
+    /**
+     * 查询商品类别总条数
+     *
+     * @param productType 产品系列
+     * @return 影响行数
+     */
+    @Override
+    public Integer count(ProductType productType) {
+        return null;
+    }
+
+    /**
+     * 分页查询英雄信息
+     *
+     * @param page        分页信息
+     * @param productType 产品系列
+     * @return 影响行数
+     */
+    @Override
+    public List<ProductType> queryProductTypes(PageInfo<ProductType> page, ProductType productType) {
+        return null;
+    }
 }
