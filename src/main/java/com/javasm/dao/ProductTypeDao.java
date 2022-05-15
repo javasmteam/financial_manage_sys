@@ -1,5 +1,9 @@
 package com.javasm.dao;
 
+import com.javasm.bean.ProductType;
+
+import java.util.List;
+
 /**
  * <h4>Financial_manage_sys</h4>
  * <p>产品系列dao</p>
@@ -9,5 +13,18 @@ package com.javasm.dao;
  * @Version : 1.0
  **/
 public interface ProductTypeDao {
+
+    int addProductType();
+
+
+
+    int updateProductType();
+
+    List<ProductType> queryProductTypes();
+
+    get
+            find
+    query
+
 
 }
