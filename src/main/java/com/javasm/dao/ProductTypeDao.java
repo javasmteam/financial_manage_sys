@@ -2,6 +2,7 @@ package com.javasm.dao;
 
 import com.javasm.bean.PageInfo;
 import com.javasm.bean.ProductType;
+import com.javasm.bean.vo.ProductTypeVO;
 
 import java.util.List;
 
@@ -49,7 +50,7 @@ public interface ProductTypeDao {
      * @param productType 产品系列
      * @return 影响行数
      */
-    List<ProductType> queryProductTypes(PageInfo<ProductType> page, ProductType productType);
+    List<ProductTypeVO> queryProductTypes(PageInfo<ProductType> page, ProductType productType);
 
 
 }

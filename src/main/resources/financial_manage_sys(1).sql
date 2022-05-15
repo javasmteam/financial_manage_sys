@@ -246,7 +246,29 @@ where product_type_id = ?;
 select count(product_type.product_type_id)
 from product_type,
      remit_info
-where product_type.product_type_id = remit_info.product_type_id;
+where product_type.product_type_id = remit_info.product_type_id
+  and product_type.product_type_id like '%?%'
+  and product_type_ch_name like '%?%';
+
+select product_type.product_type_id,
+       product_type_ch_name,
+       product_type_eng_name,
+       remit_info_summary,
+       rec_bank_name,
+       swift_code,
+       bank_code,
+       cnaps_id,
+       rec_bank_area,
+       rec_bank_city,
+       rec_account_name,
+       rec_account,
+       user_id,
+       remit_postscript,
+       rec_location
+from product_type,
+     remit_info
+where product_type.product_type_id = remit_info.product_type_id limit ?,?;
+
 
 
 

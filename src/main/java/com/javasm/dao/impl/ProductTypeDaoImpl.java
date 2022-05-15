@@ -2,10 +2,13 @@ package com.javasm.dao.impl;
 
 import com.javasm.bean.PageInfo;
 import com.javasm.bean.ProductType;
+import com.javasm.bean.vo.ProductTypeVO;
 import com.javasm.dao.ProductTypeDao;
+import com.javasm.util.JDBCUtils;
 
 import java.util.List;
 
+import static com.javasm.util.JDBCUtils.query;
 import static com.javasm.util.JDBCUtils.update;
 
 /**
@@ -63,9 +66,9 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
         StringBuilder sql = new StringBuilder("select count(product_type.product_type_id)\n" +
                 "from product_type,\n" +
                 "     remit_info\n" +
-                "where product_type.product_type_id = remit_info.product_type_id");
-
-        return null;
+                "where product_type.product_type_id = remit_info.product_type_id ");
+        String appendSql = String.valueOf(appendLikeSql(productType, sql));
+        return Math.toIntExact(JDBCUtils.count(appendSql));
     }
 
     /**
@@ -76,7 +79,43 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
      * @return 影响行数
      */
     @Override
-    public List<ProductType> queryProductTypes(PageInfo<ProductType> page, ProductType productType) {
-        return null;
+    public List<ProductTypeVO> queryProductTypes(PageInfo<ProductType> page, ProductType productType) {
+        StringBuilder sql = new StringBuilder("select product_type.product_type_id,\n" +
+                "       product_type_ch_name,\n" +
+                "       product_type_eng_name,\n" +
+                "       remit_info_summary,\n" +
+                "       rec_bank_name,\n" +
+                "       swift_code,\n" +
+                "       bank_code,\n" +
+                "       cnaps_id,\n" +
+                "       rec_bank_area,\n" +
+                "       rec_bank_city,\n" +
+                "       rec_account_name,\n" +
+                "       rec_account,\n" +
+                "       user_id,\n" +
+                "       remit_postscript,\n" +
+                "       rec_location\n" +
+                "from product_type,\n" +
+                "     remit_info\n" +
+                "where product_type.product_type_id = remit_info.product_type_id");
+        StringBuilder appendSql = appendLikeSql(productType, sql).append(" limit ?,?");
+        return query(appendSql.toString(), ProductTypeVO.class, page.getStartIndex(), page.getPageNum());
+    }
+
+    private StringBuilder appendLikeSql(ProductType productType, StringBuilder sql) {
+        if (productType != null) {
+            if (productType.getProductTypeId() != null) {
+                sql.append("  and product_type.product_type_id like '%").append(productType.getProductTypeId()).append("%'");
+            }
+            if (productType.getProductTypeChName() != null && !"".equals(productType.getProductTypeChName())) {
+                sql.append("  and product_type_ch_name like '%").append(productType.getProductTypeChName()).append("%'");
+            }
+            if (productType.getProductTypeEngName() != null && !"".equals(productType.getProductTypeEngName())) {
+                sql.append("  and product_type_eng_name like '%").append(productType.getProductTypeEngName()).append("%'");
+            }
+        }
+        return sql;
     }
 }
+
+
