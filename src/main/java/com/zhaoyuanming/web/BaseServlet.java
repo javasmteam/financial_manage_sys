@@ -8,12 +8,14 @@ package com.zhaoyuanming.web; /**
  **/
 
 import com.zhaoyuanming.annotation.ResponseTypeAnnotation;
+import com.zhaoyuanming.myEnum.ResponseEnum;
 import com.zhaoyuanming.util.ServletUtil;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -68,13 +70,46 @@ public class BaseServlet<T> extends HttpServlet {
 
     }
 
-    private void responseRequest(Method method, Object result, HttpServletRequest request, HttpServletResponse response) {
-        if (result != null){
+    private void responseRequest(Method method, Object result, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //返回值
+        if (result != null) {
             //获取返回值的类型
             Class<?> resultClass = result.getClass();
             //获取响应类型的注解
-            ResponseTypeAnnotation responseTypeAnnotation = method.getAnnotation(ResponseTypeAnnotation.class);
+            ResponseTypeAnnotation resultClassAnnotation = method.getAnnotation(ResponseTypeAnnotation.class);
 
+            if (resultClassAnnotation != null && resultClass.getName().equals("java.lang.String")) {
+                //响应的数据
+                String responseMessage = result.toString();
+
+                ResponseEnum value = resultClassAnnotation.value();
+                ResponseEnum responseEnum = resultClassAnnotation.responseType();
+
+                if (responseEnum != null && value != null) {
+                    responseEnum = value != null ? value : responseEnum;
+                    if (responseEnum.equals(ResponseEnum.AJAX)) {
+                        PrintWriter out = response.getWriter();
+                        out.write(responseMessage);
+                        out.flush();
+                        out.close();
+                    } else if (responseEnum.equals(ResponseEnum.FORWARD)) {
+                        request.getRequestDispatcher(responseMessage).forward(request, response);
+                    } else if (responseEnum.equals(ResponseEnum.REDIRECT)) {
+                        response.sendRedirect(responseMessage);
+                    }
+                }
+            } else if (resultClassAnnotation == null && resultClass.getName().equals("java.lang.String")) {
+                //相应的数据
+                String responseMessage = result.toString();
+                PrintWriter out = response.getWriter();
+                out.write(responseMessage);
+                out.flush();
+                out.close();
+            } else {
+                response.sendError(500, "servlet中返回值不是String类型");
+            }
+        } else {
+            response.sendError(500, "业务处理之后没有返回值");
         }
     }
 
@@ -96,11 +131,9 @@ public class BaseServlet<T> extends HttpServlet {
             Class<?>[] parameterTypes = method.getParameterTypes();
             for (int i = 0; i < parameterTypes.length; i++) {
                 Class<?> parameterType = parameterTypes[i];
-                if ("javax.servlet.http.HttpServletRequest".equals(parameterType.getName()) ||
-                        "jakarta.servlet.http.HttpServletRequest".equals(parameterType.getName())) {
+                if ("javax.servlet.http.HttpServletRequest".equals(parameterType.getName()) || "jakarta.servlet.http.HttpServletRequest".equals(parameterType.getName())) {
                     objects[i] = request;
-                } else if ("javax.servlet.http.HttpServletResponse".equals(parameterType.getName()) ||
-                        "jakarta.servlet.http.HttpServletResponse".equals(parameterType.getName())) {
+                } else if ("javax.servlet.http.HttpServletResponse".equals(parameterType.getName()) || "jakarta.servlet.http.HttpServletResponse".equals(parameterType.getName())) {
                     objects[i] = response;
                 } else if (entityClass.getName().equals(parameterType.getName())) {
                     Map<String, String[]> parameterMap = request.getParameterMap();
