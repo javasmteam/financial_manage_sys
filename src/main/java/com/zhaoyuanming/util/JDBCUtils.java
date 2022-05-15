@@ -92,7 +92,7 @@ public class JDBCUtils {
      * @param params 可变参数
      * @return 影响的行数，失败则返回0
      */
-    public int update(String sql, Object... params) {
+    public static int update(String sql, Object... params) {
         QueryRunner queryRunner = new QueryRunner();
         Connection connection = getConnection();
         try {
@@ -113,7 +113,7 @@ public class JDBCUtils {
      * @param params
      * @return 返回受影响行数
      */
-    public int update(Connection connection, String sql, Object... params) {
+    public static int update(Connection connection, String sql, Object... params) {
         QueryRunner queryRunner = new QueryRunner();
         try {
             return queryRunner.update(connection, sql, params);
@@ -131,7 +131,7 @@ public class JDBCUtils {
      * @param params
      * @return 受影响行数
      */
-    public int insert(String sql, Object... params) {
+    public static int insert(String sql, Object... params) {
         QueryRunner queryRunner = new QueryRunner();
         Connection connection = getConnection();
         try {
@@ -153,7 +153,7 @@ public class JDBCUtils {
      * @param params
      * @return 受影响行数
      */
-    public int insert(String sql, Connection connection, Object... params) {
+    public static int insert(String sql, Connection connection, Object... params) {
         QueryRunner queryRunner = new QueryRunner();
         try {
             return queryRunner.insert(connection, sql, new ScalarHandler<Long>(), params).intValue();
@@ -212,7 +212,7 @@ public class JDBCUtils {
      * @param <T>
      * @return
      */
-    public <T> List<T> query(String sql, Class<T> clazz, Object... o) {
+    public static  <T> List<T> query(String sql, Class<T> clazz, Object... o) {
         Connection conn = getConnection();
         PreparedStatement prst = null;
         ResultSet rs = null;
@@ -255,7 +255,7 @@ public class JDBCUtils {
      * @param <T>
      * @return
      */
-    public <T> T find(String sql, Class<T> clazz, Object... o) {
+    public static <T> T find(String sql, Class<T> clazz, Object... o) {
         List<T> list = query(sql, clazz, o);
         if (list.size() == 0 || list == null) {
             return null;
@@ -311,7 +311,7 @@ public class JDBCUtils {
      * @param params 可变参数
      * @return 返回统计结果
      */
-    public Long count(String sql, Object... params) {
+    public static Long count(String sql, Object... params) {
         QueryRunner queryRunner = new QueryRunner();
         Connection connection = getConnection();
         try {
