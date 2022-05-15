@@ -6,6 +6,8 @@ import com.javasm.dao.ProductTypeDao;
 
 import java.util.List;
 
+import static com.javasm.util.JDBCUtils.update;
+
 /**
  * <h4>Financial_manage_sys</h4>
  * <p>产品类别dao实现类</p>
@@ -23,8 +25,9 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
      */
     @Override
     public Integer addProductType(ProductType productType) {
-        String sql = "";
-        return null;
+        String sql = "insert into product_type\n" +
+                "values (product_type_id, ?, ?, ?, ?, ?, product_type_state);";
+        return update(sql,)
     }
 
     /**

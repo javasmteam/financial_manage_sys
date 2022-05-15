@@ -196,6 +196,7 @@ create table product_audit
     latest_modify_time timestamp comment '最新修改时间',
     audit_state        int(10) comment '产品审核状态'
 );
+
 -- 汇款信息表
 drop table if exists remit_info;
 create table remit_info
@@ -231,6 +232,9 @@ create table product_type
 );
 insert into product_type
 values (product_type_id, ?, ?, ?, ?, ?, product_type_state);
+
+update product_type set ? = ? where product_type_id = ?;
+
 
 
 

@@ -17,7 +17,6 @@ import lombok.*;
 @ToString
 public class ProductType {
     private Integer productTypeId;
-    private Integer remitId;
     private Integer productParentId;
     private String productChannel;
     private String productTypeChName;

@@ -79,7 +79,11 @@ public class JDBCUtils {
         }
     }
 
-    //获取连接池
+    /**
+     * 获取数据库连接池
+     *
+     * @return
+     */
     public static DataSource getDataSource() {
         return ds;
     }
