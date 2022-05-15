@@ -71,7 +71,7 @@ create table bk_customer_assets
     co_business_id int(10) comment '企业id',
     hold_number    int(10) comment '持有数量',
     hold_money     float(10, 2) comment '成本价格',
-    state          int(10) comment '状态'
+    state          int(10) comment '状态' -- 0.删除  1.可用
 );
 -- 充值提现管理
 drop table if exists bk_invest_money;
@@ -85,6 +85,8 @@ CREATE table bk_invest_money
     invest_handle_time  timestamp comment '处理时间',
     invest_bank_code    int(10) comment '银行代码',
     invest_state        int(10) comment '汇款状态'
+    -- 2:已汇款到用户
+    state               int(10) comment '状态' -- 0.删除  1.可用
 );
 
 -- 独角兽🦄公司信息表
@@ -112,9 +114,9 @@ create table maker_price
 (
     maker_id     int(10) primary key auto_increment comment '主键',
     com_id       int(10) comment '企业编号',
-    maker_amount float(10, 2) comment '挂单金额',
+    maker_amount float(10, 2) comment '挂单金额', -- 单价
     trade_amount int(10) comment '交易数量',
-    maker_state  int(10) default 1 comment '挂单表状态'
+    maker_state  int(10) default 1 comment '挂单表状态' -- 0:买入  1：卖出
 );
 
 -- 历史融资表
