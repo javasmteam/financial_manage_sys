@@ -1,4 +1,4 @@
-package com.zhaoyuanming.myEnum;
+package com.javasm.myEnum;
 
 /**
  * <h4>Financial_manage_sys</h4>

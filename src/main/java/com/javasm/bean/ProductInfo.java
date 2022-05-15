@@ -1,4 +1,4 @@
-package com.zhaoyuanming.bean;
+package com.javasm.bean;
 
 import lombok.*;
 

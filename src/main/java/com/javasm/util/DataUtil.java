@@ -1,4 +1,4 @@
-package com.zhaoyuanming.util;
+package com.javasm.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

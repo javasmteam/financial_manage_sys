@@ -1,4 +1,4 @@
-package com.zhaoyuanming.util;
+package com.javasm.util;
 
 import cn.hutool.core.lang.ConsoleTable;
 import com.alibaba.druid.pool.DruidDataSourceFactory;
