@@ -1,6 +1,6 @@
-package com.zhaoyuanming.annotation;
+package com.javasm.annotation;
 
-import com.zhaoyuanming.myEnum.ResponseEnum;
+import com.javasm.myEnum.ResponseEnum;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

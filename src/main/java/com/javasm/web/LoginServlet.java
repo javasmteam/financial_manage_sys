@@ -1,4 +1,4 @@
-package com.zhaoyuanming.web; /**
+package com.javasm.web; /**
  * <h4>Financial_manage_sys</h4>
  * <p>${description}</p>
  *

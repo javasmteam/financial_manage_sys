@@ -1,4 +1,4 @@
-package com.zhaoyuanming.util;
+package com.javasm.util;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

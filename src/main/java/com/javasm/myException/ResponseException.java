@@ -1,4 +1,4 @@
-package com.zhaoyuanming.myException;
+package com.javasm.myException;
 
 /**
  * <h4>Financial_manage_sys</h4>
