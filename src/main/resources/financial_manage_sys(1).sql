@@ -201,6 +201,7 @@ drop table if exists remit_info;
 create table remit_info
 (
     remit_id           int(10) primary key auto_increment comment '主键',
+    product_type_id    int(10) comment '商品类型编号',
     user_id            int(10) comment '汇款用户',
     remit_postscript   varchar(255) comment '汇款附言',
     remit_info_summary varchar(50) comment '汇款信息概略',
@@ -221,7 +222,6 @@ drop table if exists product_type;
 create table product_type
 (
     product_type_id       int(10) primary key auto_increment comment '主键',
-    remit_id              int(10) comment '汇款信息编号',
     product_parent_id     int(10) comment '产品父类编号',
     product_channel       varchar(50) comment '产品渠道',
     product_type_ch_name  varchar(50) comment '产品类型名称(中文)',
@@ -229,7 +229,8 @@ create table product_type
     product_type_lv       int(10) comment '类型级别(0为一级分类)',
     product_type_state    int(10) default 1 comment '产品系类状态'
 );
-
+insert into product_type
+values (product_type_id, ?, ?, ?, ?, ?, product_type_state);
 
 
 

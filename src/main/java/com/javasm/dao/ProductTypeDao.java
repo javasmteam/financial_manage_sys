@@ -1,5 +1,6 @@
 package com.javasm.dao;
 
+import com.javasm.bean.PageInfo;
 import com.javasm.bean.ProductType;
 
 import java.util.List;
@@ -14,17 +15,41 @@ import java.util.List;
  **/
 public interface ProductTypeDao {
 
-    int addProductType();
+
+    /**
+     * 增加产品信息
+     *
+     * @param productType 产品系列
+     * @return 影响行数
+     */
+    Integer addProductType(ProductType productType);
 
 
+    /**
+     * 更新产品信息
+     *
+     * @param productType 产品系列
+     * @return 影响行数
+     */
+    Integer updateProductType(ProductType productType);
 
-    int updateProductType();
+    /**
+     * 查询商品类别总条数
+     *
+     * @param productType 产品系列
+     * @return 影响行数
+     */
+    Integer count(ProductType productType);
 
-    List<ProductType> queryProductTypes();
 
-    get
-            find
-    query
+    /**
+     * 分页查询英雄信息
+     *
+     * @param page        分页信息
+     * @param productType 产品系列
+     * @return 影响行数
+     */
+    List<ProductType> queryProductTypes(PageInfo<ProductType> page, ProductType productType);
 
 
 }
