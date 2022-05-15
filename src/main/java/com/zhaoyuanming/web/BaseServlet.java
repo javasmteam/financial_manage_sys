@@ -7,6 +7,9 @@ package com.zhaoyuanming.web; /**
  * @Version : 1.0
  **/
 
+import com.zhaoyuanming.annotation.ResponseTypeAnnotation;
+import com.zhaoyuanming.util.ServletUtil;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -15,6 +18,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Map;
 
 public class BaseServlet<T> extends HttpServlet {
     private final Class<T> entityClass;
@@ -65,8 +69,23 @@ public class BaseServlet<T> extends HttpServlet {
     }
 
     private void responseRequest(Method method, Object result, HttpServletRequest request, HttpServletResponse response) {
+        if (result != null){
+            //获取返回值的类型
+            Class<?> resultClass = result.getClass();
+            //获取响应类型的注解
+            ResponseTypeAnnotation responseTypeAnnotation = method.getAnnotation(ResponseTypeAnnotation.class);
+
+        }
     }
 
+    /**
+     * 通过method获取当前方法需要传递的参数列表
+     *
+     * @param method
+     * @param request
+     * @param response
+     * @return
+     */
     private Object[] getMethodParams(Method method, HttpServletRequest request, HttpServletResponse response) {
         int parameterCount = method.getParameterCount();
 
@@ -77,11 +96,20 @@ public class BaseServlet<T> extends HttpServlet {
             Class<?>[] parameterTypes = method.getParameterTypes();
             for (int i = 0; i < parameterTypes.length; i++) {
                 Class<?> parameterType = parameterTypes[i];
-                if ("javax.servlet.HttpServletRequest".equals(parameterType.getName())) {
+                if ("javax.servlet.http.HttpServletRequest".equals(parameterType.getName()) ||
+                        "jakarta.servlet.http.HttpServletRequest".equals(parameterType.getName())) {
                     objects[i] = request;
-                }else if ()
+                } else if ("javax.servlet.http.HttpServletResponse".equals(parameterType.getName()) ||
+                        "jakarta.servlet.http.HttpServletResponse".equals(parameterType.getName())) {
+                    objects[i] = response;
+                } else if (entityClass.getName().equals(parameterType.getName())) {
+                    Map<String, String[]> parameterMap = request.getParameterMap();
+                    T t = ServletUtil.requestParamsConvertEntity(parameterMap, entityClass);
+                    objects[i] = t;
+                }
             }
         }
+        return objects;
     }
 
     /**

@@ -1,5 +1,7 @@
 package com.zhaoyuanming.util;
 
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
 import com.alibaba.fastjson2.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -81,4 +84,12 @@ public class ServletUtil {
         String s1 = new String(bytes, StandardCharsets.UTF_8);
         return JSONObject.parseObject(s1, clazz);
     }
+
+    public static <T> List<T> jsonConvertToEntity(String path, Class<T> clazz) {
+        ExcelReader excelReader = ExcelUtil.getReader(path);
+        return excelReader.readAll(clazz);
+    }
+
+
+
 }
