@@ -22,7 +22,7 @@ public interface ProductTypeDao {
      * @param productType 产品系列
      * @return 影响行数
      */
-    Integer addProductType(ProductType productType);
+    Boolean addProductType(ProductType productType);
 
 
     /**
@@ -31,7 +31,7 @@ public interface ProductTypeDao {
      * @param productType 产品系列
      * @return 影响行数
      */
-    Integer updateProductType(ProductType productType);
+    Boolean updateProductType(ProductType productType);
 
     /**
      * 查询商品类别总条数

@@ -24,10 +24,11 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
      * @return 影响行数
      */
     @Override
-    public Integer addProductType(ProductType productType) {
+    public Boolean addProductType(ProductType productType) {
         String sql = "insert into product_type\n" +
                 "values (product_type_id, ?, ?, ?, ?, ?, product_type_state);";
-        return update(sql,)
+        return update(sql, productType.getProductParentId(), productType.getProductChannel(), productType.getProductTypeChName(),
+                productType.getProductTypeEngName(), productType.getProductTypeLv(), productType.getProductTypeState()) > 0;
     }
 
     /**
@@ -37,8 +38,18 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
      * @return 影响行数
      */
     @Override
-    public Integer updateProductType(ProductType productType) {
-        return null;
+    public Boolean updateProductType(ProductType productType) {
+        String sql = "update product_type\n" +
+                "set product_parent_id    = ?,\n" +
+                "    product_channel      = ?,\n" +
+                "    product_type_ch_name=?,\n" +
+                "    product_type_eng_name= ?,\n" +
+                "    product_type_lv      = ?,\n" +
+                "    product_type_state   = ?\n" +
+                "where product_type_id = ?";
+        return update(sql, productType.getProductParentId(), productType.getProductChannel(),
+                productType.getProductTypeChName(), productType.getProductTypeEngName(),
+                productType.getProductTypeLv(), productType.getProductTypeState(), productType.getProductTypeId()) > 0;
     }
 
     /**
@@ -49,6 +60,11 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
      */
     @Override
     public Integer count(ProductType productType) {
+        StringBuilder sql = new StringBuilder("select count(product_type.product_type_id)\n" +
+                "from product_type,\n" +
+                "     remit_info\n" +
+                "where product_type.product_type_id = remit_info.product_type_id");
+
         return null;
     }
 
