@@ -1,0 +1,27 @@
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: "";
+}
+
+.clearfix:after {
+    clear: both
+}
+
+.box-card {
+    width: 480px;
+    margin: 300px auto;
+}
+
+.Center {
+    text-align: center;
+}
+
+.login-form {
+    width: 80%;
+    margin: 0 auto;
+}
+.login-button{
+    text-align: center;
+    margin: 0 auto;
+}
