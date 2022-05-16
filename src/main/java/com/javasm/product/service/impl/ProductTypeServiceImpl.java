@@ -1,10 +1,11 @@
-package com.javasm.product.service;
+package com.javasm.product.service.impl;
 
 import com.javasm.product.bean.PageInfo;
 import com.javasm.product.bean.ProductType;
 import com.javasm.product.bean.vo.ProductTypeVO;
 import com.javasm.product.dao.ProductTypeDao;
 import com.javasm.product.dao.impl.ProductTypeDaoImpl;
+import com.javasm.product.service.ProductTypeService;
 
 /**
  * <h4>Financial_manage_sys</h4>

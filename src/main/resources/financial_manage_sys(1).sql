@@ -232,6 +232,16 @@ create table product_type
     product_type_lv       int(10) comment '类型级别(0为一级分类)',
     product_type_state    int(10) default 1 comment '产品系类状态'
 );
+
+-- 产品类净值表
+drop table if exists product_type;
+create table product_type(
+
+
+);
+
+
+
 insert into product_type
 values (product_type_id, ?, ?, ?, ?, ?, product_type_state);
 
