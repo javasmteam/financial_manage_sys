@@ -23,24 +23,24 @@
         <el-container>
             <el-aside width="300px">
                 <el-menu
-                        default-active="1-1"
+                        unique-opened="true"
                         class="page-menu"
-                        @open="handleOpen"
-                        @close="handleClose"
                         background-color="#544c64" text-color="#fff" active-text-color="ffd04b">
 
-                    <el-submenu index="1">
+                    <el-submenu v-for="(menu,index0) in userMenu" index={{index}}>
                         <template slot="title">
                             <i class="el-icon-location"></i>
-                            <span>用户管理</span>
+                            <span>{{menu.groupName}}</span>
                         </template>
-                        <el-menu-item index="1-1">用户信息</el-menu-item>
+                        <el-menu-item v-for="(item,index1) in menu.permissions" index={{index0+'-'+index1}} @click="changePage(item.permissionSrc)">
+                            {{item.permissionName}}
+                        </el-menu-item>
                     </el-submenu>
                 </el-menu>
             </el-aside>
 
             <el-main>
-                <
+                <iframe src={{pageSrc}} width="100%" frameborder="0"></iframe>
             </el-main>
         </el-container>
     </el-container>

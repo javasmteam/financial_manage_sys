@@ -9,6 +9,7 @@ function regUserF() {
 function userF() {
     this.userAct = '';
     this.userPwd = '';
+    this.isMemory = false;
 }
 
 var app = new Vue({

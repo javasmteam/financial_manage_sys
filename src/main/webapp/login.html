@@ -20,13 +20,17 @@
             <h2 class="Center">账号登录</h2>
         </div>
         <div>
-            <el-form :model="user" class="login-form" label-width="80px" :rules="loginRules" ref="user">
+            <el-form :model="user" class="login-form" label-width="80px" :rules="loginRules" ref="user" hide-required-asterisk=“true”>
                 <el-form-item label="账号:" prop="userAct">
                     <el-input v-model="user.userAct"></el-input>
                 </el-form-item>
 
                 <el-form-item label="密码:" prop="userPwd">
                     <el-input v-model="user.userPwd" show-password></el-input>
+                </el-form-item>
+
+                <el-form-item label="记住密码">
+                    <el-switch v-model="user.isMemory" active-color="#13ce66" inactive-color="#c0ccda"></el-switch>
                 </el-form-item>
 
                 <el-form-item>
