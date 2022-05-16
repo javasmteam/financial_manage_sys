@@ -293,7 +293,8 @@ create table remit_info
 drop table if exists product_type;
 create table product_type
 (
-    product_type_id       int(10) primary key auto_increment comment '主键',
+    product_id            int(10) primary key auto_increment comment '主键',
+    product_series_id     int(10) comment '产品分类编号',
     product_parent_id     int(10) comment '产品父类编号',
     product_channel       int(10) comment '产品渠道',
     product_type_ch_name  varchar(50) comment '产品类型名称(中文)',
@@ -301,12 +302,265 @@ create table product_type
     product_type_lv       int(10) comment '类型级别(0为一级分类)',
     product_type_state    int(10) default 1 comment '产品系类状态'
 );
+
+/**
+  ************************************基金系列************************************
+ */
 insert into product_type
-values (product_type_id, 0, 2, '基金', 'fund', 0, product_type_state);
+values (product_id, 0, 0, 2, '基金', 'fund', 0, product_type_state);
 insert into product_type
-values (product_type_id, 0, 2, '保险', 'insurance', 0, product_type_state);
+values (product_id, 0, 0, 2, '保险', 'insurance', 0, product_type_state);
 insert into product_type
-values (product_type_id, 0, 2, '证券', 'security', 0, product_type_state);
+values (product_id, 0, 0, 2, '证券', 'security', 0, product_type_state);
+
+
+/**
+  *******************************股票型*************************************
+ */
+insert into product_type
+values (product_id, 1, 1, 2, '富国中证煤炭指数(LOF)', 'LOF', 1, product_type_state);
+
+insert into product_type
+values (product_id, 1, 1, 2, '招商中证煤炭等权指数(LOF)', 'LOF', 1, product_type_state);
+
+insert into product_type
+values (product_id, 1, 1, 2, '国泰中证煤炭ETF联接', 'ETF', 1, product_type_state);
+
+insert into product_type
+values (product_id, 1, 1, 2, '中融中证煤炭指数', 'LOF', 1, product_type_state);
+
+insert into product_type
+values (product_id, 1, 1, 2, '创金合信红利低波动', 'LOF', 1, product_type_state);
+
+insert into product_type
+values (product_id, 1, 1, 2, '西部利得国企红利(LOF)', 'LOF', 1, product_type_state);
+
+
+
+insert into product_type
+values (product_id, 1, 4, 2, '富国中证煤炭指数(LOF)A', '161032', 2, product_type_state);
+
+insert into product_type
+values (product_id, 1, 4, 2, '富国中证煤炭指数(LOF)C', '013275', 2, product_type_state);
+
+insert into product_type
+values (product_id, 1, 5, 2, '招商中证煤炭等权指数(LOF)A', '161724', 2, product_type_state);
+
+insert into product_type
+values (product_id, 1, 5, 2, '招商中证煤炭等权指数(LOF)C', '013596', 2, product_type_state);
+
+insert into product_type
+values (product_id, 1, 6, 2, '国泰中证煤炭ETF联接A', '008279', 2, product_type_state);
+
+insert into product_type
+values (product_id, 1, 6, 2, '国泰中证煤炭ETF联接C', '008280', 2, product_type_state);
+
+insert into product_type
+values (product_id, 1, 7, 2, '中融中证煤炭指数(LOF)', '168204', 2, product_type_state);
+
+insert into product_type
+values (product_id, 1, 8, 2, '创金合信红利低波动C', '005562', 2, product_type_state);
+
+insert into product_type
+values (product_id, 1, 9, 2, '西部利得国企红利(LOF)A', '501059', 2, product_type_state);
+
+insert into product_type
+values (product_id, 1, 9, 2, '西部利得国企红利(LOF)C', '009439', 2, product_type_state);
+
+
+/**
+  *******************************混合型*************************************
+ */
+insert into product_type
+values (product_id, 2, 1, 2, '万家宏观择时多策略混合', 'LOF', 1, product_type_state);
+
+insert into product_type
+values (product_id, 2, 1, 2, '万家新利灵活配置混合', 'LOF', 1, product_type_state);
+
+insert into product_type
+values (product_id, 2, 1, 2, '华夏饲料豆粕期货ETF联接', 'ETF', 1, product_type_state);
+
+insert into product_type
+values (product_id, 2, 1, 2, '万家精选混合', 'LOF', 1, product_type_state);
+
+insert into product_type
+values (product_id, 2, 1, 2, '招商稳健平衡混合', 'LOF', 1, product_type_state);
+
+insert into product_type
+values (product_id, 2, 1, 2, '景顺长城安鑫回报混合', 'LOF', 1, product_type_state);
+
+
+
+insert into product_type
+values (product_id, 2, 20, 2, '万家宏观择时多策略混合', '519212', 2, product_type_state);
+
+insert into product_type
+values (product_id, 2, 21, 2, '万家新利灵活配置混合', '519191', 2, product_type_state);
+
+insert into product_type
+values (product_id, 2, 22, 2, '华夏饲料豆粕期货ETF联接A', '007937', 2, product_type_state);
+
+insert into product_type
+values (product_id, 2, 23, 2, '万家精选混合A', '519185', 2, product_type_state);
+
+insert into product_type
+values (product_id, 2, 24, 2, '招商稳健平衡混合A', '012963', 2, product_type_state);
+
+insert into product_type
+values (product_id, 2, 24, 2, '招商稳健平衡混合C', '012964', 2, product_type_state);
+
+insert into product_type
+values (product_id, 2, 25, 2, '景顺长城安鑫回报混合A', '009499', 2, product_type_state);
+
+insert into product_type
+values (product_id, 2, 25, 2, '景顺长城安鑫回报混合C', '009755', 2, product_type_state);
+
+
+/**
+  *******************************债券型*************************************
+ */
+insert into product_type
+values (product_id, 3, 1, 2, '招商添浩纯债', 'LOF', 1, product_type_state);
+
+insert into product_type
+values (product_id, 3, 1, 2, '博时汇享纯债债券', 'LOF', 1, product_type_state);
+
+insert into product_type
+values (product_id, 3, 1, 2, '华泰紫金丰泰纯债发起', 'ETF', 1, product_type_state);
+
+insert into product_type
+values (product_id, 3, 1, 2, '永赢华嘉信用债', 'LOF', 1, product_type_state);
+
+insert into product_type
+values (product_id, 3, 1, 2, '长盛盛裕纯债', 'LOF', 1, product_type_state);
+
+insert into product_type
+values (product_id, 3, 1, 2, '光大岁末红利纯债', 'LOF', 1, product_type_state);
+
+
+
+insert into product_type
+values (product_id, 3, 34, 2, '招商添浩纯债A', '008731', 2, product_type_state);
+
+insert into product_type
+values (product_id, 3, 34, 2, '招商添浩纯债C', '008732', 2, product_type_state);
+
+insert into product_type
+values (product_id, 3, 35, 2, '博时汇享纯债债券A', '004366', 2, product_type_state);
+
+insert into product_type
+values (product_id, 3, 35, 2, '博时汇享纯债债券C', '004367', 2, product_type_state);
+
+insert into product_type
+values (product_id, 3, 36, 2, '华泰紫金丰泰纯债发起A', '007117', 2, product_type_state);
+
+insert into product_type
+values (product_id, 3, 36, 2, '华泰紫金丰泰纯债发起C', '007118', 2, product_type_state);
+
+insert into product_type
+values (product_id, 3, 37, 2, '永赢华嘉信用债A', '010092', 2, product_type_state);
+
+insert into product_type
+values (product_id, 3, 37, 2, '永赢华嘉信用债C', '014167', 2, product_type_state);
+
+insert into product_type
+values (product_id, 3, 38, 2, '长盛盛裕纯债A', '003102', 2, product_type_state);
+
+insert into product_type
+values (product_id, 3, 38, 2, '长盛盛裕纯债C', '003103', 2, product_type_state);
+
+insert into product_type
+values (product_id, 3, 39, 2, '光大岁末红利纯债A', '000489', 2, product_type_state);
+
+insert into product_type
+values (product_id, 3, 39, 2, '光大岁末红利纯债C', '000490', 2, product_type_state);
+
+
+/**
+  *******************************指数型*************************************
+ */
+insert into product_type
+values (product_id, 4, 1, 2, '广发中证基建工程ETF联接', 'LOF', 1, product_type_state);
+
+insert into product_type
+values (product_id, 4, 1, 2, '信诚中证基建工程指数(LOF)', 'LOF', 1, product_type_state);
+
+insert into product_type
+values (product_id, 4, 1, 2, '南方房地产ETF联接', 'ETF', 1, product_type_state);
+
+insert into product_type
+values (product_id, 4, 1, 2, '南方大盘红利50ETF联接', 'LOF', 1, product_type_state);
+
+insert into product_type
+values (product_id, 4, 1, 2, '招商沪深300地产等权重指数', 'LOF', 1, product_type_state);
+
+insert into product_type
+values (product_id, 4, 1, 2, '广发中债7-10年国开债指数', 'LOF', 1, product_type_state);
+
+
+
+insert into product_type
+values (product_id, 4, 52, 2, '广发中证基建工程ETF联接A', '005223', 2, product_type_state);
+
+insert into product_type
+values (product_id, 4, 52, 2, '广发中证基建工程ETF联接C', '005224', 2, product_type_state);
+
+insert into product_type
+values (product_id, 4, 53, 2, '信诚中证基建工程指数(LOF)A', '165525', 2, product_type_state);
+
+insert into product_type
+values (product_id, 4, 53, 2, '信诚中证基建工程指数(LOF)C', '013082', 2, product_type_state);
+
+insert into product_type
+values (product_id, 4, 54, 2, '南方房地产ETF联接A', '004642', 2, product_type_state);
+
+insert into product_type
+values (product_id, 4, 54, 2, '南方房地产ETF联接C', '004643', 2, product_type_state);
+
+insert into product_type
+values (product_id, 4, 55, 2, '南方大盘红利50ETF联接A', '008163', 2, product_type_state);
+
+insert into product_type
+values (product_id, 4, 55, 2, '南方大盘红利50ETF联接C', '008164', 2, product_type_state);
+
+insert into product_type
+values (product_id, 4, 56, 2, '招商沪深300地产等权重指数A', '161721', 2, product_type_state);
+
+insert into product_type
+values (product_id, 4, 56, 2, '招商沪深300地产等权重指数C', '013273', 2, product_type_state);
+
+insert into product_type
+values (product_id, 4, 57, 2, '广发中债7-10年国开债指数A', '003376', 2, product_type_state);
+
+insert into product_type
+values (product_id, 4, 57, 2, '广发中债7-10年国开债指数E', '011062', 2, product_type_state);
+
+/**
+  ************************************保险系列************************************
+ */
+insert into product_type
+values (product_type_id, 2, 2, '重疾保障', 'Disability Insurance', 1, product_type_state);
+insert into product_type
+values (product_type_id, 2, 2, '年金保险', 'Annuity Insurance', 1, product_type_state);
+insert into product_type
+values (product_type_id, 2, 2, '年金保险', 'Annuity Insurance', 1, product_type_state);
+insert into product_type
+values (product_type_id, 2, 2, '年金保险', 'Annuity Insurance', 1, product_type_state);
+insert into product_type
+values (product_type_id, 2, 2, '年金保险', 'Annuity Insurance', 1, product_type_state);
+insert into product_type
+values (product_type_id, 2, 2, '少儿/女性/养老保险', 'Children/Women/Endowment  Insurance', 1, product_type_state);
+insert into product_type
+values (product_type_id, 2, 2, '寿险保障', 'Life Insurance Guarantee', 1, product_type_state);
+insert into product_type
+values (product_type_id, 2, 2, '医疗保险', 'Medical Insurance', 1, product_type_state);
+insert into product_type
+values (product_type_id, 2, 2, '意外保障', 'Accident Insurance', 1, product_type_state);
+/**
+  ************************************证券系列************************************
+ */
+insert into product_type
+values (product_type_id, 3, 2, '意外保障', 'Accident Insurance', 1, product_type_state);
 
 
 -- 产品类净值表
