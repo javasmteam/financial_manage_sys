@@ -1,12 +1,19 @@
-package com.javasm.unicom.dao;
+package com.javasm.unicom.service;
 
 import com.javasm.unicom.bean.CompanyInfo;
 import com.javasm.unicom.bean.PageInfo;
 
 import java.util.List;
 
-public interface CompanyInfoDao {
-
+/**
+ * <h4>financial_manage_sys</h4>
+ * <p></p >
+ *
+ * @Author : huangshuai
+ * @Date : 2022-05-16 19:43
+ * @Version : 1.0
+ **/
+public interface CompanyInfoService {
     /**
      * 添加独角兽公司信息
      *
@@ -17,27 +24,12 @@ public interface CompanyInfoDao {
 
 
     /**
-     * 统计多少家公司
-     *
-     * @param companyInfo
-     * @return
-     */
-    Integer count(CompanyInfo companyInfo);
-
-
-    /**
      * 分页查询
      *
-     * @param page
+     * @param nowPage
+     * @param pageNum
      * @param companyInfo
      * @return
      */
-    List<CompanyInfo> selectCompanyInfoByPage(PageInfo<CompanyInfo> page,CompanyInfo companyInfo);
-
-
-
-
-
-
-
+    PageInfo<CompanyInfo> getCompanyInfoByPage(String nowPage,String pageNum, CompanyInfo companyInfo);
 }

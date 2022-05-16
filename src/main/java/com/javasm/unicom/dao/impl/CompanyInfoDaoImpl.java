@@ -1,8 +1,11 @@
 package com.javasm.unicom.dao.impl;
 
 import com.javasm.unicom.bean.CompanyInfo;
+import com.javasm.unicom.bean.PageInfo;
 import com.javasm.unicom.dao.CompanyInfoDao;
 import com.javasm.util.JDBCUtils;
+
+import java.util.List;
 
 /**
  * <h4>financial_manage_sys</h4>
@@ -20,5 +23,25 @@ public class CompanyInfoDaoImpl implements CompanyInfoDao {
                 companyInfo.getAppLogo(),companyInfo.getComIndustry(),companyInfo.getComCreateYear(),companyInfo.getComCeo(),
                 companyInfo.getComLocation(),companyInfo.getComRate(),companyInfo.getComSeqCode(),
                 companyInfo.getComIntro())>0;
+    }
+
+    @Override
+    public Integer count(CompanyInfo companyInfo) {
+        StringBuilder sql = new StringBuilder("select count(c.com_id) from company_info c,maker_price m where c.com_id=m.com_id");
+        return JDBCUtils;
+    }
+
+    @Override
+    public List<CompanyInfo> selectCompanyInfoByPage(PageInfo<CompanyInfo> page, CompanyInfo companyInfo) {
+        StringBuilder sql = new StringBuilder("select c.com_name,c.trade_code,c.com_seq_code,m.maker_amount from " +
+                " company_info c,maker_price m " +
+                "where c.com_id=m.com_id");
+        if (companyInfo != null ){
+            if (companyInfo.getComName()!=null && !"".equals(companyInfo.getComName())){
+                sql.append(" and h.hero_name like '%"+companyInfo.getComName() +"%' ");
+            }
+        }
+        sql.append(" limit ?,? ");
+        return JDBCUtils.query(sql.toString(),CompanyInfo.class,page.getStartIndex(),page.getPageNum());
     }
 }
