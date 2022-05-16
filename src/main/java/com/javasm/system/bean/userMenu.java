@@ -1,6 +1,6 @@
-package com.javasm.unicom.bean.vo;
+package com.javasm.system.bean;
 
-import com.javasm.unicom.bean.Permission;
+import com.javasm.system.bean.vo.Permission;
 
 /**
  * @author: 云勇

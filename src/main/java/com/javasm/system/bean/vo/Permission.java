@@ -1,4 +1,4 @@
-package com.javasm.unicom.bean;
+package com.javasm.system.bean.vo;
 
 /**
  * @author: 云勇
