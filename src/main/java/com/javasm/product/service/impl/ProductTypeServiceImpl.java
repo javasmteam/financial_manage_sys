@@ -37,7 +37,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
      */
     @Override
     public Boolean updateProductType(ProductType productType) {
-        return null;
+        return productTypeDao.updateProductType(productType);
     }
 
     /**
@@ -50,6 +50,5 @@ public class ProductTypeServiceImpl implements ProductTypeService {
      */
     @Override
     public PageInfo<ProductTypeVO> getProductTypesByPage(String nowPage, String pageSize, ProductType productType) {
-        return null;
     }
 }
