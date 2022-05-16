@@ -8,6 +8,10 @@ import com.javasm.unicom.bean.Permission;
  * @description:
  */
 public class userMenu {
-    private String groupName;
+    /**
+     * 当前权限
+     *
+     */
+    private Permission permission;
     private Permission[] permissions;
 }

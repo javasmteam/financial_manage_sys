@@ -9,6 +9,8 @@ function regUserF() {
 function userF() {
     this.userAct = '';
     this.userPwd = '';
+    this.userVri = '';
+    this.userVriSrc = '';
     this.isMemory = false;
 }
 
@@ -30,6 +32,9 @@ var app = new Vue({
             ],
             userPwd: [
                 {required: true, message: "请输入密码", trigger: 'change'}
+            ],
+            userVri: [
+                {reqired: true, message: "请输入验证码", trigger: 'change'}
             ]
         },
         regRules: {
