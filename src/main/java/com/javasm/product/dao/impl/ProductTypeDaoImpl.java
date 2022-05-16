@@ -79,7 +79,7 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
      * @return 影响行数
      */
     @Override
-    public List<ProductTypeVO> queryProductTypesByPage(PageInfo<ProductType> page, ProductType productType) {
+    public List<ProductTypeVO> queryProductTypesByPage(PageInfo<ProductTypeVO> page, ProductType productType) {
         StringBuilder sql = new StringBuilder("select product_type.product_type_id,\n" +
                 "       product_type_ch_name,\n" +
                 "       product_type_eng_name,\n" +
@@ -92,7 +92,7 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
                 "       rec_bank_city,\n" +
                 "       rec_account_name,\n" +
                 "       rec_account,\n" +
-                "       user_id,\n" +
+                "       remit_account,\n" +
                 "       remit_postscript,\n" +
                 "       rec_location\n" +
                 "from product_type,\n" +
