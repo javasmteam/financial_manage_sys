@@ -30,10 +30,14 @@
                     <el-input v-model="user.userPwd" show-password></el-input>
                 </el-form-item>
 
-                <el-menu-item label="验证码:" prop="userVri">
-                    <el-input v-model="uses.userVri"></el-input>
-                    <img src="user..userVriSrc"/>
-                </el-menu-item>
+                <el-form-item label="验证码:" prop="userVri">
+                    <el-col :span="10">
+                        <el-input v-model="user.userVri"></el-input>
+                    </el-col>
+                    <el-col :span="10" offset="4">
+                        <img src="user.userVriSrc" alt="加载失败"/>
+                    </el-col>
+                </el-form-item>
 
                 <el-form-item label="记住密码">
                     <el-switch v-model="user.isMemory" active-color="#13ce66" inactive-color="#c0ccda"></el-switch>

@@ -34,9 +34,10 @@ var app = new Vue({
                 {required: true, message: "请输入密码", trigger: 'change'}
             ],
             userVri: [
-                {reqired: true, message: "请输入验证码", trigger: 'change'}
+                {required: true, message: "请输入验证码", trigger: 'change'}
             ]
         },
+        //注册验证
         regRules: {
             userAct: [
                 {required: true, message: "请输入账号", trigger: 'change'}

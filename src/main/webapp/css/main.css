@@ -11,3 +11,11 @@ body{
     background-color: #545c64;
     color: aliceblue;
 }
+
+
+.menu-title{
+    height:100px;
+    text-align:center;
+    font-size:32px;
+    margin-top:50px;
+}

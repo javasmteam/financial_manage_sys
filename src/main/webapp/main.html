@@ -20,6 +20,12 @@
                     unique-opened="true"
                     class="page-menu"
                     background-color="#544c64" text-color="#fff" active-text-color="ffd04b">
+                <el-row>
+                    <div class="menu-title">
+                        <i class="el-icon-menu"></i>
+                        <span>管理中心</span>
+                    </div>
+                </el-row>
 
                 <el-submenu v-for="(menu,index0) in userMenu" index={{index}}>
                     <template slot="title">
@@ -31,6 +37,7 @@
                         {{item.permissionName}}
                     </el-menu-item>
                 </el-submenu>
+
             </el-menu>
         </el-aside>
 
