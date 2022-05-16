@@ -10,7 +10,6 @@ function userF() {
     this.userAct = '';
     this.userPwd = '';
     this.userVri = '';
-    this.userVriSrc = '';
     this.isMemory = false;
 }
 
@@ -24,7 +23,7 @@ var app = new Vue({
         //显示注册弹框
         loginDialog: false,
         //项目绝对路径
-        projectPath: "http://locathost:8088/financial_manage_sys",
+        projectPath: "http://locathost:8088/financial_manage_sys/login",
         //登录验证
         loginRules: {
             userAct: [
@@ -54,7 +53,9 @@ var app = new Vue({
             userPhone: [
                 {required: true, message: "请输入联系方式", trigger: 'change'}
             ],
-        }
+        },
+        //验证图片
+        verifySrc:'',
     },
     methods: {
         //注册请求

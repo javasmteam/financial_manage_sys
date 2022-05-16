@@ -9,5 +9,7 @@ public class UserRole {
     /**
      * 角色Id
      * 角色名
+     * 角色状态
      */
+
 }

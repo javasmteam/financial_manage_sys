@@ -9,11 +9,11 @@ import java.util.List;
  * @date: 2022/5/15 23:34
  * @description:
  */
-public class userMenu {
+public class RoleMenu {
     /**
      * 当前权限
-     *
+     *  当前角色拥有的全部权限
      */
-    private UserPermission permission;
+    private UserPermission nowPermission;
     private List<UserPermission> permissions;
 }

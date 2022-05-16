@@ -6,10 +6,17 @@ package com.javasm.system.bean;
  * @description:
  */
 public class UserPermission {
+        /**
+         * 权限Id
+         * 权限名
+         * 权限图片路径
+         * 父级权限Id
+         * 权限状态
+         */
         private int permissionId;
-        private String permissionCode;
         private String permissionName;
         private String permissionPath;
         private String permissionImage;
+        private int parentId;
         private int permissionState;
 }
