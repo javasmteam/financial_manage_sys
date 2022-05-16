@@ -13,6 +13,8 @@ import com.javasm.system.dao.implement.UserPermissionDaoImpl;
 import com.javasm.system.dao.implement.UserRoleDaoImpl;
 import com.javasm.system.service.LoginService;
 
+import java.util.Date;
+
 /**
  * @author: 云勇
  * @date: 2022/5/16 19:44
@@ -22,10 +24,16 @@ public class LoginServiceImpl implements LoginService {
     private UserDao userDao = new UserDaoImpl();
     private UserRoleDao userRoleDao = new UserRoleDaoImpl();
     private UserPermissionDao userPermissionDao = new UserPermissionDaoImpl();
+
+
     @Override
     public UserInfo login(LoginUser loginUser) {
-        return userDao.find(loginUser.getUserAct(),loginUser.getUserPwd());
-
+        UserInfo userInfo = userDao.find(loginUser.getUserAct(), loginUser.getUserPwd());
+        if(userInfo== null){
+            return userInfo;
+        }
+        userInfo.setLastLogin(new Date());
+        return userInfo;
     }
 
     @Override

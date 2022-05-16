@@ -13,6 +13,13 @@ public class UserDaoImpl implements UserDao {
     @Override
     public UserInfo find(String userAct, String userPwd) {
         String sql = JDBCUtils.getSql("FIND_USER_BY_ACT_PWD");
-        JDBCUtils.find(sql)
+        return JDBCUtils.find(sql, UserInfo.class, userAct, userPwd);
+    }
+
+
+    public static void main(String[] args) {
+        UserDao userDao = new UserDaoImpl();
+        UserInfo yy = userDao.find("yy", "123");
+        System.out.println(yy.getUserId());
     }
 }
