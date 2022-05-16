@@ -10,6 +10,7 @@ import com.javasm.system.service.LoginService;
 import com.javasm.system.service.implement.LoginServiceImpl;
 import com.javasm.util.BaseUtil;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date: 2022/5/16 19:10
  * @description:
  */
+@WebServlet("/login")
 public class LoginServlet extends BaseServlet<UserInfo> {
     private LoginService loginService = new LoginServiceImpl();
 

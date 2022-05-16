@@ -33,6 +33,7 @@ public class LoginServiceImpl implements LoginService {
             return userInfo;
         }
         userInfo.setLastLogin(new Date());
+        userDao.updateLastLogin(userInfo.getUserId(),userInfo.getLastLogin());
         return userInfo;
     }
 

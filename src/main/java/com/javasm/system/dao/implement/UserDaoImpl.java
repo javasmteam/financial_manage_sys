@@ -4,6 +4,8 @@ import com.javasm.system.bean.UserInfo;
 import com.javasm.system.dao.UserDao;
 import com.javasm.util.JDBCUtils;
 
+import java.util.Date;
+
 /**
  * @author: 云勇
  * @date: 2022/5/16 20:07
@@ -16,10 +18,11 @@ public class UserDaoImpl implements UserDao {
         return JDBCUtils.find(sql, UserInfo.class, userAct, userPwd);
     }
 
-
-    public static void main(String[] args) {
-        UserDao userDao = new UserDaoImpl();
-        UserInfo yy = userDao.find("yy", "123");
-        System.out.println(yy.getUserId());
+    @Override
+    public Integer updateLastLogin(Integer userId,Date lastLogin) {
+        String sql = JDBCUtils.getSql("UPDATE_USER_LAST_TIME");
+        return JDBCUtils.update(sql,userId,lastLogin);
     }
+
+
 }

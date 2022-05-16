@@ -2,6 +2,8 @@ package com.javasm.system.dao;
 
 import com.javasm.system.bean.UserInfo;
 
+import java.util.Date;
+
 /**
  * @author: 云勇
  * @date: 2022/5/16 20:06
@@ -15,4 +17,11 @@ public interface UserDao {
      * @return  用户对象
      */
     UserInfo find(String userAct, String userPwd);
+
+    /**
+     * 更新用户最后登录时间
+     * @param userId
+     * @return
+     */
+    Integer updateLastLogin(Integer userId, Date lastLogin);
 }
