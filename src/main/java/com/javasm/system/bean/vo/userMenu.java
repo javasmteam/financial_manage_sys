@@ -1,6 +1,6 @@
-package com.javasm.system.bean;
+package com.javasm.system.bean.vo;
 
-import com.javasm.system.bean.vo.Permission;
+import com.javasm.system.bean.Permission;
 
 /**
  * @author: 云勇

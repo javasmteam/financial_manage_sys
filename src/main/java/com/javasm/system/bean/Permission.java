@@ -1,4 +1,4 @@
-package com.javasm.system.bean.vo;
+package com.javasm.system.bean;
 
 /**
  * @author: 云勇

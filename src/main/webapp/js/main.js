@@ -37,6 +37,9 @@ var app = new Vue({
                 ]
             }
         ],
+        userRole:[
+
+        ],
         pageSrc:''
     },
     methods: {},
