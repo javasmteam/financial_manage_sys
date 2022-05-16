@@ -28,8 +28,7 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
      */
     @Override
     public Boolean addProductType(ProductType productType) {
-        String sql = "insert into product_type\n" +
-                "values (product_type_id, ?, ?, ?, ?, ?, product_type_state);";
+        String sql = JDBCUtils.getSql("addProductType");
         return update(sql, productType.getProductParentId(), productType.getProductChannel(), productType.getProductTypeChName(),
                 productType.getProductTypeEngName(), productType.getProductTypeLv(), productType.getProductTypeState()) > 0;
     }
@@ -68,7 +67,7 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
                 "     remit_info\n" +
                 "where product_type.product_type_id = remit_info.product_type_id ");
         String appendSql = String.valueOf(appendLikeSql(productType, sql));
-        return Math.toIntExact(JDBCUtils.count(appendSql));
+        return Math.toIntExact(JDBCUtils.size(appendSql));
     }
 
     /**
