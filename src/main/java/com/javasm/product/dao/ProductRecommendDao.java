@@ -1,4 +1,4 @@
-package com.javasm.dao;
+package com.javasm.product.dao;
 
 /**
  * <h4>Financial_manage_sys</h4>

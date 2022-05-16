@@ -1,6 +1,6 @@
-package com.javasm.dao.impl;
+package com.javasm.product.dao.impl;
 
-import com.javasm.dao.ProductRecommendDao;
+import com.javasm.product.dao.ProductRecommendDao;
 
 /**
  * <h4>Financial_manage_sys</h4>

@@ -1,23 +1,24 @@
-package com.javasm.bean;
+package com.javasm.product.bean.vo;
 
 import lombok.*;
 
 /**
  * <h4>Financial_manage_sys</h4>
- * <p>汇款信息</p>
+ * <p>商品系列查询vo类</p>
  *
  * @Author : zhao Yuanming
- * @Date : 2022-05-15 21:59
+ * @Date : 2022-05-15 23:52
  * @Version : 1.0
  **/
-@Setter
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class RemitInfo {
-    private Integer remitId;
+public class ProductTypeVO {
     private Integer productTypeId;
+    private String productTypeChName;
+    private String productTypeEngName;
     private Integer userId;
     private String remitPostscript;
     private String remitInfoSummary;
@@ -30,5 +31,4 @@ public class RemitInfo {
     private String recAccountName;
     private String recAccount;
     private String recLocation;
-    private Integer recState;
 }

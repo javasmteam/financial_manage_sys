@@ -1,6 +1,6 @@
-package com.javasm.dao.impl;
+package com.javasm.product.dao.impl;
 
-import com.javasm.dao.ProductAuditDao;
+import com.javasm.product.dao.ProductAuditDao;
 
 /**
  * <h4>Financial_manage_sys</h4>

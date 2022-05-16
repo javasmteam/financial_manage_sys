@@ -1,4 +1,4 @@
-package com.javasm.bean;
+package com.javasm.product.bean;
 
 import lombok.*;
 
