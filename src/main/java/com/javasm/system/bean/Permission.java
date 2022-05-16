@@ -6,10 +6,10 @@ package com.javasm.system.bean;
  * @description:
  */
 public class Permission {
-    private int permissionId;
-    private String permissionCode;
-    private String permissionName;
-    private String permissionPath;
-    private String permissionImage;
-    private int permissionState;
+        private int permissionId;
+        private String permissionCode;
+        private String permissionName;
+        private String permissionPath;
+        private String permissionImage;
+        private int permissionState;
 }
