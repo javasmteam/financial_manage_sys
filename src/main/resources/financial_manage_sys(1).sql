@@ -1,4 +1,3 @@
-
 /*
  **********************************企业管理模块*************************************
  */
@@ -26,8 +25,8 @@ CREATE table bk_invest_money
     invest_handle_time  timestamp comment '处理时间',
     invest_bank_code    int(10) comment '银行代码',
     invest_state        int(10) comment '汇款状态',
-        -- 2:已汇款到用户
-        state int (10) comment '状态' -- 0.删除  1.可用
+    -- 2:已汇款到用户
+    state               int(10) comment '状态' -- 0.删除  1.可用
 );
 
 -- 独角兽🦄公司信息表
@@ -410,29 +409,87 @@ values (product_id, 4, 57, 2, '广发中债7-10年国开债指数E', '011062', 2
 /**
   ************************************保险系列************************************
  */
+
 insert into product_type
-values (product_type_id, 2, 2, '重疾保障', 'Disability Insurance', 1, product_type_state);
+values (product_id, 5, 2, 2, '重疾保障', 'Disability Insurance', 1, product_type_state);
+
 insert into product_type
-values (product_type_id, 2, 2, '年金保险', 'Annuity Insurance', 1, product_type_state);
+values (product_id, 5, 70, 2, '国寿康宁保终身重大疾病保险(2021版,C款)', 'Disability Insurance', 2, product_type_state);
 insert into product_type
-values (product_type_id, 2, 2, '年金保险', 'Annuity Insurance', 1, product_type_state);
+values (product_id, 5, 70, 2, '国寿康宁保(2021版,A款)', 'Disability Insurance', 2, product_type_state);
 insert into product_type
-values (product_type_id, 2, 2, '年金保险', 'Annuity Insurance', 1, product_type_state);
+values (product_id, 5, 70, 2, '国寿爱无忧两全保险', 'Disability Insurance', 2, product_type_state);
 insert into product_type
-values (product_type_id, 2, 2, '年金保险', 'Annuity Insurance', 1, product_type_state);
+values (product_id, 5, 70, 2, '国寿心无忧两全保险', 'Disability Insurance', 2, product_type_state);
 insert into product_type
-values (product_type_id, 2, 2, '少儿/女性/养老保险', 'Children/Women/Endowment  Insurance', 1, product_type_state);
+values (product_id, 5, 70, 2, '国寿福(盛典版)', 'Disability Insurance', 2, product_type_state);
 insert into product_type
-values (product_type_id, 2, 2, '寿险保障', 'Life Insurance Guarantee', 1, product_type_state);
+values (product_id, 5, 70, 2, '国寿少儿国寿福(盛典版)产品', 'Disability Insurance', 2, product_type_state);
+
+
+
 insert into product_type
-values (product_type_id, 2, 2, '医疗保险', 'Medical Insurance', 1, product_type_state);
+values (product_id, 6, 2, 2, '年金保险', 'Annuity Insurance', 1, product_type_state);
+
 insert into product_type
-values (product_type_id, 2, 2, '意外保障', 'Accident Insurance', 1, product_type_state);
+values (product_id, 6, 77, 2, '国寿鑫惠赢两全保险', 'Annuity Insurance', 2, product_type_state);
+insert into product_type
+values (product_id, 6, 77, 2, '国寿鑫裕尊享年金保险', 'Annuity Insurance', 2, product_type_state);
+insert into product_type
+values (product_id, 6, 77, 2, '国寿鑫裕年年年金保险', 'Annuity Insurance', 2, product_type_state);
+insert into product_type
+values (product_id, 6, 77, 2, '国寿鑫裕金生两财两全保险', 'Annuity Insurance', 2, product_type_state);
+insert into product_type
+values (product_id, 6, 77, 2, '国寿鑫享福养老年金保险', 'Annuity Insurance', 2, product_type_state);
+insert into product_type
+values (product_id, 6, 77, 2, '国寿鑫耀东方年金保险', 'Annuity Insurance', 2, product_type_state);
+insert into product_type
+values (product_id, 6, 77, 2, '国寿鑫福临门保险产品组合', 'Annuity Insurance', 2, product_type_state);
+insert into product_type
+values (product_id, 6, 77, 2, '国寿个人税收递延型养老年金保险(2018版)', 'Annuity Insurance', 2, product_type_state);
+
+
+
+insert into product_type
+values (product_id, 7, 2, 2, '少儿/女性/养老保险', 'Children/Women/Endowment  Insurance', 1, product_type_state);
+
+
+insert into product_type
+values (product_id, 7, 86, 2, '国寿鑫享宝', 'Children/Women/Endowment  Insurance', 2, product_type_state);
+insert into product_type
+values (product_id, 7, 86, 2, '国寿锦绣前程少儿两全保险', 'Children/Women/Endowment  Insurance', 2, product_type_state);
+insert into product_type
+values (product_id, 7, 86, 2, '国寿鑫玉少儿年金保险(分红型)', 'Children/Women/Endowment  Insurance', 2, product_type_state);
+
+
+
+insert into product_type
+values (product_id, 8, 2, 2, '寿险保障', 'Life Insurance Guarantee', 1, product_type_state);
+
+insert into product_type
+values (product_id, 8, 90, 2, '国寿臻享传家终身保险', 'Life Insurance Guarantee', 2, product_type_state);
+
+
+
+insert into product_type
+values (product_id, 9, 2, 2, '医疗保险', 'Medical Insurance', 1, product_type_state);
+
+insert into product_type
+values (product_id, 9, 92, 2, '国寿如E康悦百万医疗保险(盛典版)', 'Medical Insurance', 2, product_type_state);
+insert into product_type
+values (product_id, 9, 92, 2, '国寿附加特定疾病海外医疗保险', 'Medical Insurance', 2, product_type_state);
+
+
+insert into product_type
+values (product_id, 10, 2, 2, '意外保障', 'Accident Insurance', 1, product_type_state);
+
+insert into product_type
+values (product_id, 10, 95, 2, '国寿百万如意行两全保险(盛典版)', 'Accident Insurance', 2, product_type_state);
+
 /**
   ************************************证券系列************************************
  */
-insert into product_type
-values (product_type_id, 3, 2, '意外保障', 'Accident Insurance', 1, product_type_state);
+
 
 
 -- 产品类净值表
