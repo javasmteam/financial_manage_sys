@@ -50,7 +50,7 @@ public interface ProductTypeDao {
      * @param productType 产品系列
      * @return 影响行数
      */
-    List<ProductTypeVO> queryProductTypesByPage(PageInfo<ProductType> page, ProductType productType);
+    List<ProductTypeVO> queryProductTypesByPage(PageInfo<ProductTypeVO> page, ProductType productType);
 
 
 }

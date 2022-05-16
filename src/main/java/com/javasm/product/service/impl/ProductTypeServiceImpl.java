@@ -7,6 +7,8 @@ import com.javasm.product.dao.ProductTypeDao;
 import com.javasm.product.dao.impl.ProductTypeDaoImpl;
 import com.javasm.product.service.ProductTypeService;
 
+import java.util.List;
+
 /**
  * <h4>Financial_manage_sys</h4>
  * <p>产品类别服务实现类</p>
@@ -50,5 +52,11 @@ public class ProductTypeServiceImpl implements ProductTypeService {
      */
     @Override
     public PageInfo<ProductTypeVO> getProductTypesByPage(String nowPage, String pageSize, ProductType productType) {
+        Integer count = productTypeDao.count(productType);
+        PageInfo<ProductTypeVO> pageInfo = new PageInfo<>(nowPage, pageSize, count);
+
+        List<ProductTypeVO> productTypes = productTypeDao.queryProductTypesByPage(pageInfo, productType);
+        pageInfo.setDataList(productTypes);
+        return pageInfo;
     }
 }

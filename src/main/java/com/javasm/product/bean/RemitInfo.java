@@ -18,7 +18,7 @@ import lombok.*;
 public class RemitInfo {
     private Integer remitId;
     private Integer productTypeId;
-    private Integer userId;
+    private Integer remitAccount;
     private String remitPostscript;
     private String remitInfoSummary;
     private String recBankName;

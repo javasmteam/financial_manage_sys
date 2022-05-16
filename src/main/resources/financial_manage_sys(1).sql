@@ -1,60 +1,129 @@
-# CREATE DATABASE IF NOT EXISTS financial_manage_sys;
+#
+CREATE
+    DATABASE IF NOT EXISTS financial_manage_sys;
 
 #
 
 #
 # -- 用户信息
-# drop table if exists bk_user_info;
-# create table bk_user_info
-# (
-#     user_id        int(10) primary key auto_increment comment '主键',
-#     user_name      varchar(50) comment '用户名',
-#     head_pic       varchar(50) comment '头像大图',
-#     head_pic_thumb varchar(50) comment '头像缩略图',
-#     des            varchar(50) comment '个性签名',
-#     sex            int(10) comment '性别',
-#     birthday       date comment '生日',
-#     avatar_color   varchar(50) comment '爱好',
-#     phone          varchar(11) comment '手机号',
-#     grade          int(10) comment '等级',
-#     create_time    datetime default now() comment '创建时间'
+#
+drop table if exists bk_user_info;
+#
+create table bk_user_info
+    #
+(
+    # user_id int
+    (
+    10
+) primary key auto_increment comment '主键',
+    # user_name varchar
+    (
+    50
+) comment '用户名',
+    # head_pic varchar ( 50
+) comment '头像大图',
+    # head_pic_thumb varchar (
+    50
+    ) comment '头像缩略图',
+    # des varchar (
+    50
+    ) comment '个性签名',
+    # sex int (
+    10
+    ) comment '性别',
+    # birthday date comment '生日',
+    # avatar_color varchar (
+    50
+    ) comment '爱好',
+    # phone varchar (
+    11
+    ) comment '手机号',
+    # grade int (
+    10
+    ) comment '等级',
+    # create_time datetime default now (
+    ) comment '创建时间'
 # );
 #
 # -- 用户角色中间表
-# drop table if exists m_user_role;
-# create table m_user_role
-# (
-#     user_id int(10),
-#     role_id int(10)
-# );
+#
+drop table if exists m_user_role;
+#
+create table m_user_role
+    #
+(
+    # user_id int
+    (
+    10
+),
+    # role_id int
+    (
+    10
+)
+    # );
 #
 # -- 用户角色
-# drop table if exists user_role;
-# create table user_role
-# (
-#     role_id   int(10) primary key auto_increment comment '角色编号',
-#     role_code varchar(50) comment '角色对应实体类',
-#     role_name varchar(50) comment '角色名称',
-#     sort      int(10) comment '排序'
+#
+drop table if exists user_role;
+#
+create table user_role
+    #
+(
+    # role_id int
+    (
+    10
+) primary key auto_increment comment '角色编号',
+    # role_code varchar
+    (
+    50
+) comment '角色对应实体类',
+    # role_name varchar ( 50
+) comment '角色名称',
+    # sort int (
+    10
+    ) comment '排序'
 # );
 #
 # -- 用户角色-权限中间表
-# drop table if exists m_role_permission;
-# create table m_role_permission
-# (
-#     role_id       int(10) comment '角色编号',
-#     permission_id int(10) comment '权限编号'
-# );
+#
+drop table if exists m_role_permission;
+#
+create table m_role_permission
+    #
+(
+    # role_id int
+    (
+    10
+) comment '角色编号',
+    # permission_id int
+    (
+    10
+) comment '权限编号'
+    # );
 #
 # -- 用户权限表
-# drop table if exists user_permission;
-# create table user_permission
-# (
-#     permission_id    int(10) primary key auto_increment comment '权限编号',
-#     permission_code  varchar(50) comment '权限对应实体类',
-#     permission_name  varchar(50) comment '权限名称',
-#     permission_path  varchar(255) comment '权限来源',
-#     permission_image varchar(255) comment '权限图标'
+#
+drop table if exists user_permission;
+#
+create table user_permission
+    #
+(
+    # permission_id int
+    (
+    10
+) primary key auto_increment comment '权限编号',
+    # permission_code varchar
+    (
+    50
+) comment '权限对应实体类',
+    # permission_name varchar ( 50
+) comment '权限名称',
+    # permission_path varchar (
+    255
+    ) comment '权限来源',
+    # permission_image varchar (
+    255
+    ) comment '权限图标'
 # );
 
 
@@ -85,8 +154,8 @@ CREATE table bk_invest_money
     invest_handle_time  timestamp comment '处理时间',
     invest_bank_code    int(10) comment '银行代码',
     invest_state        int(10) comment '汇款状态'
-    -- 2:已汇款到用户
-    state               int(10) comment '状态' -- 0.删除  1.可用
+        -- 2:已汇款到用户
+        state int (10) comment '状态' -- 0.删除  1.可用
 );
 
 -- 独角兽🦄公司信息表
@@ -114,7 +183,7 @@ create table maker_price
 (
     maker_id     int(10) primary key auto_increment comment '主键',
     com_id       int(10) comment '企业编号',
-    maker_amount float(10, 2) comment '挂单金额', -- 单价
+    maker_amount float(10, 2) comment '挂单金额',      -- 单价
     trade_amount int(10) comment '交易数量',
     maker_state  int(10) default 1 comment '挂单表状态' -- 0:买入  1：卖出
 );
@@ -149,13 +218,13 @@ create table product_info
     product_ch_name        varchar(50) comment '产品中文名称',
     product_eng_name       varchar(50) comment '产品英文名称',
     annual_yield           float(10, 4) comment '年化收益率',
-    currency_type          varchar(50) comment '货币类型',
+    currency_type          int comment '货币类型',
     open_time              date comment '开放时间',
     sub_cycle              int(10) comment '认购周期',
     fund_manage_fee_rate   float(10, 4) comment '基金管理费率',
     sub_rate               float(10, 4) comment '认购费率',
     init_invest_amount     float(10, 2) comment '起投金额',
-    sub_fee_collect_method varchar(50) comment '认购费收取方式',
+    sub_fee_collect_method int comment '认购费收取方式',
     red_cycle              int(10) comment '赎回周期',
     red_init_amount        float(10, 2) comment '赎回起始金额',
     red_amount             float(10, 4) comment '赎回费用',
@@ -205,7 +274,7 @@ create table remit_info
 (
     remit_id           int(10) primary key auto_increment comment '主键',
     product_type_id    int(10) comment '商品类型编号',
-    user_id            int(10) comment '汇款用户',
+    remit_account      int(10) comment '收款账户',
     remit_postscript   varchar(255) comment '汇款附言',
     remit_info_summary varchar(50) comment '汇款信息概略',
     rec_bank_name      varchar(50) comment '收款银行名称',
@@ -226,24 +295,32 @@ create table product_type
 (
     product_type_id       int(10) primary key auto_increment comment '主键',
     product_parent_id     int(10) comment '产品父类编号',
-    product_channel       varchar(50) comment '产品渠道',
+    product_channel       int(10) comment '产品渠道',
     product_type_ch_name  varchar(50) comment '产品类型名称(中文)',
     product_type_eng_name varchar(50) comment '产品类型名称(英文)',
     product_type_lv       int(10) comment '类型级别(0为一级分类)',
     product_type_state    int(10) default 1 comment '产品系类状态'
 );
+insert into product_type
+values (product_type_id, 0, 2, '基金', 'fund', 0, product_type_state);
+insert into product_type
+values (product_type_id, 0, 2, '保险', 'insurance', 0, product_type_state);
+insert into product_type
+values (product_type_id, 0, 2, '证券', 'security', 0, product_type_state);
+
 
 -- 产品类净值表
-drop table if exists product_type;
-create table product_type(
-
-
+drop table if exists product_net_value;
+create table product_net_value
+(
+    pro_net_value_id  int(10) primary key auto_increment comment '主键',
+    product_id        int(10) comment '产品编号',
+    unit_net          float(10, 2) comment '单位净值',
+    unit_date         date comment '净值基准日',
+    sum_increase_rate float(10, 2) comment '累计增长率'
 );
 
 
-
-insert into product_type
-values (product_type_id, ?, ?, ?, ?, ?, product_type_state);
 
 update product_type
 set product_parent_id    = ?,
@@ -274,12 +351,13 @@ select product_type.product_type_id,
        rec_bank_city,
        rec_account_name,
        rec_account,
-       user_id,
+       remit_account,
        remit_postscript,
        rec_location
 from product_type,
      remit_info
-where product_type.product_type_id = remit_info.product_type_id limit ?,?;
+where product_type.product_type_id = remit_info.product_type_id
+limit ?,?;
 
 
 
