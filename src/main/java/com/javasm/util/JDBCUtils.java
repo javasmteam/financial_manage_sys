@@ -1,6 +1,7 @@
 package com.javasm.util;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import lombok.SneakyThrows;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
@@ -24,6 +25,7 @@ import java.util.Properties;
 public class JDBCUtils {
 
     private static DruidDataSource druid;
+
     static {
         InputStream resourceAsStream = JDBCUtils.class.getClassLoader().getResourceAsStream("Druid.properties");
         Properties properties = new Properties();
@@ -142,6 +144,7 @@ public class JDBCUtils {
         }
         return i;
     }
+
     //  添加数据 -- 非事务
     public static Integer add(String sql, Object... o) {
         Connection conn = getConn();
@@ -231,24 +234,21 @@ public class JDBCUtils {
      * @return
      */
     public <T> Integer insert(Connection conn, String table, T t) {
-        List<String> list = new ArrayList<>();
+        List<Object> params = new ArrayList<>();
         PreparedStatement prst = null;
         ResultSet rs = null;
         int count = 0;
         String sql = "SELECT " + table + ".* FROM " + table + " WHERE FALSE;";
 
         try {
-
+            //获取表结构
             prst = conn.prepareStatement(sql);
             rs = prst.executeQuery();
             ResultSetMetaData md = rs.getMetaData();
 //            拼接sql语句
-            String s = JDBCUtils.InsertSql(table, md, list);
-//            获取对象t中的属性值
-            List<Object> fill = new ArrayList<>();
-            JDBCUtils.fillObject(fill, list, t);
+            String s = JDBCUtils.InsertSql(table, md, params, t);
 //            填充sql语句
-            Object[] o = fill.toArray();
+            Object[] o = params.toArray();
             QueryRunner qr = new QueryRunner();
             count = qr.update(conn, s, o);
 
@@ -256,10 +256,6 @@ public class JDBCUtils {
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
             e.printStackTrace();
         } finally {
             DbUtils.closeQuietly(prst);
@@ -273,16 +269,29 @@ public class JDBCUtils {
      *
      * @param table
      * @param md
-     * @param list
      * @return
      * @throws SQLException
      */
-    public static String InsertSql(String table, ResultSetMetaData md, List<String> list) throws SQLException {
+    @SneakyThrows
+    public static <T> String InsertSql(String table, ResultSetMetaData md, List<Object> fill, T t) throws SQLException, NoSuchMethodException {
+        //插入sql语句
         StringBuilder sql1 = new StringBuilder("INSERT INTO " + table + "(");
-//            获取全部字段名,拼接插入的sql语句
+        //泛型T的Class对象
+        Class<?> aClass = t.getClass();
+        //保存表的字段名
+        List<String> list = new ArrayList<>();
+
+//            遍历表格全部字段
         for (int i = 1; i < md.getColumnCount() + 1; i++) {
-            if (!md.isAutoIncrement(i)) {
-                list.add(md.getColumnName(i));
+            //  反射调用get方法获取Bean类的字段值
+            String gmn = getGMN(md.getColumnLabel(i));
+            Method method = aClass.getMethod(gmn);
+            Object paramObj = method.invoke(t);
+
+            //  若字段值不为空,保存字段和字段值
+            if(paramObj!=null){
+                list.add(md.getColumnLabel(i));
+                fill.add(paramObj);
             }
         }
 //            拼接sql语句中的字段需填充的字段名
@@ -319,27 +328,6 @@ public class JDBCUtils {
             temp.append(s.substring(1));
         }
         return temp.toString();
-    }
-
-    /**
-     * 获取对象t的属性值
-     *
-     * @param fill
-     * @param list
-     * @param t
-     * @param <T>
-     * @throws NoSuchMethodException
-     * @throws InvocationTargetException
-     * @throws IllegalAccessException
-     */
-    public static <T> void fillObject(List<Object> fill, List<String> list, T t) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Class<?> aClass = t.getClass();
-        for (int i = 0; i < list.size(); i++) {
-            String gmn = getGMN(list.get(i));
-            Method method = aClass.getMethod(gmn);
-            fill.add(method.invoke(t));
-
-        }
     }
 
     //获取sql语句
