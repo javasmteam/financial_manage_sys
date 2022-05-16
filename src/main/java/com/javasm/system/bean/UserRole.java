@@ -11,5 +11,7 @@ public class UserRole {
      * 角色名
      * 角色状态
      */
-
+    private Integer roleId;
+    private String roleName;
+    private Integer roleState;
 }
