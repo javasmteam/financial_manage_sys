@@ -1,10 +1,17 @@
 package com.javasm.system.bean;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * @author: 云勇
  * @date: 2022/5/16 16:28
  * @description:
  */
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class UserRole {
     /**
      * 角色Id

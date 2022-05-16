@@ -1,6 +1,9 @@
 package com.javasm.system.bean.vo;
 
 import com.javasm.system.bean.UserPermission;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -9,6 +12,9 @@ import java.util.List;
  * @date: 2022/5/15 23:34
  * @description:
  */
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class RoleMenu {
     /**
      * 当前权限

@@ -1,6 +1,9 @@
 package com.javasm.system.bean.vo;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -9,6 +12,9 @@ import java.util.Date;
  * @date: 2022/5/16 17:33
  * @description:
  */
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class LoginUser {
     /**
      * 用户账号
@@ -19,5 +25,5 @@ public class LoginUser {
     private String userAct;
     private String userPwd;
     private String verify;
-    private Integer isSavePwd;
+    private Boolean isSavePwd;
 }

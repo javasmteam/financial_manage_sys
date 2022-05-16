@@ -1,6 +1,9 @@
 package com.javasm.system.bean.vo;
 
 import com.javasm.system.bean.UserRole;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -9,6 +12,9 @@ import java.util.List;
  * @date: 2022/5/16 17:17
  * @description:
  */
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class UserRoleVo {
     /**
      * 用户当前角色
