@@ -1,4 +1,4 @@
-package com.javasm.system.web; /**
+package com.javasm.system.control; /**
  * <h4>Financial_manage_sys</h4>
  * <p>${description}</p>
  *
@@ -8,10 +8,9 @@ package com.javasm.system.web; /**
  **/
 
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import com.javasm.controlUtil.BaseServlet;
+
 import javax.servlet.annotation.*;
-import java.io.IOException;
 
 @WebServlet(name = "LoginServlet", value = "/LoginServlet")
 public class LoginServlet extends BaseServlet {
