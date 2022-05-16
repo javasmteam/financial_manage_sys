@@ -204,6 +204,144 @@ public class JDBCUtils {
         }
         return clazz;
     }
+
+    /**
+     * 将对象t添加到table表中 --非事务
+     *
+     * @param table
+     * @param t
+     * @param <T>
+     * @return
+     */
+    public <T> Integer insert(String table, T t) {
+        Connection conn = JDBCUtils.getConn();
+        Integer o = insert(conn, table, t);
+        DbUtils.closeQuietly(conn);
+        return o;
+
+    }
+
+    /**
+     * 将对象t添加到table表中--事务
+     *
+     * @param conn
+     * @param table
+     * @param t
+     * @param <T>
+     * @return
+     */
+    public <T> Integer insert(Connection conn, String table, T t) {
+        List<String> list = new ArrayList<>();
+        PreparedStatement prst = null;
+        ResultSet rs = null;
+        int count = 0;
+        String sql = "SELECT " + table + ".* FROM " + table + " WHERE FALSE;";
+
+        try {
+
+            prst = conn.prepareStatement(sql);
+            rs = prst.executeQuery();
+            ResultSetMetaData md = rs.getMetaData();
+//            拼接sql语句
+            String s = JDBCUtils.InsertSql(table, md, list);
+//            获取对象t中的属性值
+            List<Object> fill = new ArrayList<>();
+            JDBCUtils.fillObject(fill, list, t);
+//            填充sql语句
+            Object[] o = fill.toArray();
+            QueryRunner qr = new QueryRunner();
+            count = qr.update(conn, s, o);
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } finally {
+            DbUtils.closeQuietly(prst);
+            DbUtils.closeQuietly(rs);
+        }
+        return count;
+    }
+
+    /**
+     * 拼接插入sql语句
+     *
+     * @param table
+     * @param md
+     * @param list
+     * @return
+     * @throws SQLException
+     */
+    public static String InsertSql(String table, ResultSetMetaData md, List<String> list) throws SQLException {
+        StringBuilder sql1 = new StringBuilder("INSERT INTO " + table + "(");
+//            获取全部字段名,拼接插入的sql语句
+        for (int i = 1; i < md.getColumnCount() + 1; i++) {
+            if (!md.isAutoIncrement(i)) {
+                list.add(md.getColumnName(i));
+            }
+        }
+//            拼接sql语句中的字段需填充的字段名
+        for (int i = 0; i < list.size(); i++) {
+            sql1.append(list.get(i));
+            if (i < list.size() - 1) {
+                sql1.append(",");
+            }
+        }
+//            拼接sql语句中的占位符
+        sql1.append(") VALUES(");
+        for (int i = 0; i < list.size(); i++) {
+            sql1.append("?");
+            if (i < list.size() - 1) {
+                sql1.append(",");
+            }
+        }
+//            拼接sql语句);
+        sql1.append(");");
+        return sql1.toString();
+    }
+
+    /**
+     * 拼接get方法
+     *
+     * @param str
+     * @return
+     */
+    public static String getGMN(String str) {
+        StringBuilder temp = new StringBuilder("get");
+        String[] split = str.split("_");
+        for (String s : split) {
+            temp.append(s.substring(0, 1).toUpperCase());
+            temp.append(s.substring(1));
+        }
+        return temp.toString();
+    }
+
+    /**
+     * 获取对象t的属性值
+     *
+     * @param fill
+     * @param list
+     * @param t
+     * @param <T>
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     */
+    public static <T> void fillObject(List<Object> fill, List<String> list, T t) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Class<?> aClass = t.getClass();
+        for (int i = 0; i < list.size(); i++) {
+            String gmn = getGMN(list.get(i));
+            Method method = aClass.getMethod(gmn);
+            fill.add(method.invoke(t));
+
+        }
+    }
+
     //获取sql语句
     public static String getSql(String key) {
         String property = null;
