@@ -142,7 +142,7 @@ public class JDBCUtils {
         }
         return i;
     }
-
+    //  添加数据 -- 非事务
     public static Integer add(String sql, Object... o) {
         Connection conn = getConn();
         Integer i = add(conn, sql, o);
@@ -204,13 +204,23 @@ public class JDBCUtils {
         }
         return clazz;
     }
-
-    public static String getSql(String key) throws IOException {
+    //获取sql语句
+    public static String getSql(String key) {
+        String property = null;
         Properties properties = new Properties();
         InputStream resourceAsStream = JDBCUtils.class.getClassLoader().getResourceAsStream("sql.properties");
-        properties.load(resourceAsStream);
-        String property = properties.getProperty(key);
-        resourceAsStream.close();
+        try {
+            properties.load(resourceAsStream);
+            property = properties.getProperty(key);
+            resourceAsStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            try {
+                resourceAsStream.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
         return property;
     }
 }
