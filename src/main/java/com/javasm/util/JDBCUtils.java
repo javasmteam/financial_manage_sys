@@ -319,7 +319,7 @@ public class JDBCUtils {
         QueryRunner queryRunner = new QueryRunner();
         Connection connection = getConnection();
         try {
-            return queryRunner.query(connection, sql, new ScalarHandler<>(), params);
+            return queryRunner.query(connection, sql, new ScalarHandler<Long>(), params);
         } catch (SQLException e) {
             e.printStackTrace();
         }
