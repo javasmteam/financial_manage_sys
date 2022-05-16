@@ -12,17 +12,56 @@ import lombok.ToString;
 public class CompanyInfo {
 
     //独角兽公司信息表
-    private Integer comId;//主键
-    private String comName;//企业名称
-    private String tradeCode ;//交易代码
-    private String comLogo;//企业logo
-    private String appLogo ;//app_logo
-    private String comIndustry;//所属行业
-    private String comCreateYear;//成立年份
-    private String comCeo;//企业执行官
-    private String comLocation;//企业所在地
-    private Float comRate;//费率
-    private Integer comSeqCode;//企业顺序码
-    private String comIntro;//企业介绍
-    private Integer comInfoState;//公司信息状态
+    /**
+     * 主键
+     */
+    private Integer comId;
+    /**
+     * 企业名称
+     */
+    private String comName;
+    /**
+     * 交易代码
+     */
+    private String tradeCode ;
+    /**
+     * 企业logo
+     */
+    private String comLogo;
+    /**
+     * app_logo
+     */
+    private String appLogo ;
+    /**
+     * 所属行业
+     */
+    private String comIndustry;
+    /**
+     * 成立年份
+     */
+    private String comCreateYear;
+    /**
+     * 企业执行官
+     */
+    private String comCeo;
+    /**
+     * 企业所在地
+     */
+    private String comLocation;
+    /**
+     * 费率
+     */
+    private Float comRate;
+    /**
+     * 企业顺序码
+     */
+    private Integer comSeqCode;
+    /**
+     * 企业介绍
+     */
+    private String comIntro;
+    /**
+     * 公司信息状态
+     */
+    private Integer comInfoState;
 }
