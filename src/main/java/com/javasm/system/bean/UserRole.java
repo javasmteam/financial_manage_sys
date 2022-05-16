@@ -5,11 +5,9 @@ package com.javasm.system.bean;
  * @date: 2022/5/16 16:28
  * @description:
  */
-public class Role {
+public class UserRole {
     /**
      * 角色Id
-     * 角色代码
      * 角色名
-     *
      */
 }

@@ -1,6 +1,6 @@
 package com.javasm.system.bean.vo;
 
-import com.javasm.system.bean.Permission;
+import com.javasm.system.bean.UserPermission;
 
 import java.util.List;
 
@@ -14,6 +14,6 @@ public class userMenu {
      * 当前权限
      *
      */
-    private Permission permission;
-    private List<Permission> permissions;
+    private UserPermission permission;
+    private List<UserPermission> permissions;
 }

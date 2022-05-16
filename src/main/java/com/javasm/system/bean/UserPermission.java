@@ -5,7 +5,7 @@ package com.javasm.system.bean;
  * @date: 2022/5/15 23:39
  * @description:
  */
-public class Permission {
+public class UserPermission {
         private int permissionId;
         private String permissionCode;
         private String permissionName;
