@@ -7,7 +7,7 @@ var app = new Vue({
     },
     methods: {
         //项目绝对路径
-        projectPath: "http://locathost:8088/financial_manage_sys/system",
+        projectPath: "http://localhost:8088/financial_manage_sys_war_exploded/system",
         //请求数据封装
         reqDate(reqType,paramObj, receive) {
             axios.post(this.projectPath + reqType,paramObj).then(resp => {

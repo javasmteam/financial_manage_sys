@@ -2,8 +2,9 @@ function regUserF() {
     this.userAct = '';
     this.userPwd = '';
     this.userName = '';
-    this.userBirthday = '';
-    this.userPhone = '';
+    this.sex = '';
+    this.birthday = '';
+    this.phone = '';
 }
 
 function userF() {
@@ -23,7 +24,7 @@ var app = new Vue({
         //显示注册弹框
         loginDialog: false,
         //项目绝对路径
-        projectPath: "http://locathost:8088/financial_manage_sys/login",
+        projectPath: "http://localhost:8088/Financial_manage_sys_war_exploded/login",
         //登录验证
         loginRules: {
             userAct: [
@@ -47,25 +48,28 @@ var app = new Vue({
             userName: [
                 {required: true, message: "请输入姓名", trigger: 'change'}
             ],
-            userBirthday: [
+            sex:[
+                {required: true, message: "请选择性别", trigger: 'change'}
+            ],
+            birthday: [
                 {required: true, message: "请输入生日", trigger: 'change'}
             ],
-            userPhone: [
+            phone: [
                 {required: true, message: "请输入联系方式", trigger: 'change'}
             ],
         },
         //验证图片
-        verifySrc:'',
+        verifySrc: '',
     },
     methods: {
         //注册请求
         reqReg: function () {
-            axios.post(this.projectPath + "?type=reqReg", this.regUser).then(resp => {
+            axios.post(this.projectPath+"?type=reqReg", this.regUser).then(resp => {
                 if (resp.data == "-1") {
                     this.$message.error("注册失败")
                 } else {
                     this.$message({message: "注册成功", type: "success"})
-                    this.regUser = new reguserF();
+                    this.regUser = new regUserF();
                     this.loginDialog = false;
                 }
             })
@@ -82,7 +86,7 @@ var app = new Vue({
             })
         },
         //用户登录
-        userLogin:function(rules) {
+        userLogin: function (rules) {
             this.$refs[rules].validate((valid) => {
                 if (valid) {
                     this.reqLogin();

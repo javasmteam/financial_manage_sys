@@ -71,12 +71,17 @@
                 <el-input v-model="regUser.userName"></el-input>
             </el-form-item>
 
-            <el-form-item label="生日" prop="userBirthday">
-                <el-date-picker v-model="regUser.userBirthday" type="date" placeholder="选择日期"></el-date-picker>
+            <el-form-item label="性别" prop="sex">
+                <el-radio v-model="regUser.sex" label="0">男</el-radio>
+                <el-radio v-model="regUser.sex" label="1">女</el-radio>
             </el-form-item>
 
-            <el-form-item label="联系方式" prop="userPhone">
-                <el-input v-model="regUser.userPhone"></el-input>
+            <el-form-item label="生日" prop="birthday">
+                <el-date-picker v-model="regUser.birthday" type="date" placeholder="选择日期"></el-date-picker>
+            </el-form-item>
+
+            <el-form-item label="联系方式" prop="phone">
+                <el-input v-model="regUser.phone"></el-input>
             </el-form-item>
 
             <el-form-item>

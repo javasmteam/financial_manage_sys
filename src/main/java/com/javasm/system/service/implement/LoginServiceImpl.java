@@ -1,5 +1,6 @@
 package com.javasm.system.service.implement;
 
+import cn.hutool.core.codec.Base64;
 import com.javasm.system.bean.UserInfo;
 import com.javasm.system.bean.vo.LoginUser;
 import com.javasm.system.bean.vo.RegUser;
@@ -28,7 +29,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public UserInfo login(LoginUser loginUser) {
-        UserInfo userInfo = userDao.find(loginUser.getUserAct(), loginUser.getUserPwd());
+        UserInfo userInfo = userDao.find(loginUser.getUserAct(), Base64.encode(loginUser.getUserPwd()));
         if(userInfo== null){
             return userInfo;
         }
@@ -39,7 +40,12 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public String reg(RegUser regUser) {
-        return null;
+        UserInfo userInfo = new UserInfo(regUser);
+        Integer i = userDao.add(userInfo);
+        if(i>0){
+            return "1";
+        }
+        return "-1";
     }
 
     @Override

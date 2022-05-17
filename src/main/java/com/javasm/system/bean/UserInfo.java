@@ -1,6 +1,8 @@
 package com.javasm.system.bean;
 
+import cn.hutool.core.codec.Base64;
 import com.alibaba.fastjson.annotation.JSONField;
+import com.javasm.system.bean.vo.RegUser;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,7 +41,7 @@ public class UserInfo {
     private String headPic;
     private String des;
     private Integer sex;
-    @JSONField(format="yyyy-MM-dd")
+    @JSONField(format = "yyyy-MM-dd")
     private Date birthday;
     private String avatarColor;
     private String phone;
@@ -50,4 +52,17 @@ public class UserInfo {
     private Date lastLogin;
     private Integer userState;
 
+    public UserInfo(RegUser regUser) {
+        this.userAct = regUser.getUserAct();
+        this.userPwd = Base64.encode(regUser.getUserPwd());
+        this.userName = regUser.getUserName();
+        this.birthday = regUser.getBirthday();
+        this.sex = regUser.getSex();
+        this.phone = regUser.getPhone();
+        //新注册的用户角色默认为会员
+        this.roleId = 5;
+        this.createTime = new Date();
+        this.userState = 1;
+
+    }
 }
