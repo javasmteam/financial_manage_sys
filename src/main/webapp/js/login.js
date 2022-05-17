@@ -2,8 +2,9 @@ function regUserF() {
     this.userAct = '';
     this.userPwd = '';
     this.userName = '';
-    this.userBirthday = '';
-    this.userPhone = '';
+    this.sex = '';
+    this.birthday = '';
+    this.phone = '';
 }
 
 function userF() {
@@ -47,15 +48,18 @@ var app = new Vue({
             userName: [
                 {required: true, message: "请输入姓名", trigger: 'change'}
             ],
-            userBirthday: [
+            sex:[
+                {required: true, message: "请选择性别", trigger: 'change'}
+            ],
+            birthday: [
                 {required: true, message: "请输入生日", trigger: 'change'}
             ],
-            userPhone: [
+            phone: [
                 {required: true, message: "请输入联系方式", trigger: 'change'}
             ],
         },
         //验证图片
-        verifySrc:'',
+        verifySrc: '',
     },
     methods: {
         //注册请求
@@ -82,7 +86,7 @@ var app = new Vue({
             })
         },
         //用户登录
-        userLogin:function(rules) {
+        userLogin: function (rules) {
             this.$refs[rules].validate((valid) => {
                 if (valid) {
                     this.reqLogin();
