@@ -7,7 +7,7 @@ function SimpleJSON(str){
 var app = new Vue({
     el: "#app",
     data: {
-        roleMenu: {},
+        roleMenus: {},
         userRole: {},
         pageSrc:projectPath+"/default.html",
     },

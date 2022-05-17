@@ -20,6 +20,6 @@ public class RoleMenu {
      *  父级菜单
      *  当前角色拥有的全部权限
      */
-    private UserPermission nowPermission;
+    private UserPermission herdPermission;
     private List<UserPermission> permissions;
 }

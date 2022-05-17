@@ -26,14 +26,14 @@
                     </div>
                 </el-row>
 
-                <el-submenu v-for="(menu,index0) in userMenu" :index="index0">
+                <el-submenu v-for="roleMenu in roleMenus" :index="roleMenu.herdPermission.permissionId">
                     <template slot="title">
-                        <i class="el-icon-location"></i>
-                        <span>{{menu.groupName}}</span>
+                        <i :class="roleMenu.herdPermission.permissionImage"></i>
+                        <span>{{roleMenu.herdPermission.permissionName}}</span>
                     </template>
-                    <el-menu-item v-for="(item,index1) in menu.permissions" :index="index0+'-'+index1"
-                                  @click="changePage(item.permissionSrc)">
-                        {{item.permissionName}}
+                    <el-menu-item v-for="per in roleMenu.permissions" :index="per.permissionId"
+                                  @click="changePage(per.permissionSrc)">
+                        {{per.permissionName}}
                     </el-menu-item>
                 </el-submenu>
 

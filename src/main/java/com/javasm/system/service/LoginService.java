@@ -6,6 +6,8 @@ import com.javasm.system.bean.vo.RegUser;
 import com.javasm.system.bean.vo.RoleMenu;
 import com.javasm.system.bean.vo.UserRoleVo;
 
+import java.util.List;
+
 /**
  * @author: 云勇
  * @date: 2022/5/16 19:44
@@ -34,4 +36,11 @@ public interface LoginService {
      * @return  UserRoleVo 用户角色信息
      */
     UserRoleVo getUserRoleVo(UserInfo login);
+
+    /**
+     * 获取用户当前角色菜单
+     * @param userId
+     * @return
+     */
+    List<RoleMenu> getRoleMenu(Integer userId);
 }

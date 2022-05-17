@@ -9,6 +9,7 @@ import com.javasm.system.bean.UserInfo;
 import com.javasm.system.bean.UserRole;
 import com.javasm.system.bean.vo.LoginUser;
 import com.javasm.system.bean.vo.RegUser;
+import com.javasm.system.bean.vo.RoleMenu;
 import com.javasm.system.bean.vo.UserRoleVo;
 import com.javasm.system.service.LoginService;
 import com.javasm.system.service.implement.LoginServiceImpl;
@@ -19,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @author: 云勇
@@ -90,5 +92,15 @@ public class LoginServlet extends BaseServlet<UserInfo> {
             return "-1";
         }
         return JSON.toJSONString(userRoleVo);
+    }
+
+    public String reqRoleMenu(HttpServletRequest req){
+        SimpleJSON simpleJSON = BaseUtil.readBean(req, SimpleJSON.class);
+        UserInfo userInfo = (UserInfo)req.getSession().getAttribute("login");
+        List<RoleMenu> roleMenus = loginService.getRoleMenu(userInfo.getUserId());
+        if(roleMenus==null){
+            return "-1";
+        }
+        return JSON.toJSONString(roleMenus);
     }
 }

@@ -2,6 +2,7 @@ package com.javasm.system.service.implement;
 
 import cn.hutool.core.codec.Base64;
 import com.javasm.system.bean.UserInfo;
+import com.javasm.system.bean.UserPermission;
 import com.javasm.system.bean.UserRole;
 import com.javasm.system.bean.vo.LoginUser;
 import com.javasm.system.bean.vo.RegUser;
@@ -15,6 +16,7 @@ import com.javasm.system.dao.implement.UserPermissionDaoImpl;
 import com.javasm.system.dao.implement.UserRoleDaoImpl;
 import com.javasm.system.service.LoginService;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -61,4 +63,29 @@ public class LoginServiceImpl implements LoginService {
         userRoleVo.setUserRoles(list);
         return userRoleVo;
     }
+
+    @Override
+    public List<RoleMenu> getRoleMenu(Integer userId) {
+        //创建一级菜单集合
+        List<RoleMenu> roleMenus = new ArrayList<>();
+        //获取全部的一级菜单
+        List<UserPermission>list = userPermissionDao.getAllHeadMenu();
+        //遍历一级菜单
+        for (UserPermission userPermission : list) {
+            //获取一级菜单的次级菜单
+            List<UserPermission> secondaryMenu = userPermissionDao.getSecondaryMenu(userId,userPermission.getPermissionId());;
+            //判断是否有次级菜单
+            if(secondaryMenu.size()>0){
+                //若有次级菜单则封装在RoleMenu对象中,并添加到一级菜单集合中
+                RoleMenu roleMenu = new RoleMenu();
+                roleMenu.setHerdPermission(userPermission);
+                roleMenu.setPermissions(secondaryMenu);
+                roleMenus.add(roleMenu);
+            }
+        }
+        //防护菜单集合
+        return roleMenus;
+    }
+
+
 }
