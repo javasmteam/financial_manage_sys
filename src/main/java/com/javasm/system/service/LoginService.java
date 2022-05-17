@@ -26,23 +26,12 @@ public interface LoginService {
      */
     String reg(RegUser regUser);
 
-    /**
-     * 退出登录
-     * @return -1:失败 1:成功
-     */
-    String signOut();
+
 
     /**
-     * 选择角色
-     * @param RoleId 选择角色id
-     * @return 角色合集
+     * 获取用户角色形象
+     * @param login 用户对象
+     * @return  UserRoleVo 用户角色信息
      */
-    UserRoleVo chooseRole(String RoleId);
-
-    /**
-     * 选择菜单
-     * @param permissionId 菜单id
-     * @return 菜单合集
-     */
-    RoleMenu chooseMenu(String permissionId);
+    UserRoleVo getUserRoleVo(UserInfo login);
 }

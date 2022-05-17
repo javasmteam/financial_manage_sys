@@ -24,7 +24,7 @@ var app = new Vue({
         //显示注册弹框
         loginDialog: false,
         //项目绝对路径
-        projectPath: "http://localhost:8088/Financial_manage_sys_war_exploded/login",
+        projectPath: "http://localhost:8088/Financial_manage_sys_war_exploded",
         //登录验证
         loginRules: {
             userAct: [
@@ -64,7 +64,7 @@ var app = new Vue({
     methods: {
         //注册请求
         reqReg: function () {
-            axios.post(this.projectPath+"?type=reqReg", this.regUser).then(resp => {
+            axios.post(this.projectPath+"/login?type=reqReg", this.regUser).then(resp => {
                 if (resp.data == "-1") {
                     this.$message.error("注册失败")
                 } else {
@@ -76,7 +76,7 @@ var app = new Vue({
         },
         //登录请求
         reqLogin: function () {
-            axios.post(this.projectPath + "?type=reqLogin", this.user).then(resp => {
+            axios.post(this.projectPath + "/login?type=reqLogin", this.user).then(resp => {
                 if (resp.data == "-1") {
                     this.$message.error("登录失败");
                 } else {
@@ -104,8 +104,25 @@ var app = new Vue({
                     return false
                 }
             });
+        },
+        //获取cookie
+        getCookie(name){
+            let cookies = document.cookie.split(";")
+            for(let cookie of cookies){
+                let cook = cookie.split("=");
+                if(cook[0] === name){
+                    return cook[1];
+                }
+            }
         }
 
     },
-    create: {},
+    created: function (){
+        let cookie = this.getCookie("saveUser");
+        if(cookie!=null&&cookie !== "" ){
+            let split = cookie.split(":");
+            this.user.userAct = split[0];
+            this.user.userPwd = split[1];
+        }
+    }
 });

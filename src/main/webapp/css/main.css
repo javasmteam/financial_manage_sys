@@ -8,13 +8,10 @@
     text-align:right;
 }
 
-body{
-    background-color: #545c64;
-    color: aliceblue;
-}
+
 
 .page-menu{
-    height:1000px;
+    height:980px;
 }
 
 .menu-title{
@@ -22,4 +19,19 @@ body{
     text-align:center;
     font-size:32px;
     margin-top:50px;
+}
+.el-main{
+    margin: 0;
+    padding: 0;
+}
+.el-header{
+    margin: 0;
+    padding: 0;
+}
+.el-aside{
+    margin: 0;
+    padding: 0;
+}
+iframe{
+    background-color: aliceblue;
 }

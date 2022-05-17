@@ -11,8 +11,11 @@ create table bk_customer_assets
     co_business_id int(10) comment '企业id',
     hold_number    int(10) comment '持有数量',
     hold_money     float(10, 2) comment '成本价格',
-    state          int(10) comment '状态' -- 0.删除  1.可用
+    state          int(10) default 1 comment '状态' -- 0.删除  1.可用
 );
+
+insert into bk_customer_assets values (customer_id,?,?,?,?,1);
+
 -- 充值提现管理
 drop table if exists bk_invest_money;
 CREATE table bk_invest_money
@@ -26,8 +29,9 @@ CREATE table bk_invest_money
     invest_bank_code    int(10) comment '银行代码',
     invest_state        int(10) comment '汇款状态',
     -- 2:已汇款到用户
-    state               int(10) comment '状态' -- 0.删除  1.可用
+    state               int(10) default 1 comment '状态' -- 0.删除  1.可用
 );
+insert into bk_invest_money values(invest_money_id,?,?,?,?,?,?,?,1);
 
 -- 用户表（客户）
 drop table if exists bk_user_info;
@@ -44,14 +48,9 @@ create table bk_user_info(
     grade int(10), -- 等级
     headpic varchar(100), -- 头像大图
     headpic_thumb varchar(200), -- 头像缩略图
-    state int(10) -- 状态 1为可用  0为删除
+    state int(10) default 1 -- 状态 1为可用  0为删除
 );
-
-
-
-
-
-
+insert into bk_user_info values(user_id,?,?,?,?,?,?,?,?,?,?,?,1);
 
 -- 独角兽🦄公司信息表
 drop table if exists company_info;
