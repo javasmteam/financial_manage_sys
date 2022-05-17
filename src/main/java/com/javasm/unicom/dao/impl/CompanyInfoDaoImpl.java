@@ -28,7 +28,7 @@ public class CompanyInfoDaoImpl implements CompanyInfoDao {
     @Override
     public Integer count(CompanyInfo companyInfo) {
         StringBuilder sql = new StringBuilder("select count(c.com_id) from company_info c,maker_price m where c.com_id=m.com_id");
-        return JDBCUtils;
+        return  Math.toIntExact(JDBCUtils.size(sql.toString()));
     }
 
     @Override
