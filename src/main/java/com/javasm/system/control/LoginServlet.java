@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.javasm.annotation.ResponseTypeAnnotation;
 import com.javasm.controlUtil.BaseServlet;
 import com.javasm.myEnum.ResponseEnum;
+import com.javasm.system.bean.SimpleJSON;
 import com.javasm.system.bean.UserInfo;
 import com.javasm.system.bean.UserRole;
 import com.javasm.system.bean.vo.LoginUser;
@@ -30,26 +31,27 @@ public class LoginServlet extends BaseServlet<UserInfo> {
 
     /**
      * 请求登录
-     * @param req   请求对象
-     * @param resp  响应对象
-     * @return      "-1":登录失败   "1":登录成功
+     *
+     * @param req  请求对象
+     * @param resp 响应对象
+     * @return "-1":登录失败   "1":登录成功
      */
     @ResponseTypeAnnotation(ResponseEnum.AJAX)
-    public String reqLogin(HttpServletRequest req, HttpServletResponse resp){
+    public String reqLogin(HttpServletRequest req, HttpServletResponse resp) {
         //获取请求登录数据
         LoginUser loginUser = BaseUtil.readBean(req, LoginUser.class);
         //查询对象用户
         UserInfo login = loginService.login(loginUser);
         //判断是否登录成功
-        if(login==null){
+        if (login == null) {
             return "-1";
         }
         //将登录用户保存到session域对象
-        req.getSession().setAttribute("login",login);
+        req.getSession().setAttribute("login", login);
         //是否记住密码
-        if(loginUser.getIsSavePwd()){
+        if (loginUser.getIsMemory()) {
             //添加cookie
-            Cookie cookie = new Cookie("saveUser",loginUser.getUserAct()+"="+loginUser.getUserPwd());
+            Cookie cookie = new Cookie("saveUser", loginUser.getUserAct() + ":" + loginUser.getUserPwd());
             resp.addCookie(cookie);
         }
         //登录成功
@@ -58,27 +60,33 @@ public class LoginServlet extends BaseServlet<UserInfo> {
 
     /**
      * 请求注册
-     * @param req   请求对象
-     * @return      "-1":登录失败   "1":登录成功
+     *
+     * @param req 请求对象
+     * @return "-1":登录失败   "1":登录成功
      */
     @ResponseTypeAnnotation(ResponseEnum.AJAX)
-    public String reqReg(HttpServletRequest req){
+    public String reqReg(HttpServletRequest req) {
         RegUser regUser = BaseUtil.readBean(req, RegUser.class);
         return loginService.reg(regUser);
     }
 
+    /**
+     * 请求角色
+     * @param req
+     * @return
+     */
     @ResponseTypeAnnotation(ResponseEnum.AJAX)
-    public String reqUserRole(HttpServletRequest req){
-        String s = BaseUtil.readStr(req);
-        UserInfo login = (UserInfo)req.getSession().getAttribute("login");
+    public String reqUserRole(HttpServletRequest req) {
+        SimpleJSON s = BaseUtil.readBean(req, SimpleJSON.class);
+        UserInfo login = (UserInfo) req.getSession().getAttribute("login");
         //是否切换用户当前角色
-        if(!"0".equals(s)){
-            Integer integer = DataUtil.stringConvertToInteger(s);
+        if (s != null && !"0".equals(s.getValue())) {
+            Integer integer = DataUtil.stringConvertToInteger(s.getValue());
             login.setRoleId(integer);
         }
         UserRoleVo userRoleVo = loginService.getUserRoleVo(login);
         //判断是否查询到角色信息
-        if(userRoleVo==null){
+        if (userRoleVo == null) {
             return "-1";
         }
         return JSON.toJSONString(userRoleVo);

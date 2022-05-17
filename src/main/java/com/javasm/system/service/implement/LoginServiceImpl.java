@@ -58,11 +58,7 @@ public class LoginServiceImpl implements LoginService {
         UserRoleVo userRoleVo = new UserRoleVo(login);
         //获取用户全部角色
         List<UserRole> list = userRoleDao.queryUserAllRole(login.getUserId());
-        //将用户全部角色封装为Map集合
-        Map<Integer, UserRole> userRoles = userRoleVo.getUserRoles();
-        for (UserRole userRole : list) {
-            userRoles.put(userRole.getRoleId(),userRole);
-        }
+        userRoleVo.setUserRoles(list);
         return userRoleVo;
     }
 }

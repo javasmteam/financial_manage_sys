@@ -1,37 +1,48 @@
+//项目绝对路径
+const projectPath = "http://localhost:8088/Financial_manage_sys_war_exploded";
 
+function SimpleJSON(str){
+    this.value = str;
+}
 var app = new Vue({
     el: "#app",
     data: {
         roleMenu: {},
         userRole: {},
-
+        pageSrc:projectPath+"/default.html",
     },
     methods: {
-        //项目绝对路径
-        projectPath: "http://localhost:8088/financial_manage_sys_war_exploded/Login",
-        //请求数据封装
-        reqDate(reqType,paramObj, receive) {
-            axios.post(this.projectPath + reqType,paramObj).then(resp => {
+        reqRoleMenu(obj){
+            axios.post(projectPath + "/login?type=reqRoleMenu", obj).then(resp => {
                 if (resp.data == '-1') {
                     this.$message.error('网络有误,请刷新后重新尝试')
                 } else {
-                    receive = resp.data
+                    this.userRole = resp.data
                 }
             })
         },
-        //切换角色
-        changeRole(roleId){
-            //更新角色
-          this.reqDate("?type=reqUserRole",roleId,this.userRole);
-          this.reqDate("?type=reqUserMenu","0",this.roleMenu);
+        //请求角色
+        reqUserRole(obj) {
+            axios.post(projectPath + "/login?type=reqUserRole", obj).then(resp => {
+                if (resp.data == '-1') {
+                    this.$message.error('网络有误,请刷新后重新尝试')
+                } else {
+                    this.userRole = resp.data
+                }
+            })
         },
 
-
+        //切换角色
+        changeRole(roleId) {
+            //更新角色
+            this.reqUserRole(new SimpleJSON(roleId));
+            //更新菜单
+            this.reqRoleMenu(new SimpleJSON(0));
+        },
     },
     created: function () {
         //请求用户角色信息
-        this.reqDate("?type=reqUserRole","0",this.userRole);
-        //请求用户当前角色菜单
-        this.reqDate("?type=reqRoleMenu","0",this.roleMenu);
+        this.reqUserRole(new SimpleJSON(0));
+        this.reqRoleMenu(new SimpleJSON(0));
     }
 })

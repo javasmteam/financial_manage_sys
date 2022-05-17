@@ -24,6 +24,6 @@ public class LoginUser {
      */
     private String userAct;
     private String userPwd;
-    private String verify;
-    private Boolean isSavePwd;
+    private String userVri;
+    private Boolean isMemory;
 }
