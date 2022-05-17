@@ -17,10 +17,7 @@ import lombok.*;
 @ToString
 public class RemitInfo {
     private Integer remitId;
-    private Integer productTypeId;
-    private Integer remitAccount;
-    private String remitPostscript;
-    private String remitInfoSummary;
+    private Integer productSeriesId;
     private String recBankName;
     private String swiftCode;
     private String bankCode;
@@ -30,5 +27,7 @@ public class RemitInfo {
     private String recAccountName;
     private String recAccount;
     private String recLocation;
-    private Integer recState;
+    private String regulateBody;
+    private String remitInfoSummary;
+    private Integer remitState;
 }

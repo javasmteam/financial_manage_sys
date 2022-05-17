@@ -28,30 +28,20 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
      */
     @Override
     public Boolean addProductType(ProductType productType) {
-        String sql = JDBCUtils.getSql("addProductType");
-        return update(sql, productType.getProductParentId(), productType.getProductChannel(), productType.getProductTypeChName(),
-                productType.getProductTypeEngName(), productType.getProductTypeLv(), productType.getProductTypeState()) > 0;
+        return JDBCUtils.insert("product_type", productType) > 0;
     }
 
     /**
-     * 更新产品信息
+     * 更新产品类别
      *
      * @param productType 产品系列
      * @return 影响行数
      */
     @Override
     public Boolean updateProductType(ProductType productType) {
-        String sql = "update product_type\n" +
-                "set product_parent_id    = ?,\n" +
-                "    product_channel      = ?,\n" +
-                "    product_type_ch_name=?,\n" +
-                "    product_type_eng_name= ?,\n" +
-                "    product_type_lv      = ?,\n" +
-                "    product_type_state   = ?\n" +
-                "where product_type_id = ?";
-        return update(sql, productType.getProductParentId(), productType.getProductChannel(),
-                productType.getProductTypeChName(), productType.getProductTypeEngName(),
-                productType.getProductTypeLv(), productType.getProductTypeState(), productType.getProductTypeId()) > 0;
+        String sql = JDBCUtils.getSql("changeProductType");
+        return update(sql, productType.getProductParentId(), productType.getProductChannel(), productType.getProductTypeChName(),
+                productType.getProductTypeEngName(), productType.getProductTypeState(), productType.getProductSeriesId()) > 0;
     }
 
     /**
@@ -62,10 +52,9 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
      */
     @Override
     public Integer count(ProductType productType) {
-        StringBuilder sql = new StringBuilder("select count(product_type.product_type_id)\n" +
-                "from product_type,\n" +
-                "     remit_info\n" +
-                "where product_type.product_type_id = remit_info.product_type_id ");
+        StringBuilder sql = new StringBuilder("select count(product_type.product_series_id)\n" +
+                "from product_type\n" +
+                "where product_type_lv = 1");
         String appendSql = String.valueOf(appendLikeSql(productType, sql));
         return Math.toIntExact(JDBCUtils.size(appendSql));
     }
@@ -79,7 +68,7 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
      */
     @Override
     public List<ProductTypeVO> queryProductTypesByPage(PageInfo<ProductTypeVO> page, ProductType productType) {
-        StringBuilder sql = new StringBuilder("select product_type.product_type_id,\n" +
+        StringBuilder sql = new StringBuilder("select product_type.product_series_id,\n" +
                 "       product_type_ch_name,\n" +
                 "       product_type_eng_name,\n" +
                 "       remit_info_summary,\n" +
@@ -91,20 +80,19 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
                 "       rec_bank_city,\n" +
                 "       rec_account_name,\n" +
                 "       rec_account,\n" +
-                "       remit_account,\n" +
-                "       remit_postscript,\n" +
-                "       rec_location\n" +
+                "       rec_location,\n" +
+                "       regulate_body\n" +
                 "from product_type,\n" +
                 "     remit_info\n" +
-                "where product_type.product_type_id = remit_info.product_type_id");
+                "where product_type.product_series_id = remit_info.product_series_id");
         StringBuilder appendSql = appendLikeSql(productType, sql).append(" limit ?,?");
         return query(appendSql.toString(), ProductTypeVO.class, page.getStartIndex(), page.getPageNum());
     }
 
     private StringBuilder appendLikeSql(ProductType productType, StringBuilder sql) {
         if (productType != null) {
-            if (productType.getProductTypeId() != null) {
-                sql.append("  and product_type.product_type_id like '%").append(productType.getProductTypeId()).append("%'");
+            if (productType.getProductSeriesId() != null) {
+                sql.append("  and product_series_id like '%").append(productType.getProductSeriesId()).append("%'");
             }
             if (productType.getProductTypeChName() != null && !"".equals(productType.getProductTypeChName())) {
                 sql.append("  and product_type_ch_name like '%").append(productType.getProductTypeChName()).append("%'");
