@@ -2,6 +2,7 @@ package com.javasm.system.service.implement;
 
 import cn.hutool.core.codec.Base64;
 import com.javasm.system.bean.UserInfo;
+import com.javasm.system.bean.UserRole;
 import com.javasm.system.bean.vo.LoginUser;
 import com.javasm.system.bean.vo.RegUser;
 import com.javasm.system.bean.vo.RoleMenu;
@@ -15,6 +16,8 @@ import com.javasm.system.dao.implement.UserRoleDaoImpl;
 import com.javasm.system.service.LoginService;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author: 云勇
@@ -48,18 +51,18 @@ public class LoginServiceImpl implements LoginService {
         return "-1";
     }
 
-    @Override
-    public String signOut() {
-        return null;
-    }
 
     @Override
-    public UserRoleVo chooseRole(String RoleId) {
-        return null;
-    }
-
-    @Override
-    public RoleMenu chooseMenu(String permissionId) {
-        return null;
+    public UserRoleVo getUserRoleVo(UserInfo login) {
+        //根据对象创建角色信息对象
+        UserRoleVo userRoleVo = new UserRoleVo(login);
+        //获取用户全部角色
+        List<UserRole> list = userRoleDao.queryUserAllRole(login.getUserId());
+        //将用户全部角色封装为Map集合
+        Map<Integer, UserRole> userRoles = userRoleVo.getUserRoles();
+        for (UserRole userRole : list) {
+            userRoles.put(userRole.getRoleId(),userRole);
+        }
+        return userRoleVo;
     }
 }

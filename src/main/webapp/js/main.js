@@ -13,25 +13,25 @@ var app = new Vue({
         reqDate(reqType,paramObj, receive) {
             axios.post(this.projectPath + reqType,paramObj).then(resp => {
                 if (resp.data == '-1') {
-                    this.$message.error('网络有误')
+                    this.$message.error('网络有误,请刷新后重新尝试')
                 } else {
                     receive = resp.data
                 }
             })
         },
         //切换角色
-        changeRole(role){
+        changeRole(roleId){
             //更新角色
-          this.reqDate("?type=reqUserRole",role,this.userRole);
-          this.reqDate("?type=reqUserMenu","default",this.roleMenu);
+          this.reqDate("?type=reqUserRole",roleId,this.userRole);
+          this.reqDate("?type=reqUserMenu","0",this.roleMenu);
         },
 
 
     },
     created: function () {
         //请求用户角色信息
-        this.reqDate("?type=reqUserRole","default",this.userRole);
+        this.reqDate("?type=reqUserRole","0",this.userRole);
         //请求用户当前角色菜单
-        this.reqDate("?type=reqRoleMenu","default",this.roleMenu);
+        this.reqDate("?type=reqRoleMenu","0",this.roleMenu);
     }
 })

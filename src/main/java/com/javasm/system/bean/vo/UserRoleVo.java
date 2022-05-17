@@ -1,11 +1,14 @@
 package com.javasm.system.bean.vo;
 
+import com.javasm.system.bean.UserInfo;
 import com.javasm.system.bean.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: 云勇
@@ -21,5 +24,10 @@ public class UserRoleVo {
      * 用户拥有的全部角色
      */
     private Integer nowRole;
-    private List<UserRole> UserRoles;
+    private Map<Integer,UserRole> UserRoles;
+
+    public UserRoleVo(UserInfo login) {
+        this.nowRole = login.getRoleId();
+        this.UserRoles = new HashMap<>();
+    }
 }

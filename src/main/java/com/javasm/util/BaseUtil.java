@@ -42,6 +42,25 @@ public class BaseUtil {
         return t;
     }
 
+    public static String readStr(HttpServletRequest req){
+        BufferedReader reader = null;
+        String s = null;
+        try {
+            reader = req.getReader();
+            s = reader.readLine();
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            try {
+                reader.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return s;
+
+    }
+
     /**
      * 将响应对象转换为JSON数据格式进行响应
      * @param resp 响应对象

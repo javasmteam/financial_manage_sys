@@ -1,14 +1,18 @@
 package com.javasm.system.control;
 
+import com.alibaba.fastjson.JSON;
 import com.javasm.annotation.ResponseTypeAnnotation;
 import com.javasm.controlUtil.BaseServlet;
 import com.javasm.myEnum.ResponseEnum;
 import com.javasm.system.bean.UserInfo;
+import com.javasm.system.bean.UserRole;
 import com.javasm.system.bean.vo.LoginUser;
 import com.javasm.system.bean.vo.RegUser;
+import com.javasm.system.bean.vo.UserRoleVo;
 import com.javasm.system.service.LoginService;
 import com.javasm.system.service.implement.LoginServiceImpl;
 import com.javasm.util.BaseUtil;
+import com.javasm.util.DataUtil;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -65,6 +69,18 @@ public class LoginServlet extends BaseServlet<UserInfo> {
 
     @ResponseTypeAnnotation(ResponseEnum.AJAX)
     public String reqUserRole(HttpServletRequest req){
-
+        String s = BaseUtil.readStr(req);
+        UserInfo login = (UserInfo)req.getSession().getAttribute("login");
+        //是否切换用户当前角色
+        if(!"0".equals(s)){
+            Integer integer = DataUtil.stringConvertToInteger(s);
+            login.setRoleId(integer);
+        }
+        UserRoleVo userRoleVo = loginService.getUserRoleVo(login);
+        //判断是否查询到角色信息
+        if(userRoleVo==null){
+            return "-1";
+        }
+        return JSON.toJSONString(userRoleVo);
     }
 }

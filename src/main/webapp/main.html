@@ -56,7 +56,7 @@
                         <el-col span="2" offset="22">
                             <el-submenu index="1">
                                 <template slot="title">角色切换</template>
-                                <el-menu-item v-for="role in userRole.UserRoles" index={{role.roleId}} @click="changeRole(role)">
+                                <el-menu-item v-for="role in userRole.UserRoles" index={{role.roleId}} @click="changeRole(role.roleId)">
                                     {{role.roleName}}
                                 </el-menu-item>
                             </el-submenu>
