@@ -8,7 +8,7 @@ var vue = new Vue({
             productTypeEngName: "",
             type: "showProductType",
             nowPage: 1,
-            pageNum: 6
+            pageNum: 5
         },
         pageInfo: {
             nowPage: 1,
@@ -18,11 +18,20 @@ var vue = new Vue({
         productType: {
             productSeriesId: "", productTypeChName: "", productTypeEngName: "", remitInfoSummary: "",
 
-        }, productTypeList: [],
+        },
+        productTypeVOList: [],
     }, methods: {
         search() {
-            axios.get("${appPath}/productType.do", {})
-        }
+            axios.get("${appPath}/productType.do", {
+                params: this.selectParams
+            }).then(response => {
+                this.productTypeVOList = response.data.dataList;
+                this.pageInfo.nowPage = response.data.nowPage;
+                this.pageInfo.pageNum = response.data.pageNum;
+                this.pageInfo.total = response.data.total;
+            })
+        },
+
     }
 
 })
