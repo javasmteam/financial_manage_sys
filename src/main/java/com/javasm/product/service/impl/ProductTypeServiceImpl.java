@@ -2,9 +2,12 @@ package com.javasm.product.service.impl;
 
 import com.javasm.product.bean.PageInfo;
 import com.javasm.product.bean.ProductType;
+import com.javasm.product.bean.RemitInfo;
 import com.javasm.product.bean.vo.ProductTypeVO;
 import com.javasm.product.dao.ProductTypeDao;
+import com.javasm.product.dao.RemitInfoDao;
 import com.javasm.product.dao.impl.ProductTypeDaoImpl;
+import com.javasm.product.dao.impl.RemitInfoDaoImpl;
 import com.javasm.product.service.ProductTypeService;
 
 import java.util.List;
@@ -19,6 +22,7 @@ import java.util.List;
  **/
 public class ProductTypeServiceImpl implements ProductTypeService {
     private final ProductTypeDao productTypeDao = new ProductTypeDaoImpl();
+    private final RemitInfoDao remitInfoDao = new RemitInfoDaoImpl();
 
     /**
      * 增加产品信息
@@ -58,5 +62,28 @@ public class ProductTypeServiceImpl implements ProductTypeService {
         List<ProductTypeVO> productTypes = productTypeDao.queryProductTypesByPage(pageInfo, productType);
         pageInfo.setDataList(productTypes);
         return pageInfo;
+    }
+
+    /**
+     * 增加汇款信息
+     *
+     * @param remitInfo 汇款信息
+     * @return 影响行数
+     */
+    @Override
+    public Boolean addRemitInfo(RemitInfo remitInfo) {
+
+        return remitInfoDao.addRemitInfo(remitInfo);
+    }
+
+    /**
+     * 更新汇款信息
+     *
+     * @param remitInfo 汇款信息
+     * @return 影响行数
+     */
+    @Override
+    public Boolean updateRemitInfo(RemitInfo remitInfo) {
+        return remitInfoDao.updateRemitInfo(remitInfo);
     }
 }

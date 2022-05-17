@@ -27,12 +27,14 @@ public interface ProductTypeDao {
 
 
     /**
-     * 更新产品信息
+     * 更新产品类别
      *
      * @param productType 产品系列
      * @return 影响行数
      */
     Boolean updateProductType(ProductType productType);
+
+
 
     /**
      * 查询商品类别总条数

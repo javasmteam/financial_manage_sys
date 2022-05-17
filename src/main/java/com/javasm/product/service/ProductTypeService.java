@@ -2,6 +2,7 @@ package com.javasm.product.service;
 
 import com.javasm.product.bean.PageInfo;
 import com.javasm.product.bean.ProductType;
+import com.javasm.product.bean.RemitInfo;
 import com.javasm.product.bean.vo.ProductTypeVO;
 
 /**
@@ -41,4 +42,21 @@ public interface ProductTypeService {
      * @return 查询到的集合
      */
     PageInfo<ProductTypeVO> getProductTypesByPage(String nowPage, String pageSize, ProductType productType);
+
+    /**
+     * 增加汇款信息
+     *
+     * @param remitInfo 汇款信息
+     * @return 影响行数
+     */
+    Boolean addRemitInfo(RemitInfo remitInfo);
+
+
+    /**
+     * 更新汇款信息
+     *
+     * @param remitInfo 汇款信息
+     * @return 影响行数
+     */
+    Boolean updateRemitInfo(RemitInfo remitInfo);
 }

@@ -16,7 +16,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class ProductType {
-    private Integer productTypeId;
+    private Integer productSeriesId;
     private Integer productParentId;
     private String productChannel;
     private String productTypeChName;

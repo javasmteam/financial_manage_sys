@@ -16,12 +16,9 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class ProductTypeVO {
-    private Integer productTypeId;
+    private Integer productSeriesId;
     private String productTypeChName;
     private String productTypeEngName;
-    private Integer userId;
-    private String remitPostscript;
-    private String remitInfoSummary;
     private String recBankName;
     private String swiftCode;
     private String bankCode;
@@ -31,4 +28,6 @@ public class ProductTypeVO {
     private String recAccountName;
     private String recAccount;
     private String recLocation;
+    private String regulateBody;
+    private String remitInfoSummary;
 }
