@@ -39,7 +39,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public String reg(RegUser regUser) {
-        return null;
+        UserInfo userInfo = new UserInfo(regUser);
     }
 
     @Override

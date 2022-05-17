@@ -26,6 +26,7 @@ public class RegUser {
     private String userAct;
     private String userPwd;
     private String userName;
+    private Integer sex;
     private Date birthday;
     private String phone;
 }
