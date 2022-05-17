@@ -58,6 +58,10 @@ public class UserInfo {
         this.birthday = regUser.getBirthday();
         this.sex = regUser.getSex();
         this.phone = regUser.getPhone();
+        //新注册的用户角色默认为会员
+        this.roleId = 5;
+        this.createTime = new Date();
+        this.userState = 1;
 
     }
 }

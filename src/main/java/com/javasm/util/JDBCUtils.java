@@ -216,7 +216,7 @@ public class JDBCUtils {
      * @param <T>
      * @return
      */
-    public <T> Integer insert(String table, T t) {
+    public static <T> Integer insert(String table, T t) {
         Connection conn = JDBCUtils.getConn();
         Integer o = insert(conn, table, t);
         DbUtils.closeQuietly(conn);
@@ -233,7 +233,7 @@ public class JDBCUtils {
      * @param <T>
      * @return
      */
-    public <T> Integer insert(Connection conn, String table, T t) {
+    public static <T> Integer insert(Connection conn, String table, T t) {
         List<Object> params = new ArrayList<>();
         PreparedStatement prst = null;
         ResultSet rs = null;
@@ -273,7 +273,7 @@ public class JDBCUtils {
      * @throws SQLException
      */
     @SneakyThrows
-    public static <T> String InsertSql(String table, ResultSetMetaData md, List<Object> fill, T t) throws SQLException, NoSuchMethodException {
+    private static <T> String InsertSql(String table, ResultSetMetaData md, List<Object> fill, T t) throws SQLException, NoSuchMethodException {
         //插入sql语句
         StringBuilder sql1 = new StringBuilder("INSERT INTO " + table + "(");
         //泛型T的Class对象
@@ -320,7 +320,7 @@ public class JDBCUtils {
      * @param str
      * @return
      */
-    public static String getGMN(String str) {
+    private static String getGMN(String str) {
         StringBuilder temp = new StringBuilder("get");
         String[] split = str.split("_");
         for (String s : split) {

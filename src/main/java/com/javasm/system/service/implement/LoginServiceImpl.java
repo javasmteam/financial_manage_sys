@@ -40,6 +40,11 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public String reg(RegUser regUser) {
         UserInfo userInfo = new UserInfo(regUser);
+        Integer i = userDao.add(userInfo);
+        if(i>0){
+            return "1";
+        }
+        return "-1";
     }
 
     @Override

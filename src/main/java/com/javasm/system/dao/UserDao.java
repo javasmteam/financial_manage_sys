@@ -24,4 +24,11 @@ public interface UserDao {
      * @return
      */
     Integer updateLastLogin(Integer userId, Date lastLogin);
+
+    /**
+     * 添加用户
+     * @param userInfo
+     * @return
+     */
+    Integer add(UserInfo userInfo);
 }
