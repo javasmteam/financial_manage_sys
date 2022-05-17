@@ -29,6 +29,30 @@ CREATE table bk_invest_money
     state               int(10) comment '状态' -- 0.删除  1.可用
 );
 
+-- 用户表（客户）
+drop table if exists bk_user_info;
+create table bk_user_info(
+    user_id int(10) primary key auto_increment, -- 主键
+    user_name varchar(20),-- 账号
+    user_code int(10),-- 客户编号
+    iphone varchar(11),-- 手机号
+    pwd varchar(20), -- 密码
+    nick_name varchar(20), -- 昵称
+    sex int(1), -- 性别 1为男  0为女
+    birthday date,
+    avatarocolor varchar(50), -- 爱好
+    grade int(10), -- 等级
+    headpic varchar(100), -- 头像大图
+    headpic_thumb varchar(200), -- 头像缩略图
+    state int(10) -- 状态 1为可用  0为删除
+);
+
+
+
+
+
+
+
 -- 独角兽🦄公司信息表
 drop table if exists company_info;
 create table company_info
@@ -198,6 +222,73 @@ create table history_funding
     price_per_share int(10) comment '每股单价',
     hy_fun_state    int(10) default 1 comment '历史融资表状态'
 );
+
+insert into history_funding
+values(hy_fun_id,1,'1997-02-28','天使轮',1,2,1,2,hy_fun_state);
+insert into history_funding
+values(hy_fun_id,1,'2002-02-02','A轮',5,10,1,7,hy_fun_state);
+insert into history_funding
+values(hy_fun_id,1,'2004-02-02','B轮',10,345,23,15,hy_fun_state);
+insert into history_funding
+values(hy_fun_id,1,'2004-12-02','C轮',25,575,25,23,hy_fun_state);
+insert into history_funding
+values(hy_fun_id,1,'2008-09-09','D轮',50,120,30,40,hy_fun_state);
+
+insert into history_funding
+values(hy_fun_id,2,'2000-04-28','天使轮',5,3,1,3,hy_fun_state);
+insert into history_funding
+values(hy_fun_id,2,'2004-06-02','A轮',10,15,5,8,hy_fun_state);
+insert into history_funding
+values(hy_fun_id,2,'2006-02-02','B轮',20,350,25,15,hy_fun_state);
+insert into history_funding
+values(hy_fun_id,2,'2006-12-02','C轮',30,550,30,23,hy_fun_state);
+insert into history_funding
+values(hy_fun_id,2,'2010-09-09','D轮',60,120,30,40,hy_fun_state);
+
+insert into history_funding
+values(hy_fun_id,3,'2001-04-28','天使轮',5,2,1,2,hy_fun_state);
+insert into history_funding
+values(hy_fun_id,3,'2005-06-02','A轮',10,15,1,8,hy_fun_state);
+insert into history_funding
+values(hy_fun_id,3,'2007-06-02','B轮',15,300,20,15,hy_fun_state);
+insert into history_funding
+values(hy_fun_id,3,'2007-10-02','C轮',30,550,30,25,hy_fun_state);
+insert into history_funding
+values(hy_fun_id,3,'2010-10-09','D轮',60,120,30,40,hy_fun_state);
+
+insert into history_funding
+values(hy_fun_id,4,'2002-04-28','天使轮',1,2,1,2,hy_fun_state);
+insert into history_funding
+values(hy_fun_id,4,'2005-06-02','A轮',5,10,1,8,hy_fun_state);
+insert into history_funding
+values(hy_fun_id,4,'2008-06-02','B轮',15,300,20,15,hy_fun_state);
+insert into history_funding
+values(hy_fun_id,4,'2008-11-11','C轮',25,600,25,20,hy_fun_state);
+insert into history_funding
+values(hy_fun_id,4,'2010-10-09','D轮',60,100,30,35,hy_fun_state);
+
+insert into history_funding
+values(hy_fun_id,5,'2000-05-20','天使轮',4,4,1,3,hy_fun_state);
+insert into history_funding
+values(hy_fun_id,5,'2005-07-17','A轮',10,10,1,8,hy_fun_state);
+insert into history_funding
+values(hy_fun_id,5,'2008-08-02','B轮',20,400,22,16,hy_fun_state);
+insert into history_funding
+values(hy_fun_id,5,'2008-12-11','C轮',30,600,25,24,hy_fun_state);
+insert into history_funding
+values(hy_fun_id,5,'2010-10-09','D轮',60,300,40,40,hy_fun_state);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
