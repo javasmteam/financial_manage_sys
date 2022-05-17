@@ -1,5 +1,6 @@
 package com.javasm.system.bean;
 
+import cn.hutool.core.codec.Base64;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.javasm.system.bean.vo.RegUser;
 import lombok.AllArgsConstructor;
@@ -53,7 +54,7 @@ public class UserInfo {
 
     public UserInfo(RegUser regUser) {
         this.userAct = regUser.getUserAct();
-        this.userPwd = regUser.getUserPwd();
+        this.userPwd = Base64.encode(regUser.getUserPwd());
         this.userName = regUser.getUserName();
         this.birthday = regUser.getBirthday();
         this.sex = regUser.getSex();
