@@ -24,6 +24,12 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginServlet extends BaseServlet<UserInfo> {
     private LoginService loginService = new LoginServiceImpl();
 
+    /**
+     * 请求登录
+     * @param req   请求对象
+     * @param resp  响应对象
+     * @return      "-1":登录失败   "1":登录成功
+     */
     @ResponseTypeAnnotation(ResponseEnum.AJAX)
     public String reqLogin(HttpServletRequest req, HttpServletResponse resp){
         //获取请求登录数据
@@ -46,9 +52,19 @@ public class LoginServlet extends BaseServlet<UserInfo> {
         return "1";
     }
 
+    /**
+     * 请求注册
+     * @param req   请求对象
+     * @return      "-1":登录失败   "1":登录成功
+     */
     @ResponseTypeAnnotation(ResponseEnum.AJAX)
     public String reqReg(HttpServletRequest req){
         RegUser regUser = BaseUtil.readBean(req, RegUser.class);
         return loginService.reg(regUser);
+    }
+
+    @ResponseTypeAnnotation(ResponseEnum.AJAX)
+    public String reqUserRole(HttpServletRequest req){
+
     }
 }

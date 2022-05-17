@@ -17,7 +17,7 @@ import java.util.List;
 @Data
 public class RoleMenu {
     /**
-     * 当前权限
+     *  父级菜单
      *  当前角色拥有的全部权限
      */
     private UserPermission nowPermission;

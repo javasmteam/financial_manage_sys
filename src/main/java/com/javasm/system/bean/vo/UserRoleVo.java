@@ -20,6 +20,6 @@ public class UserRoleVo {
      * 用户当前角色
      * 用户拥有的全部角色
      */
-    private UserRole nowRole;
+    private Integer nowRole;
     private List<UserRole> UserRoles;
 }
