@@ -70,9 +70,47 @@ create table maker_price
     com_id       int(10) comment '企业编号',
     maker_amount float(10, 2) comment '挂单金额',      -- 单价
     trade_amount int(10) comment '交易数量',
-    maker_state  int(10) default 1 comment '挂单表状态' -- 0:买入  1：卖出
+    maker_state  int(10) default 1 comment '挂单表状态' -- 1:买入  0：卖出
 );
+insert into maker_price values (maker_id,5,161.51,11,0);
+insert into maker_price values (maker_id,5,161.54,19,0);
+insert into maker_price values (maker_id,5,161.55,24,0);
 
+insert into maker_price values (maker_id,5,161.45,35,1);
+insert into maker_price values (maker_id,5,161.44,49,1);
+insert into maker_price values (maker_id,5,161.40,5,1);
+
+insert into maker_price values (maker_id,2,9.45,94,0);
+insert into maker_price values (maker_id,2,9.46,959,0);
+insert into maker_price values (maker_id,2,9.48,61,0);
+
+insert into maker_price values (maker_id,2,9.44,354,1);
+insert into maker_price values (maker_id,2,9.43,692,1);
+insert into maker_price values (maker_id,2,9.42,56,1);
+
+insert into maker_price values (maker_id,3,14.92,174,0);
+insert into maker_price values (maker_id,3,14.93,1332,0);
+insert into maker_price values (maker_id,3,14.94,175,0);
+
+insert into maker_price values (maker_id,3,14.91,26,1);
+insert into maker_price values (maker_id,3,14.90,132,1);
+insert into maker_price values (maker_id,3,14.88,6,1);
+
+insert into maker_price values (maker_id,4,41.71,34,0);
+insert into maker_price values (maker_id,4,41.73,1,0);
+insert into maker_price values (maker_id,4,41.74,7,0);
+
+insert into maker_price values (maker_id,4,41.70,2,1);
+insert into maker_price values (maker_id,4,41.67,45,1);
+insert into maker_price values (maker_id,4,41.66,172,1);
+
+insert into maker_price values (maker_id,1,23.55,631,0);
+insert into maker_price values (maker_id,1,23.56,50,0);
+insert into maker_price values (maker_id,1,23.57,51,0);
+
+insert into maker_price values (maker_id,1,23.53,56,1);
+insert into maker_price values (maker_id,1,23.51,30,1);
+insert into maker_price values (maker_id,1,23.50,23,1);
 -- 历史融资表
 drop table if exists history_funding;
 create table history_funding
