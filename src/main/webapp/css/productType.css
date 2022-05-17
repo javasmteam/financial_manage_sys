@@ -1,0 +1,18 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#app{
+    margin-left: 30px;
+    margin-top: 50px;
+}
+
+.el-icon-arrow-right{
+    margin-bottom: 50px;
+}
+.el-input{
+    width: 250px;
+}
+.el-table{
+    width:400px;
+}
