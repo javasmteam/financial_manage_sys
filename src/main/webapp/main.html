@@ -33,7 +33,7 @@
                         <span>{{roleMenu.herdPermission.permissionName}}</span>
                     </template>
                     <el-menu-item v-for="per in roleMenu.permissions" :index="per.permissionId"
-                                  @click="changePage(per.permissionSrc)">
+                                  @click="changePage(per.permissionPath)">
                         {{per.permissionName}}
                     </el-menu-item>
                 </el-submenu>

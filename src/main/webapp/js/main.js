@@ -1,16 +1,16 @@
-
-function SimpleJSON(str){
+function SimpleJSON(str) {
     this.value = str;
 }
+
 var app = new Vue({
     el: "#app",
     data: {
         roleMenus: {},
         userRole: {},
-        pageSrc:projectPath+"/default.html",
+        pageSrc: projectPath + "/default.html",
     },
     methods: {
-        reqRoleMenu(obj){
+        reqRoleMenu(obj) {
             axios.post(projectPath + "/login?type=reqRoleMenu", obj).then(resp => {
                 if (resp.data == '-1') {
                     this.$message.error('网络有误,请刷新后重新尝试')
@@ -36,6 +36,10 @@ var app = new Vue({
             this.reqUserRole(new SimpleJSON(roleId));
             //更新菜单
             this.reqRoleMenu(new SimpleJSON(0));
+        },
+        //切换菜单
+        changePage(scr) {
+            this.pageSrc = projectPath + scr;
         },
     },
     created: function () {
