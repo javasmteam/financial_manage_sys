@@ -48,7 +48,7 @@ public class UserDaoImpl implements UserDao {
     public Integer updateUserInfo(SetUserInfo setUserInfo) {
         String sql = JDBCUtils.getSql("UPDATE_USER_INFO");
         return JDBCUtils.update(sql,setUserInfo.getUserName(),setUserInfo.getDes(),setUserInfo.getSex(),
-                setUserInfo.getBirthday(),setUserInfo.getAvatarColor(),setUserInfo.getRoles().getNowRole().getRoleId(),
+                setUserInfo.getBirthday(),setUserInfo.getAvatarColor(),setUserInfo.getPhone(),setUserInfo.getRoles().getNowRole().getRoleId(),
                 setUserInfo.getUserId());
     }
 

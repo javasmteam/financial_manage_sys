@@ -103,30 +103,30 @@
             title="提示"
             :visible.sync="setUserFlag"
             width="30%">
-        <el-form :model="setUser" rules="vriSetUser" ref="setUser" label-width="100px">
+        <el-form :model="setUserInfo" rules="vriSetUser" ref="setUserInfo" label-width="100px">
             <el-form-item label="用户名">
-                <el-input v-model="setUser.userName" placeholder="请输入内容"></el-input>
+                <el-input v-model="setUserInfo.userName" placeholder="请输入内容"></el-input>
             </el-form-item>
             <el-form-item label="用户签名">
-                <el-input v-model="setUser.des" placeholder="请输入签名"></el-input>
+                <el-input v-model="setUserInfo.des" placeholder="请输入签名"></el-input>
             </el-form-item>
             <el-form-item label="用户性别">
-                <el-radio v-model="setUser.sex" label="0">男</el-radio>
-                <el-radio v-model="setUser.sex" label="1">女</el-radio>
+                <el-radio v-model="setUserInfo.sex" label="0">男</el-radio>
+                <el-radio v-model="setUserInfo.sex" label="1">女</el-radio>
             </el-form-item>
             <el-form-item label="用户生日">
-                <el-date-picker v-model="setUser.birthday" type="date" placeholder="选择日期"></el-date-picker>
+                <el-date-picker v-model="setUserInfo.birthday" type="date" placeholder="选择日期"></el-date-picker>
             </el-form-item>
             <el-form-item label="用户爱好">
-                <el-input v-model="setUser.avatarColor" placeholder="请输入爱好"></el-input>
+                <el-input v-model="setUserInfo.avatarColor" placeholder="请输入爱好"></el-input>
             </el-form-item>
             <el-form-item label="用户联系方式">
-                <el-input v-model="setUser.phone" placeholder="请输入联系方式"></el-input>
+                <el-input v-model="setUserInfo.phone" placeholder="请输入联系方式"></el-input>
             </el-form-item>
             <el-form-item label="用户默认角色">
-                <el-select v-model="setUser.roles.nowRole" value-key="nowRole.roleId" placeholder="请设置默认角色">
+                <el-select v-model="setUserInfo.roles.nowRole" value-key="roleId" placeholder="请设置默认角色">
                     <el-option
-                            v-for="role in setUser.roles.allRole"
+                            v-for="role in setUserInfo.roles.userRoles"
                             :key="role.roleId"
                             :label="role.roleName"
                             :value="role">
