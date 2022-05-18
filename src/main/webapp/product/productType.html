@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <link rel="stylesheet" href="../css/productType.css">
+    <script src="../js/constant.js"></script>
 </head>
 <body>
 <div id="app">
@@ -26,7 +27,7 @@
     </el-form>
     <br/>
     <el-row>
-        <el-col span="20" offset="5">
+        <el-col span="20">
             <el-table
                     :data="productTypeVOList"
                     style="width: 100%">
@@ -42,11 +43,12 @@
                 </el-table-column>
                 <el-table-column
                         prop="productTypeEngName"
-                        label="产品英文名称">
+                        label="产品英文名称"
+                        width="180">
                 </el-table-column>
                 <el-table-column
                         prop="remitInfoSummary"
-                        label="汇款信息概略">
+                        label="汇款信息概略" width="180">
                 </el-table-column>
                 <el-table-column label="操作">
                     <template slot-scope="scope">

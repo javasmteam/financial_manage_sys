@@ -1,25 +1,36 @@
 var vue = new Vue({
     el: "#app",
     data: {
-        selectParams: {
-            //提交到服务器的值
+        productTypeVO: {
             productSeriesId: "",
             productTypeChName: "",
             productTypeEngName: "",
-            type: "showProductType",
-            nowPage: 1,
-            pageNum: 5
+            recBankName: "",
+            swiftCode: "",
+            bankCode: "",
+            cnapsId: "",
+            recBankArea: "",
+            recBankCity: "",
+            recAccountName: "",
+            recAccount: "",
+            recLocation: "",
+            regulateBody: "",
+            remitInfoSummary: "",
         },
-        productType: {
-            productSeriesId: "", productTypeChName: "", productTypeEngName: "", remitInfoSummary: "",
-
+        pageInfo: {
+            nowPage: 1,
+            pageNum: 5,
+            total: 0
         },
         productTypeVOList: [],
     }, methods: {
         search() {
-            axios.get()
-            axios.get("/productType.do", {
-                params: this.selectParams
+            axios.get(projectPath + "/productType.do", {
+                params: {
+                    type:"showProductType",
+                    pageNum:1,
+
+                }
             }).then(response => {
                 this.productTypeVOList = response.data.dataList;
                 this.pageInfo.nowPage = response.data.nowPage;
@@ -37,11 +48,11 @@ var vue = new Vue({
             this.search();
         }
     },
-    created() {
-        //调用method中的方法查询英雄的函数
-        this.search();
-        axios.get("/productType.do", {params: {type: "showProductType"}}).then(response => {
-            this.productTypeVOList = response.data;
-        })
-    }
+    // created() {
+    //     //调用method中的方法查询英雄的函数
+    //     this.search();
+    //     axios.get(projectPath + "/productType.do", {params: {type: "showProductType"}}).then(response => {
+    //         this.productTypeVOList = response.data;
+    //     })
+    // }
 })
