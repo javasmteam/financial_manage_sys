@@ -8,6 +8,7 @@ package com.javasm.unicom.web; /**
  **/
 
 import com.alibaba.fastjson.JSONObject;
+import com.javasm.controlUtil.BaseServlet;
 import com.javasm.unicom.bean.CompanyInfo;
 import com.javasm.unicom.bean.PageInfo;
 import com.javasm.unicom.service.CompanyInfoService;
@@ -18,7 +19,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
 @WebServlet(  "/companyInfo.do")
-public class CompanyInfoServlet extends ServletUtil {
+public class CompanyInfoServlet extends BaseServlet<CompanyInfo> {
     private CompanyInfoService companyInfoService = new CompanyInfoServiceImpl();
 
     public String showCompany(CompanyInfo companyInfo,HttpServletRequest request){
