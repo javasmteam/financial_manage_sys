@@ -16,4 +16,11 @@ public interface UserRoleDao {
      * @return  用户全部角色集合
      */
     List<UserRole> queryUserAllRole(Integer userId);
+
+    /**
+     * 获取指定id的角色
+     * @param roleId
+     * @return
+     */
+    UserRole get(Integer roleId);
 }

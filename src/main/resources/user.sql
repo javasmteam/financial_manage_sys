@@ -16,3 +16,7 @@ values(
        "2000-01-01 00:00:00",
        1
       );
+
+select user_role.*
+from user_role
+where user_role.role_id = 1;

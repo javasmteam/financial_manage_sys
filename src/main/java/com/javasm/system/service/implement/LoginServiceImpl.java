@@ -56,8 +56,10 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public UserRoleVo getUserRoleVo(UserInfo login) {
+        //查询用户当前角色对象
+        UserRole nowRole = userRoleDao.get(login.getRoleId());
         //根据对象创建角色信息对象
-        UserRoleVo userRoleVo = new UserRoleVo(login);
+        UserRoleVo userRoleVo = new UserRoleVo(nowRole);
         //获取用户全部角色
         List<UserRole> list = userRoleDao.queryUserAllRole(login.getUserId());
         userRoleVo.setUserRoles(list);

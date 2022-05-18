@@ -24,11 +24,11 @@ public class UserRoleVo {
      * 用户当前角色
      * 用户拥有的全部角色
      */
-    private Integer nowRole;
+    private UserRole nowRole;
     private List<UserRole> userRoles;
 
-    public UserRoleVo(UserInfo login) {
-        this.nowRole = login.getRoleId();
+    public UserRoleVo(UserRole nowRole) {
+        this.nowRole = nowRole;
         this.userRoles = new ArrayList<>();
     }
 }

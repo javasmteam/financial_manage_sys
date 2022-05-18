@@ -31,11 +31,12 @@ var app = new Vue({
         },
 
         //切换角色
-        changeRole(roleId) {
+        changeRole(role) {
             //更新角色
-            this.reqUserRole(new SimpleJSON(roleId));
+            this.reqUserRole(new SimpleJSON(role.roleId));
             //更新菜单
             this.reqRoleMenu(new SimpleJSON(0));
+            this.userRole.nowRole = role;
         },
         //切换菜单
         changePage(scr) {
