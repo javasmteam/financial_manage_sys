@@ -1,10 +1,7 @@
 package com.javasm.system.service;
 
 import com.javasm.system.bean.UserInfo;
-import com.javasm.system.bean.vo.LoginUser;
-import com.javasm.system.bean.vo.RegUser;
-import com.javasm.system.bean.vo.RoleMenu;
-import com.javasm.system.bean.vo.UserRoleVo;
+import com.javasm.system.bean.vo.*;
 
 import java.util.List;
 
@@ -43,4 +40,6 @@ public interface LoginService {
      * @return
      */
     List<RoleMenu> getRoleMenu(Integer userId);
+
+
 }

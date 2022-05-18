@@ -39,4 +39,8 @@ public class UserServiceImpl implements UserService {
         setUserInfo.setRoles(userRoleVo);
         return setUserInfo;
     }
+    @Override
+    public Integer updateUserInfo(SetUserInfo setUserInfo) {
+        return userDao.updateUserInfo(setUserInfo);
+    }
 }

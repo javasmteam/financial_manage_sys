@@ -25,14 +25,15 @@ public class UserInfoServlet extends BaseServlet<UserInfo> {
 
     /**
      * 请求用户显示信息
+     *
      * @param req
      * @return
      */
     @ResponseTypeAnnotation(ResponseEnum.AJAX)
-    public String reqUserInfoVo(HttpServletRequest req){
-        UserInfo login = (UserInfo)req.getSession().getAttribute("login");
+    public String reqUserInfoVo(HttpServletRequest req) {
+        UserInfo login = (UserInfo) req.getSession().getAttribute("login");
         UserInfoVo userInfoVo = userService.showUserInfo(login.getUserId());
-        if(userInfoVo== null){
+        if (userInfoVo == null) {
             return "-1";
         }
         return JSON.toJSONString(userInfoVo);
@@ -40,14 +41,15 @@ public class UserInfoServlet extends BaseServlet<UserInfo> {
 
     /**
      * 请求设置用户当前数据
+     *
      * @param req
      * @return
      */
     @ResponseTypeAnnotation(ResponseEnum.AJAX)
-    public String reqSetUserInfo(HttpServletRequest req){
-        UserInfo login = (UserInfo)req.getSession().getAttribute("login");
+    public String reqSetUserInfo(HttpServletRequest req) {
+        UserInfo login = (UserInfo) req.getSession().getAttribute("login");
         SetUserInfo setUserInfo = userService.getSetUserInfo(login);
-        if(setUserInfo== null){
+        if (setUserInfo == null) {
             return "-1";
         }
         return JSON.toJSONString(setUserInfo);
@@ -55,13 +57,31 @@ public class UserInfoServlet extends BaseServlet<UserInfo> {
 
     /**
      * 请求设置用户数据
+     *
      * @param req
      * @return
      */
     @ResponseTypeAnnotation(ResponseEnum.AJAX)
-    public String reqSetUser(HttpServletRequest req){
+    public String reqSetUser(HttpServletRequest req) {
         SetUserInfo setUserInfo = BaseUtil.readBean(req, SetUserInfo.class);
+        Integer integer = userService.updateUserInfo(setUserInfo);
+        if (integer > 0) {
+            UserInfo u = (UserInfo) req.getSession().getAttribute("login");
+            updateLogin(u,setUserInfo);
+            return JSON.toJSONString(u);
+        }else {
+            return "-1";
+        }
 
+    }
 
+    private void updateLogin(UserInfo u,SetUserInfo setUserInfo){
+        u.setUserName(setUserInfo.getUserName());
+        u.setDes(setUserInfo.getDes());
+        u.setSex(setUserInfo.getSex());
+        u.setBirthday(setUserInfo.getBirthday());
+        u.setAvatarColor(setUserInfo.getAvatarColor());
+        u.setPhone(setUserInfo.getPhone());
+        u.setRoleId(setUserInfo.getRoles().getNowRole().getRoleId());
     }
 }

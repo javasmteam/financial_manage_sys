@@ -23,4 +23,11 @@ public interface UserService {
      * @return
      */
     SetUserInfo getSetUserInfo(UserInfo user);
+
+    /**
+     * 更新用户数据
+     * @param setUserInfo
+     * @return
+     */
+    Integer updateUserInfo(SetUserInfo setUserInfo);
 }

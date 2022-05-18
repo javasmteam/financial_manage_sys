@@ -47,4 +47,11 @@ public interface UserDao {
      * @return
      */
     SetUserInfo getSetUserInfoVo(Integer userId);
+
+    /**
+     * 更新用户信息
+     * @param setUserInfo
+     * @return
+     */
+    Integer updateUserInfo(SetUserInfo setUserInfo);
 }

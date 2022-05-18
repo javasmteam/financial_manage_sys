@@ -57,7 +57,7 @@ var app = new Vue({
                 if (resp.data == "-1") {
                     this.$message.error("修改失败");
                 } else {
-                    this.reqUserInfoVo();
+                    this.userInfo = resp.data;
                     this.reqSetUserInfo();
                 }
             })

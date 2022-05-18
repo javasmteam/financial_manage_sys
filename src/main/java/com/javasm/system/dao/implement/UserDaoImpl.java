@@ -44,5 +44,13 @@ public class UserDaoImpl implements UserDao {
         return JDBCUtils.find(sql,SetUserInfo.class,userId);
     }
 
+    @Override
+    public Integer updateUserInfo(SetUserInfo setUserInfo) {
+        String sql = JDBCUtils.getSql("UPDATE_USER_INFO");
+        return JDBCUtils.update(sql,setUserInfo.getUserName(),setUserInfo.getDes(),setUserInfo.getSex(),
+                setUserInfo.getBirthday(),setUserInfo.getAvatarColor(),setUserInfo.getRoles().getNowRole().getRoleId(),
+                setUserInfo.getUserId());
+    }
+
 
 }
