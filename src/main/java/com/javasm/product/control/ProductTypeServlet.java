@@ -20,7 +20,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet("productType.do")
+@WebServlet("/productType.do")
 public class ProductTypeServlet extends BaseServlet<ProductTypeVO> {
     private final ProductTypeService productTypeService = new ProductTypeServiceImpl();
 

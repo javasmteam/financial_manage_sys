@@ -1,18 +1,25 @@
-*{
+body {
+    height: 100%;
+    width: 100%;
+    position: absolute;
     margin: 0;
     padding: 0;
+    background-color: #f1f1f1;
 }
-#app{
+.content-
+#app {
     margin-left: 30px;
     margin-top: 50px;
 }
 
-.el-icon-arrow-right{
+.el-icon-arrow-right {
     margin-bottom: 50px;
 }
-.el-input{
+
+.el-input {
     width: 250px;
 }
-.el-table{
-    width:400px;
+
+.el-table {
+    width: 400px;
 }

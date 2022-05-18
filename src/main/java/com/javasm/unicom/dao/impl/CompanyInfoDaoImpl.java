@@ -30,12 +30,12 @@ public class CompanyInfoDaoImpl implements CompanyInfoDao {
 
     @Override
     public List<CompanyInfo> selectCompanyInfoByPage(PageInfo<CompanyInfo> page, CompanyInfo companyInfo) {
-        StringBuilder sql = new StringBuilder("select c.com_name,c.trade_code,c.com_seq_code,m.maker_amount from " +
+        StringBuilder sql = new StringBuilder("select c.com_name comName,c.trade_code tradeCode,c.com_seq_code comSeqCode,m.maker_amount makerAmount from " +
                 " company_info c,maker_price m " +
                 "where c.com_id=m.com_id");
         if (companyInfo != null ){
             if (companyInfo.getComName()!=null && !"".equals(companyInfo.getComName())){
-                sql.append(" and h.hero_name like '%"+companyInfo.getComName() +"%' ");
+                sql.append(" and c.com_name comName like '%"+companyInfo.getComName() +"%' ");
             }
         }
         sql.append(" limit ?,? ");

@@ -17,41 +17,51 @@
         <el-breadcrumb-item :to="{ path: '/' }">产品管理</el-breadcrumb-item>
         <el-breadcrumb-item>产品系列管理</el-breadcrumb-item>
     </el-breadcrumb>
-    <br/>
-    <el-form :inline="true" id="productTypeSelect">
-        <el-input placeholder="请输入查询系列编号(支持模糊查询)" v-model="selectParams.productSeriesId"></el-input>
-        <el-input placeholder="请输入查询中文名称(支持模糊查询)" v-model="selectParams.productTypeChName"></el-input>
-        <el-input placeholder="请输入查询英文名称(支持模糊查询)" v-model="selectParams.productTypeEngName"></el-input>
-        <el-button type="primary" icon="el-icon-search" @click="search()">搜索</el-button>
-        <el-button type="primary" icon="el-icon-edit-outline" @click="add()">添加</el-button>
-    </el-form>
-    <br/>
+    <el-container class="content-row">
+        <div class="input-tip">系列编号：</div>
+        <div class="input-field">
+            <el-input v-model="queryParams.productSeriesId"></el-input>
+        </div>
+        <div class="input-tip">中文名称：</div>
+        <div class="input-field">
+            <el-input v-model="queryParams.productTypeChName"></el-input>
+        </div>
+        <div class="input-tip">英文名称：</div>
+        <div class="input-field">
+            <el-input v-model="queryParams.productTypeEngName"></el-input>
+        </div>
+    </el-container>
+    <el-container class="content-row">
+        <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
+        <el-button type="primary" icon="el-icon-edit-outline" @click="add">添加</el-button>
+    </el-container>
     <el-row>
         <el-col span="20">
             <el-table
                     :data="productTypeVOList"
+                    tooltip-effect="dark"
                     style="width: 100%">
                 <el-table-column
                         prop="productSeriesId"
                         label="产品系列ID"
-                        width="180">
+                        width="200">
                 </el-table-column>
                 <el-table-column
                         prop="productTypeChName"
                         label="产品中文名称"
-                        width="180">
+                        width="200">
                 </el-table-column>
                 <el-table-column
                         prop="productTypeEngName"
                         label="产品英文名称"
-                        width="180">
+                        width="200">
                 </el-table-column>
                 <el-table-column
                         prop="remitInfoSummary"
-                        label="汇款信息概略" width="180">
+                        label="汇款信息概略" width="200">
                 </el-table-column>
-                <el-table-column label="操作">
-                    <template slot-scope="scope">
+                <el-table-column label="操作" width="200">
+                    <template #default="scope">
                         <el-button
                                 size="mini"
                                 @click="handleEdit(scope.$index, scope.row)">编辑
@@ -63,7 +73,7 @@
                         <el-button
                                 size="mini"
                                 type="danger"
-                                @click="handleDelete(scope.$index, scope.row)">删除
+                                @click="deleteProduct(scope.$index)">删除
                         </el-button>
                     </template>
                 </el-table-column>
@@ -72,15 +82,15 @@
     </el-row>
     <el-row>
         <el-col span="20" offset="5">
-            <el-pagination
-                    @size-change="pageSizeChange"
-                    @current-change="nowPageChange"
-                    :current-page="pageInfo.nowPage"
-                    :page-sizes="[5,10,15,20]"
-                    :page-size="pageInfo.pageNum"
-                    layout="total, sizes, prev, pager, next, jumper"
-                    :total="pageInfo.total">
-            </el-pagination>
+                        <el-pagination
+                                @size-change="pageSizeChange"
+                                @current-change="nowPageChange"
+                                :current-page="pageInfo.nowPage"
+                                :page-sizes="[5,10,15,20]"
+                                :page-size="pageInfo.pageNum"
+                                layout="total, sizes, prev, pager, next, jumper"
+                                :total="pageInfo.total">
+                        </el-pagination>
         </el-col>
     </el-row>
 </div>
