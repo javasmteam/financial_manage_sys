@@ -79,7 +79,7 @@ var app = new Vue({
                     this.$message.error("登录失败");
                 } else {
                     this.$message({message: "登录成功", type: "success"});
-                    location.href = this.projectPath + "/main.html"
+                    location.href =projectPath + "/main.html"
                 }
             })
         },
