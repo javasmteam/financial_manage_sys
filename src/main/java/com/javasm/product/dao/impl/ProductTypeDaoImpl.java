@@ -27,7 +27,8 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
      * @return 影响行数
      */
     @Override
-    public Boolean addProductType(ProductType productType) {
+    public Boolean addProductType(ProductType productType)
+    {
         return JDBCUtils.insert("product_type", productType) > 0;
     }
 

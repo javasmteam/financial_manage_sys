@@ -1,6 +1,10 @@
 package com.javasm.system.bean.vo;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.javasm.system.bean.UserInfo;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -9,7 +13,11 @@ import java.util.Date;
  * @date: 2022/5/18 15:44
  * @description:
  */
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class SetUserInfo {
+    private Integer userId;
     private String userName;
     private String des;
     private Integer sex;
@@ -17,7 +25,15 @@ public class SetUserInfo {
     private Date birthday;
     private String avatarColor;
     private String phone;
-    private Integer roles;
-    @JSONField(format = "yyyy-MM-dd hh:mm:ss")
-    private Date lastLogin;
+    private UserRoleVo roles;
+
+    public SetUserInfo(UserInfo userInfo){
+        this.userId = userInfo.getUserId();
+        this.userName = userInfo.getUserName();
+        this.des = userInfo.getDes();
+        this.sex = userInfo.getSex();
+        this.birthday = userInfo.getBirthday();
+        this.avatarColor = userInfo.getAvatarColor();
+        this.phone = userInfo.getPhone();
+    }
 }
