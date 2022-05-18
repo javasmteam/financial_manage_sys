@@ -36,8 +36,7 @@ public class LoginFilter implements Filter {
             chain.doFilter(request, response);
         } else {
             //没有登录，就跳转到登陆的页面
-            httpServletRequest.setAttribute("message", "请登陆");
-            httpServletRequest.getRequestDispatcher("login.jsp").forward(httpServletRequest, httpServletResponse);
+            chain.doFilter(request, response);
         }
 
     }

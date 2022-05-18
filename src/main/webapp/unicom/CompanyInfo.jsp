@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <!-- 引入样式 -->
 <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
@@ -34,7 +35,7 @@
 
         <el-form :inline="true" id="companySelect">
             <el-form-item label="企业名：">
-                <el-input v-model="selectParams.heroName"></el-input>
+                <el-input v-model="selectParams.comName"></el-input>
             </el-form-item>
             <el-button type="primary" plain @click="showCompany()">查询</el-button>
             <el-button type="primary" plain @click="addFlag=true">新增</el-button>
@@ -93,7 +94,7 @@
         },
 
         methods: {
-            queryCom() {
+            queryCompany() {
                 axios.get("${appPath}/companyInfo.do", {
                     params: this.selectParams
                 }).then(response => {
@@ -106,16 +107,16 @@
             handleSizeChange(pageSize) {
                 console.log("没有显示几条数据：" + pageSize)
                 this.selectParams.pageNum = pageSize;
-                this.queryCom();
+                this.queryCompany();
             },
             handleCurrentChange(nowPage) {
                 console.log("当前页：" + nowPage)
                 this.selectParams.nowPage = nowPage;
-                this.queryCom();
+                this.queryCompany();
             },
             showCompany() {
                 //  调用 methods中查询英雄的函数
-                this.queryCom();
+                this.queryCompany();
             },
             toggleSelection(rows) {
                 if (rows) {
@@ -125,7 +126,7 @@
                 } else {
                     this.$refs.multipleTable.clearSelection();
                 }
-                this.queryCom();
+                this.queryCompany();
             },
 
         }
