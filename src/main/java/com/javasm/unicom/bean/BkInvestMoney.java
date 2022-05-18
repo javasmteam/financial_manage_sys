@@ -15,39 +15,44 @@ public class BkInvestMoney {
     /**
      * 主键
      */
-    private Integer investMoneyId;
+    private Integer investmoneyid;
     /**
      * 客户ID
      */
-    private Integer userId;
+    private Integer userid;
     /**
      * 交易类型  1：提现   0：充值
      */
-    private Integer investMoneyType;
+    private Integer investmoneytype;
     /**
      * 交易金额   单位：千
      */
-    private Float investMoney;
+    private Float investmoney;
     /**
      * 请求时间
      */
-    private String investRequestTime;
+    private String investrequesttime;
     /**
      * 处理时间
      */
-    private String investHandleTime;
+    private String investhandletime;
     /**
      * 银行代码
      */
-    private Integer investBankCode;
+    private Integer investbankcode;
     /**
      * 汇款状态  0：未汇款   1：已到PTN账号
      */
-    private Integer investState ;
+    private Integer investstate ;
     /**
      * 状态  1：可用   0：删除
      */
     private Integer state;
+
+    private String userName;
+
+    private String userCode;
+
 
 
 }

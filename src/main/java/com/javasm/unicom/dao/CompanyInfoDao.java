@@ -13,7 +13,7 @@ public interface CompanyInfoDao {
      * @param companyInfo
      * @return
      */
-    Boolean addCompanyInfo(CompanyInfo companyInfo);
+    Integer addCompanyInfo(CompanyInfo companyInfo);
 
 
     /**

@@ -10,7 +10,7 @@ public interface BkInvestMoneyDao {
      * @param bkInvestMoney
      * @return
      */
-    Boolean addBkInvestMoney(BkInvestMoney bkInvestMoney);
+    Integer addBkInvestMoney(BkInvestMoney bkInvestMoney);
 
 
 

@@ -23,15 +23,15 @@ public class BkUserInfo {
     /**
      * 主键
      */
-    private Integer userId;
+    private Integer userid;
     /**
      *账号
      */
-    private String userName;
+    private String username;
     /**
      *客户编号
      */
-    private Integer userCode;
+    private Integer usercode;
     /**
      *手机号
      */
@@ -43,7 +43,7 @@ public class BkUserInfo {
     /**
      *昵称
      */
-    private String nickName;
+    private String nickname;
     /**
      *性别 1为男  0为女
      */
@@ -53,7 +53,7 @@ public class BkUserInfo {
     /**
      *爱好
      */
-    private String avatarocolor;
+    private String avatarcolor;
     /**
      *等级
      */
@@ -65,7 +65,7 @@ public class BkUserInfo {
     /**
      *头像缩略图
      */
-    private String headpicThumb;
+    private String headpicthumb;
     /**
      *状态 1为可用  0为删除
      */

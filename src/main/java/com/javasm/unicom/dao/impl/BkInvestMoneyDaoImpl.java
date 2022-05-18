@@ -14,10 +14,8 @@ import com.javasm.util.JDBCUtils;
  **/
 public class BkInvestMoneyDaoImpl implements BkInvestMoneyDao {
     @Override
-    public Boolean addBkInvestMoney(BkInvestMoney bkInvestMoney) {
-        String sql = "insert into bk_invest_money values(invest_money_id,?,?,?,?,?,?,?,1)";
-        return JDBCUtils.update(sql,bkInvestMoney.getUserId(),bkInvestMoney.getInvestMoneyType(),
-                bkInvestMoney.getInvestMoney(),bkInvestMoney.getInvestRequestTime(),bkInvestMoney.getInvestHandleTime(),
-                bkInvestMoney.getInvestBankCode(),bkInvestMoney.getInvestState())>0;
+    public Integer addBkInvestMoney(BkInvestMoney bkInvestMoney) {
+        String sql = "insert into bk_invest_money values(investmoneyid,?,?,?,?,?,?,?,?,?,1)";
+        return JDBCUtils.insert("bk_invest_money",bkInvestMoney);
     }
 }

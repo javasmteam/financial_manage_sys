@@ -14,9 +14,8 @@ import com.javasm.util.JDBCUtils;
  **/
 public class BkCustomerAssetsDaoImpl implements BkCustomerAssetsDao {
     @Override
-    public Boolean addBkCuntomerAssets(BkCuntomerAssets bkCuntomerAssets) {
-        String sql = "insert into bk_customer_assets values (customer_id,?,?,?,?,1)";
-        return JDBCUtils.update(sql,BkCuntomerAssets.class,bkCuntomerAssets.getUserId(),bkCuntomerAssets.getCoBusinessId(),
-                bkCuntomerAssets.getHoldNumber(),bkCuntomerAssets.getHoldMoney())>0;
+    public Integer addBkCuntomerAssets(BkCuntomerAssets bkCuntomerAssets) {
+        String sql = "insert into bk_customer_assets values (customerid,?,?,?,?,1)";
+        return JDBCUtils.insert("bk_customer_assets",bkCuntomerAssets);
     }
 }
