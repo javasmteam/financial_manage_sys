@@ -2,7 +2,6 @@ package com.javasm.unicom.dao.impl;
 
 import com.javasm.unicom.bean.CompanyInfo;
 import com.javasm.unicom.bean.PageInfo;
-import com.javasm.unicom.bean.vo.CompanyInfoVo;
 import com.javasm.unicom.dao.CompanyInfoDao;
 import com.javasm.util.JDBCUtils;
 
@@ -30,16 +29,15 @@ public class CompanyInfoDaoImpl implements CompanyInfoDao {
     }
 
     @Override
-    public List<CompanyInfoVo> selectCompanyInfoByPage(PageInfo<CompanyInfoVo> page, CompanyInfoVo companyInfo) {
-        StringBuilder sql = new StringBuilder("select c.com_name comName,c.trade_code tradeCode,c.com_seq_code comSeqCode,m.maker_amount makerAmount from " +
-                " company_info c,maker_price m " +
-                "where c.com_id=m.com_id");
+    public List<CompanyInfo> selectCompanyInfoByPage(PageInfo<CompanyInfo> page, CompanyInfo companyInfo) {
+        StringBuilder sql = new StringBuilder("select c.com_name comName,c.trade_code tradeCode,c.com_seq_code comSeqCode,\n" +
+                "       c.new_maker_amount newMakerAmount from company_info c");
         if (companyInfo != null ){
             if (companyInfo.getComName()!=null && !"".equals(companyInfo.getComName())){
                 sql.append(" and c.com_name  like '% "+companyInfo.getComName() +" %' ");
             }
         }
         sql.append(" limit ?,? ");
-        return JDBCUtils.query(sql.toString(),CompanyInfoVo.class,page.getStartIndex(),page.getPageNum());
+        return JDBCUtils.query(sql.toString(),CompanyInfo.class,page.getStartIndex(),page.getPageNum());
     }
 }

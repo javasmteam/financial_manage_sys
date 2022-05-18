@@ -64,4 +64,8 @@ public class CompanyInfo {
      * 公司信息状态
      */
     private Integer comInfoState;
+    /**
+     * 最新挂牌价
+     */
+    private Float newMakerAmount;
 }
