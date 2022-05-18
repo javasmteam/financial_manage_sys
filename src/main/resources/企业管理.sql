@@ -6,51 +6,53 @@
 drop table if exists bk_customer_assets;
 create table bk_customer_assets
 (
-    customer_id    int(10) primary key auto_increment comment '主键',
-    user_id        int(10) comment '客户id',
-    co_business_id int(10) comment '企业id',
-    hold_number    int(10) comment '持有数量',
-    hold_money     float(10, 2) comment '成本价格',
+    customerid    int(10) primary key auto_increment comment '主键',
+    userid        int(10) comment '客户id',
+    cabusinessid int(10) comment '企业id',
+    holdnumber    int(10) comment '持有数量',
+    holdmoney     float(10, 2) comment '成本价格',
     state          int(10) default 1 comment '状态' -- 0.删除  1.可用
 );
 
-insert into bk_customer_assets values (customer_id,?,?,?,?,1);
+insert into bk_customer_assets values (customerId,?,?,?,?,1);
 
 -- 充值提现管理
 drop table if exists bk_invest_money;
 CREATE table bk_invest_money
 (
-    invest_money_id     int(10) primary key auto_increment comment '主键',
-    user_id             int(10) comment '客户id',
-    invest_money_type   int(10) comment '交易类型',
-    invest_money        float(10, 2) comment '交易金额',
-    invest_request_time timestamp comment '请求时间',
-    invest_handle_time  timestamp comment '处理时间',
-    invest_bank_code    int(10) comment '银行代码',
-    invest_state        int(10) comment '汇款状态',
+    investmoneyid     int(10) primary key auto_increment comment '主键',
+    userid             int(10) comment '客户id',
+    userName           varchar(20) comment '客户名称',
+    userCode           varchar(20) ,
+    investmoneytype   int(10) comment '交易类型',
+    investmoney        float(10, 2) comment '交易金额',
+    investrequesttime timestamp comment '请求时间',
+    investhandletime  timestamp comment '处理时间',
+    investbankcode    int(10) comment '银行代码',
+    investstate        int(10) comment '汇款状态',
     -- 2:已汇款到用户
     state               int(10) default 1 comment '状态' -- 0.删除  1.可用
 );
-insert into bk_invest_money values(invest_money_id,?,?,?,?,?,?,?,1);
+insert into bk_invest_money values(investmoneyid,?,?,?,?,?,?,?,?,?,1);
 
 -- 用户表（客户）
 drop table if exists bk_user_info;
 create table bk_user_info(
-    user_id int(10) primary key auto_increment, -- 主键
-    user_name varchar(20),-- 账号
-    user_code int(10),-- 客户编号
+    userid int(10) primary key auto_increment, -- 主键
+    username varchar(20),-- 账号
+    usercode int(10),-- 客户编号
     iphone varchar(11),-- 手机号
     pwd varchar(20), -- 密码
-    nick_name varchar(20), -- 昵称
+    nickname varchar(20), -- 昵称
     sex int(1), -- 性别 1为男  0为女
     birthday date,
-    avatarocolor varchar(50), -- 爱好
+    avatarcolor varchar(50), -- 爱好
     grade int(10), -- 等级
     headpic varchar(100), -- 头像大图
-    headpic_thumb varchar(200), -- 头像缩略图
+    headpicthumb varchar(200), -- 头像缩略图
     state int(10) default 1 -- 状态 1为可用  0为删除
 );
-insert into bk_user_info values(user_id,?,?,?,?,?,?,?,?,?,?,?,1);
+insert into bk_user_info values(userid,?,?,?,?,?,?,?,?,?,?,?,1);
 
 -- 独角兽🦄公司信息表
 drop table if exists company_info;

@@ -14,10 +14,8 @@ import com.javasm.util.JDBCUtils;
  **/
 public class BkUserInfoDaoImpl implements BkUserInfoDao {
     @Override
-    public Boolean addBkUserInfo(BkUserInfo bkUserInfo) {
-        String sql = "insert into bk_user_info values(user_id,?,?,?,?,?,?,?,?,?,?,?,1)";
-        return JDBCUtils.update(sql,bkUserInfo.getUserName(),bkUserInfo.getUserCode(),bkUserInfo.getIphone(),
-                bkUserInfo.getPwd(),bkUserInfo.getNickName(),bkUserInfo.getSex(),bkUserInfo.getBirthday(),
-                bkUserInfo.getAvatarocolor(),bkUserInfo.getGrade(),bkUserInfo.getHeadpic(),bkUserInfo.getHeadpicThumb())>0;
+    public Integer addBkUserInfo(BkUserInfo bkUserInfo) {
+        String sql = "insert into bk_user_info values(userid,?,?,?,?,?,?,?,?,?,?,?,1)";
+        return JDBCUtils.insert("bk_user_info",bkUserInfo);
     }
 }

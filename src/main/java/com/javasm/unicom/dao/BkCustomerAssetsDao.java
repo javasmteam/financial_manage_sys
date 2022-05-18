@@ -11,7 +11,7 @@ public interface BkCustomerAssetsDao {
      * @param bkCuntomerAssets
      * @return
      */
-    Boolean addBkCuntomerAssets(BkCuntomerAssets bkCuntomerAssets);
+    Integer addBkCuntomerAssets(BkCuntomerAssets bkCuntomerAssets);
 
 
 }

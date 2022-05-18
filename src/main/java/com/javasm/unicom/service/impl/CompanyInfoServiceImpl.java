@@ -21,7 +21,7 @@ public class CompanyInfoServiceImpl implements CompanyInfoService {
 
 
     @Override
-    public Boolean addCompanyInfo(CompanyInfo companyInfo) {
+    public Integer addCompanyInfo(CompanyInfo companyInfo) {
         return companyInfoDao.addCompanyInfo(companyInfo);
     }
 

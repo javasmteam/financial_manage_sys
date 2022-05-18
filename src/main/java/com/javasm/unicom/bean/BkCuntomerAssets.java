@@ -21,23 +21,23 @@ public class BkCuntomerAssets {
     /**
      * 主键
      */
-    private Integer customerId;
+    private Integer customerid;
     /**
      * 客户ID
      */
-    private Integer userId;
+    private Integer userid;
     /**
      * 企业Id，用户持股票公司Id
      */
-    private Integer coBusinessId;
+    private Integer cabusinessid;
     /**
      * 持有数量  1手=100股
      */
-    private Integer holdNumber;
+    private Integer holdnumber;
     /**
      * 成本价格，买入时每股单价
      */
-    private Float holdMoney;
+    private Float holdmoney;
     /**
      * 状态  1：可用  0：删除
      */

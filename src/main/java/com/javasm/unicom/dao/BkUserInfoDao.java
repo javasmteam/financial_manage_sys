@@ -18,5 +18,5 @@ public interface BkUserInfoDao {
      * @param bkUserInfo
      * @return
      */
-    Boolean addBkUserInfo(BkUserInfo bkUserInfo);
+    Integer addBkUserInfo(BkUserInfo bkUserInfo);
 }
