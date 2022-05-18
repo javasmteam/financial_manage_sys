@@ -10,11 +10,6 @@ var vue = new Vue({
             nowPage: 1,
             pageNum: 5
         },
-        pageInfo: {
-            nowPage: 1,
-            pageNum: 6,
-            total: 0
-        },
         productType: {
             productSeriesId: "", productTypeChName: "", productTypeEngName: "", remitInfoSummary: "",
 
@@ -22,7 +17,8 @@ var vue = new Vue({
         productTypeVOList: [],
     }, methods: {
         search() {
-            axios.get("${appPath}/productType.do", {
+            axios.get()
+            axios.get("/productType.do", {
                 params: this.selectParams
             }).then(response => {
                 this.productTypeVOList = response.data.dataList;
@@ -31,7 +27,21 @@ var vue = new Vue({
                 this.pageInfo.total = response.data.total;
             })
         },
-
+        pageSizeChange(pageSize) {
+            this.selectParams.pageNum = pageSize;
+        },
+        nowPageChange(nowPage) {
+            this.selectParams.nowPage = nowPage;
+        },
+        showProductType() {
+            this.search();
+        }
+    },
+    created() {
+        //调用method中的方法查询英雄的函数
+        this.search();
+        axios.get("/productType.do", {params: {type: "showProductType"}}).then(response => {
+            this.productTypeVOList = response.data;
+        })
     }
-
 })
