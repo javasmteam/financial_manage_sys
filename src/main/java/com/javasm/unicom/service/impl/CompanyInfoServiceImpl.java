@@ -29,8 +29,8 @@ public class CompanyInfoServiceImpl implements CompanyInfoService {
     public PageInfo<CompanyInfo> getCompanyInfoByPage(String nowPage, String pageNum, CompanyInfo companyInfo) {
         Integer count = companyInfoDao.count(companyInfo);
         PageInfo<CompanyInfo> page= new PageInfo<>(nowPage,pageNum,count);
-        List<CompanyInfo> list = companyInfoDao.selectCompanyInfoByPage(page,companyInfo);
-        page.setDataList(list);
+        List<CompanyInfo> comList = companyInfoDao.selectCompanyInfoByPage(page,companyInfo);
+        page.setDataList(comList);
         return page;
     }
 

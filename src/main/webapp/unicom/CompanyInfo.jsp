@@ -17,10 +17,20 @@
 <html>
 <head>
     <title>Title</title>
+    <style>
+        #companySelect .el-input__inner {
+            width: 220px
+        }
+
+        .el-upload-list__item {
+            height: 32px;
+
+        }
+    </style>
 </head>
 <body>
 <div id="app">
-    <el-page-header content="独角兽管理->企业信息管理"></el-page-header>
+    <el-descriptions title="独角兽管理>充值管理信息"></el-descriptions>
 
         <el-form :inline="true" id="companySelect">
             <el-form-item label="企业名：">
@@ -30,7 +40,7 @@
             <el-button type="primary" plain @click="addFlag=true">新增</el-button>
         </el-form>
 
-        <el-table :data="heroList" height="680" >
+        <el-table :data="comList" height="680" >
             <el-table-column type="selection" width="55"></el-table-column>
             <el-table-column prop="comName" label="企业名称" width="180"></el-table-column>
             <el-table-column prop="tradeCode" label="交易代码" width="180"></el-table-column>
@@ -62,28 +72,51 @@
 
 <script>
     new Vue({
-        el:"#app",
+        el: "#app",
         data: {
             selectParams: {
-                comName:"",
-                type:"showCompany",
-                nowPage:1,
-                pageNum:5
+                comName: "",
+                type: "showCompany",
+                nowPage: 1,
+                pageNum: 5
             },
-            pageInfo:{
-                nowPage:1,
-                pageNum:5,
-                total:0
+            pageInfo: {
+                nowPage: 1,
+                pageNum: 5,
+                total: 0
             },
-            company:{
-                comName:"",
-                tradeCode:"",
-                comSeqCode:"",
-                makerAmount:""
-            }
+            comList: [],
+            tableData: [{
+                comList:[]
+            }]
+
         },
 
         methods: {
+            queryCom() {
+                axios.get("${appPath}/companyInfo.do", {
+                    params: this.selectParams
+                }).then(response => {
+                    this.comList = response.data.dataList;
+                    this.pageInfo.nowPage = response.data.nowPage;
+                    this.pageInfo.pageNum = response.data.pageNum;
+                    this.pageInfo.total = response.data.allCount;
+                });
+            },
+            handleSizeChange(pageSize) {
+                console.log("没有显示几条数据：" + pageSize)
+                this.selectParams.pageNum = pageSize;
+                this.queryCom();
+            },
+            handleCurrentChange(nowPage) {
+                console.log("当前页：" + nowPage)
+                this.selectParams.nowPage = nowPage;
+                this.queryCom();
+            },
+            showCompany() {
+                //  调用 methods中查询英雄的函数
+                this.queryCom();
+            },
             toggleSelection(rows) {
                 if (rows) {
                     rows.forEach(row => {
@@ -92,13 +125,11 @@
                 } else {
                     this.$refs.multipleTable.clearSelection();
                 }
+                this.queryCom();
             },
-            handleSelectionChange(val) {
-                this.multipleSelection = val;
-            }
+
         }
     })
-
 </script>
 </body>
 </html>
