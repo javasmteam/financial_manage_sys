@@ -23,8 +23,6 @@ var app = new Vue({
         regUser: new regUserF(),
         //显示注册弹框
         loginDialog: false,
-        //项目绝对路径
-        projectPath: "http://localhost:8088/Financial_manage_sys_war_exploded",
         //登录验证
         loginRules: {
             userAct: [
@@ -64,7 +62,7 @@ var app = new Vue({
     methods: {
         //注册请求
         reqReg: function () {
-            axios.post(this.projectPath+"/login?type=reqReg", this.regUser).then(resp => {
+            axios.post(projectPath+"/login?type=reqReg", this.regUser).then(resp => {
                 if (resp.data == "-1") {
                     this.$message.error("注册失败")
                 } else {
@@ -76,7 +74,7 @@ var app = new Vue({
         },
         //登录请求
         reqLogin: function () {
-            axios.post(this.projectPath + "/login?type=reqLogin", this.user).then(resp => {
+            axios.post(projectPath + "/login?type=reqLogin", this.user).then(resp => {
                 if (resp.data == "-1") {
                     this.$message.error("登录失败");
                 } else {

@@ -22,69 +22,78 @@
                         <i class="el-icon-user"></i>
                         用户头像
                     </template>
-                    <el-
+                    <el-image style="width:100px;height:100px" :url="projectPath+userInfo.headPic"
+                              fit="fill" alt="用户还没有设置头像"></el-image>
                 </el-descriptions-item>
                 <el-descriptions-item>
                     <template slot="label">
                         <i class="el-icon-mobile-phone"></i>
                         用户id
                     </template>
-
+                    {{userInfo.userId}}
                 </el-descriptions-item>
                 <el-descriptions-item>
                     <template slot="label">
                         <i class="el-icon-location-outline"></i>
                         用户账号
                     </template>
-
+                    {{userInfo.userAct}}
                 </el-descriptions-item>
                 <el-descriptions-item>
                     <template slot="label">
                         <i class="el-icon-tickets"></i>
                         用户名
                     </template>
+                    {{userInfo.userName == '' ? '还没有用户名':userInfo.userName}}
+                </el-descriptions-item>
+                <el-descriptions-item>
+                    <template slot="label">
+                        <i class="el-icon-tickets"></i>
+                        用户签名
+                    </template>
+                    {{userInfo.des == '' ? '还没有用户签名':userInfo.des}}
                 </el-descriptions-item>
                 <el-descriptions-item>
                     <template slot="label">
                         <i class="el-icon-office-building"></i>
                         用户性别
                     </template>
-
+                    {{userInfo.sex == 0 ? '男' : '女'}}
                 </el-descriptions-item>
                 <el-descriptions-item>
                     <template slot="label">
                         <i class="el-icon-office-building"></i>
                         用户生日
                     </template>
-
+                    {{userInfo.birthday==''?'2000-01-01':userInfo.birthday}}
                 </el-descriptions-item>
                 <el-descriptions-item>
                     <template slot="label">
                         <i class="el-icon-office-building"></i>
                         用户爱好
                     </template>
-
+                    {{userInfo.avatarColor == '' ? '用户没有爱好':userInfo.avatarColor}}
                 </el-descriptions-item>
                 <el-descriptions-item>
                     <template slot="label">
                         <i class="el-icon-office-building"></i>
                         用户手机
                     </template>
-
+                    {{userInfo.phone == '' ? '用户还没有设置联系方式':userInfo.avatarColor}}
                 </el-descriptions-item>
                 <el-descriptions-item>
                     <template slot="label">
                         <i class="el-icon-office-building"></i>
                         用户当前角色
                     </template>
-
+                    {{userInfo.roleName}}
                 </el-descriptions-item>
                 <el-descriptions-item>
                     <template slot="label">
                         <i class="el-icon-office-building"></i>
                         用户最后登录时间
                     </template>
-
+                    {{userInfo.lastLogin}}
                 </el-descriptions-item>
             </el-descriptions>
         </div>
@@ -95,31 +104,31 @@
             width="30%">
         <el-form :model="setUser" rules="vriSetUser" ref="setUser" label-width="100px">
             <el-form-item label="用户名">
-                <el-input v-model="" placeholder="请输入内容"></el-input>
+                <el-input v-model="setUser.userName" placeholder="请输入内容"></el-input>
             </el-form-item>
             <el-form-item label="用户签名">
-                <el-input v-model="" placeholder="请输入签名"></el-input>
+                <el-input v-model="setUser.des" placeholder="请输入签名"></el-input>
             </el-form-item>
             <el-form-item label="用户性别">
-                <el-radio v-model="" label="0">男</el-radio>
-                <el-radio v-model="" label="1">女</el-radio>
+                <el-radio v-model="setUser.sex" label="0">男</el-radio>
+                <el-radio v-model="setUser.sex" label="1">女</el-radio>
             </el-form-item>
             <el-form-item label="用户生日">
-                <el-date-picker v-model="regUser.birthday" type="date" placeholder="选择日期"></el-date-picker>
+                <el-date-picker v-model="setUser.birthday" type="date" placeholder="选择日期"></el-date-picker>
             </el-form-item>
             <el-form-item label="用户爱好">
-                <el-input v-model="" placeholder="请输入爱好"></el-input>
+                <el-input v-model="setUser.avatarColor" placeholder="请输入爱好"></el-input>
             </el-form-item>
             <el-form-item label="用户联系方式">
-                <el-input v-model="" placeholder="请输入联系方式"></el-input>
+                <el-input v-model="setUser.phone" placeholder="请输入联系方式"></el-input>
             </el-form-item>
             <el-form-item label="用户默认角色">
-                <el-select v-model="value" placeholder="请设置默认角色">
+                <el-select v-model="setUser.roles.nowRole" value-key="nowRole.roleId" placeholder="请设置默认角色">
                     <el-option
-                            v-for=""
-                            :key=""
-                            :label=""
-                            :value="">
+                            v-for="role in setUser.roles.allRole"
+                            :key="role.roleId"
+                            :label="role.roleName"
+                            :value="role">
                     </el-option>
                 </el-select>
             </el-form-item>
