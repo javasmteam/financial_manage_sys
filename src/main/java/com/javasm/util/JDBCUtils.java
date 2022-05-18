@@ -23,28 +23,28 @@ import java.util.Properties;
 
 
 public class JDBCUtils {
-
-    private static DruidDataSource druid;
-
-    static {
-        InputStream resourceAsStream = JDBCUtils.class.getClassLoader().getResourceAsStream("Druid.properties");
-        Properties properties = new Properties();
-        druid = new DruidDataSource();
-        try {
-            properties.load(resourceAsStream);
-            druid.configFromPropety(properties);
-            resourceAsStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//
+//    private static DruidDataSource druid;
+//
+//    static {
+//        InputStream resourceAsStream = JDBCUtils.class.getClassLoader().getResourceAsStream("Druid.properties");
+//        Properties properties = new Properties();
+//        druid = new DruidDataSource();
+//        try {
+//            properties.load(resourceAsStream);
+//            druid.configFromPropety(properties);
+//            resourceAsStream.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
     public static Connection getConn() {
         Connection conn = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = druid.getConnection();
+            conn = DriverManager.getConnection("jdbc:mysql://124.221.202.55:2396/financial_manage_sys","web_db","4ibmJ7Cxj2Zwf577");
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
