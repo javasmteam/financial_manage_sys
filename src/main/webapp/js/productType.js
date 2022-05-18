@@ -1,6 +1,7 @@
 var vue = new Vue({
     el: "#app",
     data: {
+        queryParams: {productSeriesId: "", productTypeChName: "", productTypeEngName: "",},
         productTypeVO: {
             productSeriesId: "",
             productTypeChName: "",
@@ -27,8 +28,8 @@ var vue = new Vue({
         search() {
             axios.get(projectPath + "/productType.do", {
                 params: {
-                    type:"showProductType",
-                    pageNum:1,
+                    type: "showProductType",
+                    pageNum: 1,
 
                 }
             }).then(response => {
