@@ -1,7 +1,14 @@
 var vue = new Vue({
     el: "#app",
     data: {
-        queryParams: {productSeriesId: "", productTypeChName: "", productTypeEngName: "",},
+        queryParams: {
+            productSeriesId: "",
+            productTypeChName: "",
+            productTypeEngName: "",
+            currentPage: 1,
+            pageSize: 5,
+            type: "showProductType"
+        },
         productTypeVO: {
             productSeriesId: "",
             productTypeChName: "",
@@ -19,41 +26,45 @@ var vue = new Vue({
             remitInfoSummary: "",
         },
         pageInfo: {
-            nowPage: 1,
+            currentPage: 1,
             pageNum: 5,
-            total: 0
+            total: 0,
         },
+        saveFlag2: false,
+        saveFlag1: false,
+        //产品系列数据
         productTypeVOList: [],
+        rules: {}
     }, methods: {
         search() {
-            axios.get(projectPath + "/productType.do", {
-                params: {
-                    type: "showProductType",
-                    pageNum: 1,
-
+            axios.post(
+                projectPath + "/productType.do", {
+                    queryParams: this.queryParams,
                 }
-            }).then(response => {
+            ).then(response => {
                 this.productTypeVOList = response.data.dataList;
-                this.pageInfo.nowPage = response.data.nowPage;
-                this.pageInfo.pageNum = response.data.pageNum;
+                this.currentPage = response.data.nowPage;
+                this.pageSize = response.data.pageNum;
                 this.pageInfo.total = response.data.total;
             })
         },
-        pageSizeChange(pageSize) {
-            this.selectParams.pageNum = pageSize;
-        },
-        nowPageChange(nowPage) {
-            this.selectParams.nowPage = nowPage;
-        },
-        showProductType() {
-            this.search();
+        handleSizeChange(pageSize) {
+            this.pageSize = pageSize;
         }
+        ,
+        handleCurrentChange(nowPage) {
+            this.currentPage = nowPage;
+            this.search(nowPage);
+        },
+        deleteItem(item) {
+            this.productTypeVOList.splice(item, 1)
+            axios.get(projectPath + "productType.do?type=updateProductType", {
+                productSeriesId: this.productTypeVOList.productSeriesId
+            })
+        },
+
     },
-    // created() {
-    //     //调用method中的方法查询英雄的函数
-    //     this.search();
-    //     axios.get(projectPath + "/productType.do", {params: {type: "showProductType"}}).then(response => {
-    //         this.productTypeVOList = response.data;
-    //     })
-    // }
+    created() {
+        this.search();
+    }
 })

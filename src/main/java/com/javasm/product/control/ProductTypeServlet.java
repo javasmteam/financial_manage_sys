@@ -33,10 +33,14 @@ public class ProductTypeServlet extends BaseServlet<ProductTypeVO> {
      * @return
      */
     public String showProductType(ProductType productType, HttpServletRequest request) {
-        String nowPage = request.getParameter("nowPage");
-        String pageNum = request.getParameter("pageNum");
+        String nowPage = request.getParameter("currentPage");
+        String pageNum = request.getParameter("pageSize");
         PageInfo<ProductTypeVO> page = productTypeService.getProductTypesByPage(nowPage, pageNum, productType);
         return JSONObject.toJSONString(page);
+    }
+
+    public void deleteProductType(HttpServletRequest request) {
+
     }
 
     public void updateProductType(ProductType productType) {
@@ -46,8 +50,4 @@ public class ProductTypeServlet extends BaseServlet<ProductTypeVO> {
     public void addProductType(ProductType productType) {
         productTypeService.addProductType(productType);
     }
-
-    ;
-
-
 }

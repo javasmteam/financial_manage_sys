@@ -56,7 +56,7 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
                 "from product_type\n" +
                 "where product_type_lv = 1");
         String appendSql = String.valueOf(appendLikeSql(productType, sql));
-        return Math.toIntExact(JDBCUtils.size(appendSql));
+        return JDBCUtils.size(appendSql);
     }
 
     /**

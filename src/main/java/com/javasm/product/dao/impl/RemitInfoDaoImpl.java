@@ -40,6 +40,4 @@ public class RemitInfoDaoImpl implements RemitInfoDao {
                 remitInfo.getRecLocation(), remitInfo.getRegulateBody(), remitInfo.getRemitInfoSummary(), remitInfo.getRemitState(),
                 remitInfo.getProductSeriesId()) > 0;
     }
-
-
 }
