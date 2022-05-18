@@ -21,7 +21,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public Integer updateLastLogin(Integer userId, Date lastLogin) {
         String sql = JDBCUtils.getSql("UPDATE_USER_LAST_TIME");
-        return JDBCUtils.update(sql, userId, lastLogin);
+        return JDBCUtils.update(sql, lastLogin, userId);
     }
 
     @Override

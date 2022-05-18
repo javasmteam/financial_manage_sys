@@ -18,9 +18,9 @@ public interface UserPermissionDao {
 
     /**
      * 获取用户的次级权限
-     * @param userId    用户id
+     * @param roleId    用户当前角色id
      * @param permissionId  父级id
      * @return
      */
-    List<UserPermission> getSecondaryMenu(Integer userId, int permissionId);
+    List<UserPermission> getSecondaryMenu(Integer roleId, int permissionId);
 }

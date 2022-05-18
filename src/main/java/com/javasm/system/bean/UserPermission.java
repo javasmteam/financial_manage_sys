@@ -20,10 +20,10 @@ public class UserPermission {
          * 父级权限Id
          * 权限状态
          */
-        private int permissionId;
+        private Integer permissionId;
         private String permissionName;
         private String permissionPath;
         private String permissionImage;
-        private int parentId;
-        private int permissionState;
+        private Integer parentId;
+        private Integer permissionState;
 }

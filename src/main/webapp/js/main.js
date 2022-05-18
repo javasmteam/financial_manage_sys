@@ -17,7 +17,7 @@ var app = new Vue({
                 if (resp.data == '-1') {
                     this.$message.error('网络有误,请刷新后重新尝试')
                 } else {
-                    this.userRole = resp.data
+                    this.roleMenus = resp.data
                 }
             })
         },

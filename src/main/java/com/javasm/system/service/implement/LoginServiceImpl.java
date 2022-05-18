@@ -65,7 +65,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List<RoleMenu> getRoleMenu(Integer userId) {
+    public List<RoleMenu> getRoleMenu(Integer roleId) {
         //创建一级菜单集合
         List<RoleMenu> roleMenus = new ArrayList<>();
         //获取全部的一级菜单
@@ -73,7 +73,7 @@ public class LoginServiceImpl implements LoginService {
         //遍历一级菜单
         for (UserPermission userPermission : list) {
             //获取一级菜单的次级菜单
-            List<UserPermission> secondaryMenu = userPermissionDao.getSecondaryMenu(userId,userPermission.getPermissionId());;
+            List<UserPermission> secondaryMenu = userPermissionDao.getSecondaryMenu(roleId,userPermission.getPermissionId());;
             //判断是否有次级菜单
             if(secondaryMenu.size()>0){
                 //若有次级菜单则封装在RoleMenu对象中,并添加到一级菜单集合中

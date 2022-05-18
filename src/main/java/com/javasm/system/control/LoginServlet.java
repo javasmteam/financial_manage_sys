@@ -6,7 +6,6 @@ import com.javasm.controlUtil.BaseServlet;
 import com.javasm.myEnum.ResponseEnum;
 import com.javasm.system.bean.SimpleJSON;
 import com.javasm.system.bean.UserInfo;
-import com.javasm.system.bean.UserRole;
 import com.javasm.system.bean.vo.LoginUser;
 import com.javasm.system.bean.vo.RegUser;
 import com.javasm.system.bean.vo.RoleMenu;
