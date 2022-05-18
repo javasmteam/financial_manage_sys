@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <link rel="stylesheet" href="../css/userInfo.css">
+</head>
+<body>
+<div id="app">
+    <el-card class="box-card">
+        <div>
+            <el-descriptions class="margin-top" title="个人信息" :column="1" :size="size" border>
+                <template slot="extra">
+                    <el-button type="primary" size="small" @click="setUserFlag=true">修改用户信息</el-button>
+                </template>
+                <el-descriptions-item>
+                    <template slot="label">
+                        <i class="el-icon-user"></i>
+                        用户头像
+                    </template>
+                    <el-
+                </el-descriptions-item>
+                <el-descriptions-item>
+                    <template slot="label">
+                        <i class="el-icon-mobile-phone"></i>
+                        用户id
+                    </template>
+
+                </el-descriptions-item>
+                <el-descriptions-item>
+                    <template slot="label">
+                        <i class="el-icon-location-outline"></i>
+                        用户账号
+                    </template>
+
+                </el-descriptions-item>
+                <el-descriptions-item>
+                    <template slot="label">
+                        <i class="el-icon-tickets"></i>
+                        用户名
+                    </template>
+                </el-descriptions-item>
+                <el-descriptions-item>
+                    <template slot="label">
+                        <i class="el-icon-office-building"></i>
+                        用户性别
+                    </template>
+
+                </el-descriptions-item>
+                <el-descriptions-item>
+                    <template slot="label">
+                        <i class="el-icon-office-building"></i>
+                        用户生日
+                    </template>
+
+                </el-descriptions-item>
+                <el-descriptions-item>
+                    <template slot="label">
+                        <i class="el-icon-office-building"></i>
+                        用户爱好
+                    </template>
+
+                </el-descriptions-item>
+                <el-descriptions-item>
+                    <template slot="label">
+                        <i class="el-icon-office-building"></i>
+                        用户手机
+                    </template>
+
+                </el-descriptions-item>
+                <el-descriptions-item>
+                    <template slot="label">
+                        <i class="el-icon-office-building"></i>
+                        用户当前角色
+                    </template>
+
+                </el-descriptions-item>
+                <el-descriptions-item>
+                    <template slot="label">
+                        <i class="el-icon-office-building"></i>
+                        用户最后登录时间
+                    </template>
+
+                </el-descriptions-item>
+            </el-descriptions>
+        </div>
+    </el-card>
+    <el-dialog
+            title="提示"
+            :visible.sync="setUserFlag"
+            width="30%">
+        <el-form :model="setUser" rules="vriSetUser" ref="setUser" label-width="100px">
+            <el-form-item label="用户名">
+                <el-input v-model="" placeholder="请输入内容"></el-input>
+            </el-form-item>
+            <el-form-item label="用户签名">
+                <el-input v-model="" placeholder="请输入签名"></el-input>
+            </el-form-item>
+            <el-form-item label="用户性别">
+                <el-radio v-model="" label="0">男</el-radio>
+                <el-radio v-model="" label="1">女</el-radio>
+            </el-form-item>
+            <el-form-item label="用户生日">
+                <el-date-picker v-model="regUser.birthday" type="date" placeholder="选择日期"></el-date-picker>
+            </el-form-item>
+            <el-form-item label="用户爱好">
+                <el-input v-model="" placeholder="请输入爱好"></el-input>
+            </el-form-item>
+            <el-form-item label="用户联系方式">
+                <el-input v-model="" placeholder="请输入联系方式"></el-input>
+            </el-form-item>
+            <el-form-item label="用户默认角色">
+                <el-select v-model="value" placeholder="请设置默认角色">
+                    <el-option
+                            v-for=""
+                            :key=""
+                            :label=""
+                            :value="">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="setUserFlog = false">取 消</el-button>
+             <el-button type="primary" @click="setUserFlog = false">确 定</el-button>
+        </span>
+    </el-dialog>
+</div>
+<script src="../js/userInfo.js"></script>
+</body>
+</html>
