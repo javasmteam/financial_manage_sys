@@ -23,7 +23,7 @@ public class MakerPrice {
     /**
      * 挂单金额
      */
-    private Integer makerAmount;
+    private Float makerAmount;
     /**
      * 交易数量
      */
