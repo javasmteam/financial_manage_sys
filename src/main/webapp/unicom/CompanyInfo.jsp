@@ -41,13 +41,13 @@
             <el-button type="primary" plain @click="addFlag=true">新增</el-button>
         </el-form>
 
-        <el-table :data="companyList" height="680" >
+        <el-table :data="companyList" height="330" >
             <el-table-column type="selection" width="55"></el-table-column>
-            <el-table-column prop="comName" label="企业名称" width="180"></el-table-column>
-            <el-table-column prop="tradeCode" label="交易代码" width="180"></el-table-column>
-            <el-table-column prop="comSeqCode" label="顺序" width="180"></el-table-column>
-            <el-table-column prop="makerAmount" label="最新挂牌价" width="180"></el-table-column>
-            <el-table-column label="操作" width="100">
+            <el-table-column prop="comName" label="企业名称" width="150"></el-table-column>
+            <el-table-column prop="tradeCode" label="交易代码" width="150"></el-table-column>
+            <el-table-column prop="comSeqCode" label="顺序" width="80"></el-table-column>
+            <el-table-column prop="newMakerAmount" label="最新挂牌价" width="110"></el-table-column>
+            <el-table-column label="操作" width="260">
                 <template slot-scope="scope">
                     <el-button @click="initUpdate(scope.row)" type="text" size="small">详情</el-button>
                     <el-button @click="initUpdate(scope.row)" type="text" size="small">修改</el-button>
@@ -78,7 +78,7 @@
             selectParams: {
                 comName: "",
                 type: "showCompany",
-                makerAmount:"",
+                newMakerAmount:"",
                 nowPage: 1,
                 pageNum: 5
             },
