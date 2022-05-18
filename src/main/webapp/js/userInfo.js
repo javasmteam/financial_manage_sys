@@ -15,7 +15,6 @@ var app = new Vue({
                 nowRole: {},
                 allRole: []
             },
-            lastLogin: ''
         },
         //显示用户信息对象
         userInfo: {
@@ -36,7 +35,7 @@ var app = new Vue({
     },
     methods: {
         reqUserInfoVo() {
-            axios.post(projectPath + "/system?type=reqUserInfoVo").then(resp => {
+            axios.post(projectPath + "/userInfo?type=reqUserInfoVo").then(resp => {
                 if (resp.data == "-1") {
                     this.$message.error("网络请求有误");
                 } else {
@@ -45,7 +44,7 @@ var app = new Vue({
             })
         },
         reqSetUserInfo() {
-            axios.post(projectPath + "/system?type=reqSetUserInfo").then(resp => {
+            axios.post(projectPath + "/userInfo?type=reqSetUserInfo").then(resp => {
                 if (resp.data == "-1") {
                     this.$message.error("网络请求有误");
                 } else {
@@ -54,7 +53,7 @@ var app = new Vue({
             })
         },
         reqSetUser() {
-            axios.post(projectPath + "/system?type=reqSetUser", this.setUser).then(resp => {
+            axios.post(projectPath + "/userInfo?type=reqSetUser", this.setUser).then(resp => {
                 if (resp.data == "-1") {
                     this.$message.error("修改失败");
                 } else {

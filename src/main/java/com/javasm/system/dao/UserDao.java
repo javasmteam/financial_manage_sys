@@ -1,6 +1,8 @@
 package com.javasm.system.dao;
 
 import com.javasm.system.bean.UserInfo;
+import com.javasm.system.bean.vo.SetUserInfo;
+import com.javasm.system.bean.vo.UserInfoVo;
 
 import java.util.Date;
 
@@ -31,4 +33,18 @@ public interface UserDao {
      * @return
      */
     Integer add(UserInfo userInfo);
+
+    /**
+     * 获取UserInfoVo对象
+     * @param userId
+     * @return
+     */
+    UserInfoVo getUserInfoVo(Integer userId);
+
+    /**
+     * 获取SetUserInfo对象
+     * @param userId
+     * @return
+     */
+    SetUserInfo getSetUserInfoVo(Integer userId);
 }

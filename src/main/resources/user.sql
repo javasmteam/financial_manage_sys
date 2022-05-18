@@ -20,3 +20,7 @@ values(
 select user_role.*
 from user_role
 where user_role.role_id = 1;
+
+select u.user_name,u.des,u.sex,u.birthday,u.avatar_color,u.phone,u.last_login
+from user_info u
+where u.user_id = ?;

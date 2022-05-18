@@ -96,7 +96,7 @@ public class LoginServlet extends BaseServlet<UserInfo> {
     public String reqRoleMenu(HttpServletRequest req){
         SimpleJSON simpleJSON = BaseUtil.readBean(req, SimpleJSON.class);
         UserInfo userInfo = (UserInfo)req.getSession().getAttribute("login");
-        List<RoleMenu> roleMenus = loginService.getRoleMenu(userInfo.getUserId());
+        List<RoleMenu> roleMenus = loginService.getRoleMenu(userInfo.getRoleId());
         if(roleMenus==null){
             return "-1";
         }

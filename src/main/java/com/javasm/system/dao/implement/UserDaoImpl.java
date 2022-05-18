@@ -1,6 +1,8 @@
 package com.javasm.system.dao.implement;
 
 import com.javasm.system.bean.UserInfo;
+import com.javasm.system.bean.vo.SetUserInfo;
+import com.javasm.system.bean.vo.UserInfoVo;
 import com.javasm.system.dao.UserDao;
 import com.javasm.util.JDBCUtils;
 
@@ -28,6 +30,18 @@ public class UserDaoImpl implements UserDao {
     public Integer add(UserInfo userInfo) {
         return JDBCUtils.insert("bk_user_info", userInfo);
 
+    }
+
+    @Override
+    public UserInfoVo getUserInfoVo(Integer userId) {
+        String sql = JDBCUtils.getSql("GET_USER_INFO_VO");
+        return JDBCUtils.find(sql,UserInfoVo.class,userId);
+    }
+
+    @Override
+    public SetUserInfo getSetUserInfoVo(Integer userId) {
+        String sql = JDBCUtils.getSql("GET_SET_USER_INFO");
+        return JDBCUtils.find(sql,SetUserInfo.class,userId);
     }
 
 
