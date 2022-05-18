@@ -43,11 +43,12 @@
                 </el-table-column>
                 <el-table-column
                         prop="productTypeEngName"
-                        label="产品英文名称">
+                        label="产品英文名称"
+                        width="180">
                 </el-table-column>
                 <el-table-column
                         prop="remitInfoSummary"
-                        label="汇款信息概略" width="200">
+                        label="汇款信息概略" width="180">
                 </el-table-column>
                 <el-table-column label="操作">
                     <template slot-scope="scope">
@@ -71,15 +72,15 @@
     </el-row>
     <el-row>
         <el-col span="20" offset="5">
-<!--            <el-pagination-->
-<!--                    @size-change="pageSizeChange"-->
-<!--                    @current-change="nowPageChange"-->
-<!--                    :current-page="pageInfo.nowPage"-->
-<!--                    :page-sizes="[5,10,15,20]"-->
-<!--                    :page-size="pageInfo.pageNum"-->
-<!--                    layout="total, sizes, prev, pager, next, jumper"-->
-<!--                    :total="pageInfo.total">-->
-<!--            </el-pagination>-->
+            <el-pagination
+                    @size-change="pageSizeChange"
+                    @current-change="nowPageChange"
+                    :current-page="pageInfo.nowPage"
+                    :page-sizes="[5,10,15,20]"
+                    :page-size="pageInfo.pageNum"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="pageInfo.total">
+            </el-pagination>
         </el-col>
     </el-row>
 </div>
