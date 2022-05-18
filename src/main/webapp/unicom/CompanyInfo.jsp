@@ -41,7 +41,7 @@
             <el-button type="primary" plain @click="addFlag=true">新增</el-button>
         </el-form>
 
-        <el-table :data="comList" height="680" >
+        <el-table :data="companyList" height="680" >
             <el-table-column type="selection" width="55"></el-table-column>
             <el-table-column prop="comName" label="企业名称" width="180"></el-table-column>
             <el-table-column prop="tradeCode" label="交易代码" width="180"></el-table-column>
@@ -78,6 +78,7 @@
             selectParams: {
                 comName: "",
                 type: "showCompany",
+                makerAmount:"",
                 nowPage: 1,
                 pageNum: 5
             },
@@ -86,26 +87,25 @@
                 pageNum: 5,
                 total: 0
             },
-            comList: [],
-            tableData: [{
-                comList:[]
-            }]
+            companyList: [],
+            // tableData: [{
+            //     companyList:[]
+            // }]
 
         },
-
         methods: {
             queryCompany() {
-                axios.get("${appPath}/companyInfo.do", {
+                axios.get("http://localhost:8088/Financial_manage_sys_war_exploded/companyInfo.do", {
                     params: this.selectParams
                 }).then(response => {
-                    this.comList = response.data.dataList;
+                    this.companyList = response.data.dataList;
                     this.pageInfo.nowPage = response.data.nowPage;
                     this.pageInfo.pageNum = response.data.pageNum;
                     this.pageInfo.total = response.data.allCount;
                 });
             },
             handleSizeChange(pageSize) {
-                console.log("没有显示几条数据：" + pageSize)
+                console.log("显示几条数据：" + pageSize)
                 this.selectParams.pageNum = pageSize;
                 this.queryCompany();
             },
@@ -118,16 +118,16 @@
                 //  调用 methods中查询英雄的函数
                 this.queryCompany();
             },
-            toggleSelection(rows) {
-                if (rows) {
-                    rows.forEach(row => {
-                        this.$refs.multipleTable.toggleRowSelection(row);
-                    });
-                } else {
-                    this.$refs.multipleTable.clearSelection();
-                }
-                this.queryCompany();
-            },
+            // toggleSelection(rows) {
+            //     if (rows) {
+            //         rows.forEach(row => {
+            //             this.$refs.multipleTable.toggleRowSelection(row);
+            //         });
+            //     } else {
+            //         this.$refs.multipleTable.clearSelection();
+            //     }
+            //     this.queryCompany();
+            // },
 
         }
     })

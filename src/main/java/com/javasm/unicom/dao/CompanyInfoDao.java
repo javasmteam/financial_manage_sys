@@ -2,6 +2,7 @@ package com.javasm.unicom.dao;
 
 import com.javasm.unicom.bean.CompanyInfo;
 import com.javasm.unicom.bean.PageInfo;
+import com.javasm.unicom.bean.vo.CompanyInfoVo;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public interface CompanyInfoDao {
      * @param companyInfo
      * @return
      */
-    Integer count(CompanyInfo companyInfo);
+    Integer count(CompanyInfo companyInfovo);
 
 
     /**
@@ -32,7 +33,7 @@ public interface CompanyInfoDao {
      * @param companyInfo
      * @return
      */
-    List<CompanyInfo> selectCompanyInfoByPage(PageInfo<CompanyInfo> page,CompanyInfo companyInfo);
+    List<CompanyInfoVo> selectCompanyInfoByPage(PageInfo<CompanyInfoVo> page, CompanyInfoVo companyInfo);
 
 
 
