@@ -2,7 +2,6 @@ package com.javasm.unicom.service;
 
 import com.javasm.unicom.bean.CompanyInfo;
 import com.javasm.unicom.bean.PageInfo;
-import com.javasm.unicom.bean.vo.CompanyInfoVo;
 
 import java.util.List;
 
@@ -32,5 +31,16 @@ public interface CompanyInfoService {
      * @param companyInfo
      * @return
      */
-    PageInfo<CompanyInfoVo> getCompanyInfoByPage(String nowPage, String pageNum, CompanyInfoVo companyInfo);
+    PageInfo<CompanyInfo> getCompanyInfoByPage(String nowPage, String pageNum, CompanyInfo companyInfo);
+
+
+    /**
+     * 修改
+     *
+     * @param companyInfo
+     * @return
+     */
+    Boolean updateCompany(CompanyInfo companyInfo);
+
+
 }
