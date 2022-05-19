@@ -4,7 +4,9 @@ import com.javasm.system.bean.UserInfo;
 import com.javasm.system.bean.vo.PageSelect;
 import com.javasm.system.bean.vo.SetUserInfo;
 import com.javasm.system.bean.vo.UserInfoVo;
+import com.javasm.system.bean.vo.UserRoleMiddle;
 
+import java.sql.Connection;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +37,29 @@ public interface UserDao {
      * @return
      */
     Integer add(UserInfo userInfo);
+
+    /**
+     * 添加用户 -- 事务
+     * @param conn
+     * @param userInfo
+     * @return
+     */
+    public Integer add(Connection conn, UserInfo userInfo);
+
+    /**
+     * 添加用户角色
+     * @param conn
+     * @param ur
+     * @return
+     */
+    public Integer addUserRole(Connection conn, UserRoleMiddle ur);
+
+    /**
+     * 添加用户角色
+     * @param ur
+     * @return
+     */
+    public Integer addUserRole(UserRoleMiddle ur);
 
     /**
      * 获取UserInfoVo对象
@@ -83,4 +108,11 @@ public interface UserDao {
      * @return
      */
     Integer delUser(String userId);
+
+    /**
+     * 条件的查询数据数量
+     * @param pageSelect
+     * @return
+     */
+    Integer selectSize(PageSelect pageSelect);
 }

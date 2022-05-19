@@ -63,7 +63,8 @@ public class UserServiceImpl implements UserService {
         if (list == null || list.size() == 0){
             return null;
         }
-        PageInfo<UserInfoVo> pageInfo = new PageInfo<>(pageSelect.getNowPage(),pageSelect.getPageCount(),list.size(),list);
+        Integer size = userDao.selectSize(pageSelect);
+        PageInfo<UserInfoVo> pageInfo = new PageInfo<>(pageSelect.getNowPage(),pageSelect.getPageCount(),size,list);
         return pageInfo;
     }
 

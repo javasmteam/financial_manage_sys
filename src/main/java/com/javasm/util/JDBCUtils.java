@@ -44,7 +44,7 @@ public class JDBCUtils {
         Connection conn = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://124.221.202.55:2396/financial_manage_sys","web_db","4ibmJ7Cxj2Zwf577");
+            conn = DriverManager.getConnection("jdbc:mysql://124.221.202.55:2396/financial_manage_sys", "web_db", "4ibmJ7Cxj2Zwf577");
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -237,7 +237,7 @@ public class JDBCUtils {
         List<Object> params = new ArrayList<>();
         PreparedStatement prst = null;
         ResultSet rs = null;
-        int count = 0;
+        Integer count = 0;
         String sql = "SELECT " + table + ".* FROM " + table + " WHERE FALSE;";
 
         try {
@@ -250,7 +250,7 @@ public class JDBCUtils {
 //            填充sql语句
             Object[] o = params.toArray();
             QueryRunner qr = new QueryRunner();
-            count = qr.update(conn, s, o);
+            count = qr.insert(conn, s, new ScalarHandler<Long>(), o).intValue();
 
 
         } catch (SQLException e) {
@@ -289,7 +289,7 @@ public class JDBCUtils {
             Object paramObj = method.invoke(t);
 
             //  若字段值不为空,保存字段和字段值
-            if(paramObj!=null){
+            if (paramObj != null) {
                 list.add(md.getColumnLabel(i));
                 fill.add(paramObj);
             }

@@ -4,10 +4,12 @@ import com.javasm.system.bean.UserInfo;
 import com.javasm.system.bean.vo.PageSelect;
 import com.javasm.system.bean.vo.SetUserInfo;
 import com.javasm.system.bean.vo.UserInfoVo;
+import com.javasm.system.bean.vo.UserRoleMiddle;
 import com.javasm.system.dao.UserDao;
 import com.javasm.util.DataUtil;
 import com.javasm.util.JDBCUtils;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,9 +34,25 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Integer add(UserInfo userInfo) {
-        return JDBCUtils.insert("bk_user_info", userInfo);
+        return JDBCUtils.insert("user_info", userInfo);
 
     }
+
+    public Integer add(Connection conn, UserInfo userInfo) {
+        return JDBCUtils.insert(conn, "user_info", userInfo);
+
+    }
+
+    @Override
+    public Integer addUserRole(Connection conn, UserRoleMiddle ur) {
+        return JDBCUtils.insert(conn, "m_user_role", ur);
+    }
+
+    @Override
+    public Integer addUserRole(UserRoleMiddle ur) {
+        return JDBCUtils.insert("m_user_role", ur);
+    }
+
 
     @Override
     public UserInfoVo getUserInfoVo(Integer userId) {
@@ -99,7 +117,7 @@ public class UserDaoImpl implements UserDao {
             Integer integer = DataUtil.stringConvertToInteger(pageSelect.getUserId());
             objects.add(integer);
         }
-        sql.append(" and user.state >0 limit ?,?;");
+        sql.append(" and user_state >0;");
         Integer index = (pageSelect.getNowPage() - 1) * pageSelect.getPageCount();
         objects.add(index);
         objects.add(pageSelect.getPageCount());
@@ -113,6 +131,27 @@ public class UserDaoImpl implements UserDao {
     public Integer delUser(String userId) {
         String sql = JDBCUtils.getSql("DEL_USER_INFO");
         return JDBCUtils.update(sql, userId);
+    }
+
+    @Override
+    public Integer selectSize(PageSelect pageSelect) {
+        ArrayList<Object> objects = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT\n" +
+                "count(u.user_id) \n" +
+                "FROM\n" +
+                "\tuser_info u,\n" +
+                "WHERE\n" +
+                "\tAND u.user_state > 0 ");
+        if (pageSelect.getUserName() != null && !pageSelect.getUserName().equals("")) {
+            sql.append(" and u.user_name = ? ");
+            objects.add(pageSelect.getUserName());
+        }
+        if (pageSelect.getUserId() != null && !pageSelect.getUserId().equals("")) {
+            sql.append(" and u.user_id = ? ");
+            Integer integer = DataUtil.stringConvertToInteger(pageSelect.getUserId());
+            objects.add(integer);
+        }
+        return JDBCUtils.size(sql.toString());
     }
 
 

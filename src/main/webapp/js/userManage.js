@@ -127,7 +127,8 @@ var app = new Vue({
                 } else {
                     this.$message({message: "添加成功", type: "success"})
                     this.regUser = new RegUserF();
-                    this.loginDialog = false;
+                    this.regFlag = false;
+                    this.$refs[rules].resetFields();
                 }
             })
         },
