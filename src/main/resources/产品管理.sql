@@ -6,10 +6,10 @@ drop table if exists product_info;
 create table product_info
 (
     product_id             int(10) primary key auto_increment comment '主键',
-    product_type_id        int(10) comment '产品分类id',
+    product_series_id      int(10) comment '产品系列id',
+    sec_id                 int(10) comment '二级分类',
     regulate_body          varchar(50) comment '管理机构',
     product_ch_name        varchar(50) comment '产品中文名称',
-    product_eng_name       varchar(50) comment '产品英文名称',
     annual_yield           float(10, 4) comment '年化收益率',
     currency_type          int comment '货币类型',
     open_time              date comment '开放时间',
@@ -24,8 +24,280 @@ create table product_info
     lock_period            int(10) comment '锁定期',
     pro_info_state         int(10) default 1 comment '产品信息状态'
 );
+insert into product_info
+values (product_id, 4,1, '富国基金', '富国中证煤炭指数(LOF)A', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3, 200,
+        0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 4,1, '富国基金', '富国中证煤炭指数(LOF)C', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 5, 1,'富国基金', '招商中证煤炭等权指数(LOF)A', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 5, 1,'招商基金', '招商中证煤炭等权指数(LOF)C', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 6, 1,'国泰基金', '国泰中证煤炭ETF联接A', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3, 200,
+        0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 6,1, '国泰基金', '国泰中证煤炭ETF联接C', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3, 200,
+        0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 7,1, '中融中证基金', '中融中证煤炭指数(LOF)', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 8, 1,'创金合信基金', '创金合信红利低波动C', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3, 200,
+        0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 9, 1,'西部利得基金', '西部利得国企红利(LOF)A', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 9, 1,'西部利得基金', '西部利得国企红利(LOF)C', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
 
 
+
+insert into product_info
+values (product_series_id, 10,2, '万家宏观基金', '万家宏观择时多策略混合', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 11, 2,'万家新利基金', '万家新利灵活配置混合', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 12,2, '华夏饲料基金', '华夏饲料豆粕期货ETF联接A', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 13,2, '万家精选基金', '万家精选混合A', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 14,2, '招商基金', '招商稳健平衡混合A', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 14,2, '招商基金', '招商稳健平衡混合C', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 15,2, '景顺长城基金', '景顺长城安鑫回报混合A', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 15, 2,'景顺长城基金', '景顺长城安鑫回报混合C', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+
+
+insert into product_info
+values (product_series_id, 16,3, '招商基金', '招商添浩纯债A', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 16,3,  '招商基金', '招商添浩纯债C', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 17,3,  '博时汇享基金', '博时汇享纯债债券A', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 17,3,  '博时汇享基金', '博时汇享纯债债券C', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 18,3,  '华泰基金', '华泰紫金丰泰纯债发起A', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 18, 3, '华泰基金', '华泰紫金丰泰纯债发起C', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 19, 3, '华嘉信用基金', '永赢华嘉信用债A', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 19,3,  '华嘉信用基金', '永赢华嘉信用债C', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 20,3,  '长盛基金', '长盛盛裕纯债A', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 20,3,  '长盛基金', '长盛盛裕纯债C', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 21,3,  '光大基金', '光大岁末红利纯债A', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 21,3,  '光大基金', '光大岁末红利纯债C', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+
+
+insert into product_info
+values (product_series_id, 22,4,  '广发基金', '广发中证基建工程ETF联接A', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 22, 4, '广发基金', '广发中证基建工程ETF联接C', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 23,4,  '信诚中证基金', '信诚中证基建工程指数(LOF)A', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1,
+        3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 23,4,  '信诚中证基金', '信诚中证基建工程指数(LOF)C', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1,
+        3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 24,4,  '南方地产基金', '南方房地产ETF联接A', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 24,4,  '南方地产基金', '南方房地产ETF联接C', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 25,4,  '南方大盘基金', '南方大盘红利50ETF联接A', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 25,4,  '南方大盘基金', '南方大盘红利50ETF联接C', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 26,4,  '招商沪深基金', '招商沪深300地产等权重指数A', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1,
+        3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 26, 4, '招商沪深基金', '招商沪深300地产等权重指数C', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1,
+        3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 27,4,  '广发中债基金', '广发中债7-10年国开债指数A', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1,
+        3,
+        200, 0.0015, 3, pro_info_state);
+
+insert into product_info
+values (product_series_id, 27,4,  '广发中债基金', '广发中债7-10年国开债指数E', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1,
+        3,
+        200, 0.0015, 3, pro_info_state);
+
+
+
+insert into product_info
+values (product_series_id, 28,5, '中国人寿保险有限公司', '国寿康宁保终身重大疾病保险(2021版,C款)', 0.4150, 2, 20150619, 2, 0.002, 0.015,
+        2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+insert into product_info
+values (product_series_id, 28,5,  '中国人寿保险有限公司', '国寿康宁保(2021版,A款)', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00,
+        1, 3,
+        200, 0.0015, 3, pro_info_state);
+insert into product_info
+values (product_series_id, 28,5,  '中国人寿保险有限公司', '国寿爱无忧两全保险', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+insert into product_info
+values (product_series_id, 28,5,  '中国人寿保险有限公司', '国寿心无忧两全保险', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+insert into product_info
+values (product_series_id, 28, 5, '中国人寿保险有限公司', '国寿福(盛典版)', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+insert into product_info
+values (product_series_id, 28,5,  '中国人寿保险有限公司', '国寿少儿国寿福(盛典版)产品', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00,
+        1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+
+
+insert into product_info
+values (product_series_id, 29,6, '中国人寿保险有限公司', '国寿鑫惠赢两全保险', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+insert into product_info
+values (product_series_id, 29,6, '中国人寿保险有限公司', '国寿鑫裕尊享年金保险', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+insert into product_info
+values (product_series_id, 29,6, '中国人寿保险有限公司', '国寿鑫裕年年年金保险', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+insert into product_info
+values (product_series_id, 29, 6,'中国人寿保险有限公司', '国寿鑫裕金生两财两全保险', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1,
+        3,
+        200, 0.0015, 3, pro_info_state);
+insert into product_info
+values (product_series_id, 29,6, '中国人寿保险有限公司', '国寿鑫享福养老年金保险', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1,
+        3,
+        200, 0.0015, 3, pro_info_state);
+insert into product_info
+values (product_series_id, 29, 6,'中国人寿保险有限公司', '国寿鑫耀东方年金保险', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+insert into product_info
+values (product_series_id, 29,6, '中国人寿保险有限公司', '国寿鑫福临门保险产品组合', 0.4150, 2, 20150619, 2, 0.002, 0.015, 2400.00, 1,
+        3,
+        200, 0.0015, 3, pro_info_state);
+insert into product_info
+values (product_series_id, 29,6, '中国人寿保险有限公司', '国寿个人税收递延型养老年金保险(2018版)', 0.4150, 2, 20150619, 2, 0.002, 0.015,
+        2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+
+
+insert into product_info
+values (product_series_id, 30,7, '中国人寿保险有限公司', '国寿鑫享宝', 0.4150, 2, 20150619, 2, 0.002, 0.015,
+        2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+insert into product_info
+values (product_series_id, 30, 7,'中国人寿保险有限公司', '国寿锦绣前程少儿两全保险', 0.4150, 2, 20150619, 2, 0.002, 0.015,
+        2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+insert into product_info
+values (product_series_id, 30, 7,'中国人寿保险有限公司', '国寿鑫玉少儿年金保险(分红型)', 0.4150, 2, 20150619, 2, 0.002, 0.015,
+        2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+
+
+insert into product_info
+values (product_series_id, 31,8, '中国人寿保险有限公司', '国寿臻享传家终身保险', 0.4150, 2, 20150619, 2, 0.002, 0.015,
+        2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+
+
+insert into product_info
+values (product_series_id, 32,9, '中国人寿保险有限公司', '国寿如E康悦百万医疗保险(盛典版)', 0.4150, 2, 20150619, 2, 0.002, 0.015,
+        2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+insert into product_info
+values (product_series_id, 32, 9,'中国人寿保险有限公司', '国寿附加特定疾病海外医疗保险', 0.4150, 2, 20150619, 2, 0.002, 0.015,
+        2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
+
+
+
+insert into product_info
+values (product_series_id, 33,10, '中国人寿保险有限公司', '国寿百万如意行两全保险(盛典版)', 0.4150, 2, 20150619, 2, 0.002, 0.015,
+        2400.00, 1, 3,
+        200, 0.0015, 3, pro_info_state);
 -- 产品推荐表
 drop table if exists product_recommend;
 create table product_recommend
@@ -58,8 +330,134 @@ create table product_audit
     auditor_opinion    varchar(255) comment '审核意见',
     first_create_time  timestamp comment '首次创建时间',
     latest_modify_time timestamp comment '最新修改时间',
-    audit_state        int(10) comment '产品审核状态'
+    audit_type         int(10) default 0 comment '产品审核状态',
+    audit_state        int(10) default 1 comment '数据状态'
 );
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 2, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 3, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 4, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 5, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 6, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 7, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 8, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 9, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 10, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 11, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 12, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 13, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 14, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 15, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 16, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 17, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 18, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 19, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 20, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+insert into product_audit
+values (audit_id, 1, '小白', '通过', now(), now(), audit_type, audit_state);
+
 
 -- 汇款信息表
 drop table if exists remit_info;
@@ -130,38 +528,6 @@ insert into product_type
 values (product_series_id, 1, 2, '西部利得国企红利(LOF)', 'LOF', 1, product_type_state);
 
 
-
-insert into product_type
-values (product_series_id, 4, 2, '富国中证煤炭指数(LOF)A', '161032', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 4, 2, '富国中证煤炭指数(LOF)C', '013275', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 5, 2, '招商中证煤炭等权指数(LOF)A', '161724', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 5, 2, '招商中证煤炭等权指数(LOF)C', '013596', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 6, 2, '国泰中证煤炭ETF联接A', '008279', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 6, 2, '国泰中证煤炭ETF联接C', '008280', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 7, 2, '中融中证煤炭指数(LOF)', '168204', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 8, 2, '创金合信红利低波动C', '005562', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 9, 2, '西部利得国企红利(LOF)A', '501059', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 9, 2, '西部利得国企红利(LOF)C', '009439', 2, product_type_state);
-
-
 /**
   *******************************混合型*************************************
  */
@@ -182,32 +548,6 @@ values (product_series_id, 1, 2, '招商稳健平衡混合', 'LOF', 1, product_t
 
 insert into product_type
 values (product_series_id, 1, 2, '景顺长城安鑫回报混合', 'LOF', 1, product_type_state);
-
-
-
-insert into product_type
-values (product_series_id, 20, 2, '万家宏观择时多策略混合', '519212', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 21, 2, '万家新利灵活配置混合', '519191', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 22, 2, '华夏饲料豆粕期货ETF联接A', '007937', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 23, 2, '万家精选混合A', '519185', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 24, 2, '招商稳健平衡混合A', '012963', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 24, 2, '招商稳健平衡混合C', '012964', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 25, 2, '景顺长城安鑫回报混合A', '009499', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 25, 2, '景顺长城安鑫回报混合C', '009755', 2, product_type_state);
 
 
 /**
@@ -232,44 +572,6 @@ insert into product_type
 values (product_series_id, 1, 2, '光大岁末红利纯债', 'LOF', 1, product_type_state);
 
 
-
-insert into product_type
-values (product_series_id, 34, 2, '招商添浩纯债A', '008731', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 34, 2, '招商添浩纯债C', '008732', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 35, 2, '博时汇享纯债债券A', '004366', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 35, 2, '博时汇享纯债债券C', '004367', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 36, 2, '华泰紫金丰泰纯债发起A', '007117', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 36, 2, '华泰紫金丰泰纯债发起C', '007118', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 37, 2, '永赢华嘉信用债A', '010092', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 37, 2, '永赢华嘉信用债C', '014167', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 38, 2, '长盛盛裕纯债A', '003102', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 38, 2, '长盛盛裕纯债C', '003103', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 39, 2, '光大岁末红利纯债A', '000489', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 39, 2, '光大岁末红利纯债C', '000490', 2, product_type_state);
-
-
 /**
   *******************************指数型*************************************
  */
@@ -292,43 +594,6 @@ insert into product_type
 values (product_series_id, 1, 2, '广发中债7-10年国开债指数', 'LOF', 1, product_type_state);
 
 
-
-insert into product_type
-values (product_series_id, 52, 2, '广发中证基建工程ETF联接A', '005223', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 52, 2, '广发中证基建工程ETF联接C', '005224', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 53, 2, '信诚中证基建工程指数(LOF)A', '165525', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 53, 2, '信诚中证基建工程指数(LOF)C', '013082', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 54, 2, '南方房地产ETF联接A', '004642', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 54, 2, '南方房地产ETF联接C', '004643', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 55, 2, '南方大盘红利50ETF联接A', '008163', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 55, 2, '南方大盘红利50ETF联接C', '008164', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 56, 2, '招商沪深300地产等权重指数A', '161721', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 56, 2, '招商沪深300地产等权重指数C', '013273', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 57, 2, '广发中债7-10年国开债指数A', '003376', 2, product_type_state);
-
-insert into product_type
-values (product_series_id, 57, 2, '广发中债7-10年国开债指数E', '011062', 2, product_type_state);
-
 /**
   ************************************保险系列************************************
  */
@@ -336,40 +601,10 @@ values (product_series_id, 57, 2, '广发中债7-10年国开债指数E', '011062
 insert into product_type
 values (product_series_id, 2, 2, '重疾保障', 'Disability Insurance', 1, product_type_state);
 
-insert into product_type
-values (product_series_id, 70, 2, '国寿康宁保终身重大疾病保险(2021版,C款)', 'Disability Insurance', 2, product_type_state);
-insert into product_type
-values (product_series_id, 70, 2, '国寿康宁保(2021版,A款)', 'Disability Insurance', 2, product_type_state);
-insert into product_type
-values (product_series_id, 70, 2, '国寿爱无忧两全保险', 'Disability Insurance', 2, product_type_state);
-insert into product_type
-values (product_series_id, 70, 2, '国寿心无忧两全保险', 'Disability Insurance', 2, product_type_state);
-insert into product_type
-values (product_series_id, 70, 2, '国寿福(盛典版)', 'Disability Insurance', 2, product_type_state);
-insert into product_type
-values (product_series_id, 70, 2, '国寿少儿国寿福(盛典版)产品', 'Disability Insurance', 2, product_type_state);
-
 
 
 insert into product_type
 values (product_series_id, 2, 2, '年金保险', 'Annuity Insurance', 1, product_type_state);
-
-insert into product_type
-values (product_series_id, 77, 2, '国寿鑫惠赢两全保险', 'Annuity Insurance', 2, product_type_state);
-insert into product_type
-values (product_series_id, 77, 2, '国寿鑫裕尊享年金保险', 'Annuity Insurance', 2, product_type_state);
-insert into product_type
-values (product_series_id, 77, 2, '国寿鑫裕年年年金保险', 'Annuity Insurance', 2, product_type_state);
-insert into product_type
-values (product_series_id, 77, 2, '国寿鑫裕金生两财两全保险', 'Annuity Insurance', 2, product_type_state);
-insert into product_type
-values (product_series_id, 77, 2, '国寿鑫享福养老年金保险', 'Annuity Insurance', 2, product_type_state);
-insert into product_type
-values (product_series_id, 77, 2, '国寿鑫耀东方年金保险', 'Annuity Insurance', 2, product_type_state);
-insert into product_type
-values (product_series_id, 77, 2, '国寿鑫福临门保险产品组合', 'Annuity Insurance', 2, product_type_state);
-insert into product_type
-values (product_series_id, 77, 2, '国寿个人税收递延型养老年金保险(2018版)', 'Annuity Insurance', 2, product_type_state);
 
 
 
@@ -377,37 +612,21 @@ insert into product_type
 values (product_series_id, 2, 2, '少儿/女性/养老保险', 'Children/Women/Endowment  Insurance', 1, product_type_state);
 
 
-insert into product_type
-values (product_series_id, 86, 2, '国寿鑫享宝', 'Children/Women/Endowment  Insurance', 2, product_type_state);
-insert into product_type
-values (product_series_id, 86, 2, '国寿锦绣前程少儿两全保险', 'Children/Women/Endowment  Insurance', 2, product_type_state);
-insert into product_type
-values (product_series_id, 86, 2, '国寿鑫玉少儿年金保险(分红型)', 'Children/Women/Endowment  Insurance', 2, product_type_state);
-
-
 
 insert into product_type
 values (product_series_id, 2, 2, '寿险保障', 'Life Insurance Guarantee', 1, product_type_state);
-
-insert into product_type
-values (product_series_id, 90, 2, '国寿臻享传家终身保险', 'Life Insurance Guarantee', 2, product_type_state);
 
 
 
 insert into product_type
 values (product_series_id, 2, 2, '医疗保险', 'Medical Insurance', 1, product_type_state);
 
-insert into product_type
-values (product_series_id, 92, 2, '国寿如E康悦百万医疗保险(盛典版)', 'Medical Insurance', 2, product_type_state);
-insert into product_type
-values (product_series_id, 92, 2, '国寿附加特定疾病海外医疗保险', 'Medical Insurance', 2, product_type_state);
 
 
 insert into product_type
 values (product_series_id, 2, 2, '意外保障', 'Accident Insurance', 1, product_type_state);
 
-insert into product_type
-values (product_series_id, 95, 2, '国寿百万如意行两全保险(盛典版)', 'Accident Insurance', 2, product_type_state);
+
 
 /**
   ************************************证券系列************************************
@@ -420,14 +639,150 @@ create table product_net_value
 (
     pro_net_value_id  int(10) primary key auto_increment comment '主键',
     product_id        int(10) comment '产品编号',
-    unit_net          float(10, 2) comment '单位净值',
+    unit_net          float(10, 4) comment '单位净值',
     unit_date         date comment '净值基准日',
-    sum_increase_rate float(10, 2) comment '累计增长率'
+    sum_increase_rate float(10, 4) comment '累计增长率',
+    net_value_state   int(10) default 1 comment '净值状态'
 );
+
+insert into product_net_value
+values (pro_net_value_id, 1, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 2, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 3, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 4, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 5, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 6, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 7, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 8, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 9, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 10, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 11, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 12, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 13, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 14, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 15, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 16, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 17, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 18, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 19, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 20, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 21, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 22, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 23, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 24, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 25, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 26, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 27, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 28, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 29, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 30, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 31, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 32, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 33, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 34, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 35, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 36, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 37, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 38, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 39, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 40, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 41, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 42, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 43, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 44, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 45, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 46, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 47, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 48, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 49, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 50, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 51, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 52, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 53, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 54, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 55, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 56, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 57, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 58, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 59, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 60, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 61, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 62, 1.8638, 20220518, 0.2638, net_value_state);
+insert into product_net_value
+values (pro_net_value_id, 63, 1.8638, 20220518, 0.2638, net_value_state);
+
 
 -- 增加产品系列
 insert into product_type
-values (product_series_id, ?, ?, ?, ?, 1, product_type_state);
+values (product_series_id, ?, ?, ?, ?, ?, 1, product_type_state);
+
+
+
+select *
+from product_type
+where product_series_id = ?
+  and product_type_state = 1;
 
 
 -- 修改产品系列
@@ -455,11 +810,18 @@ set rec_bank_name      = ?,
     remit_state        = ?
 where product_series_id = ?;
 
+select *
+from product_type
+order by product_series_id desc
+limit 1;
 
 select count(product_type.product_series_id)
-from product_type
-where product_type_lv = 1
-  and product_series_id like '%?%'
+from product_type,
+     remit_info
+where product_type.product_series_id = remit_info.product_series_id
+  and product_type.product_type_state = 1
+  and remit_state = 1
+  and product_type.product_series_id like '%?%'
   and product_type_ch_name like '%?%';
 
 
@@ -480,6 +842,8 @@ select product_type.product_series_id,
 from product_type,
      remit_info
 where product_type.product_series_id = remit_info.product_series_id
+  and product_type.product_type_state = 1
+  and remit_state = 1
   and product_type.product_series_id like '%1%'
 limit ?,?;
 
@@ -488,3 +852,155 @@ insert into remit_info
 values (remit_id, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, remit_state);
 
 -- 更新汇款信息
+update product_type
+set product_parent_id     = ?,
+    product_channel       = ?,
+    product_type_ch_name  = ?,
+    product_type_eng_name = ?,
+    product_type_state    = ?
+where product_series_id = ?
+  and product_type_state = 1;
+
+update remit_info
+set rec_bank_name      = ?,
+    swift_code         = ?,
+    bank_code          = ?,
+    cnaps_id           = ?,
+    rec_bank_area= ?,
+    rec_bank_city= ?,
+    rec_account_name   = ?,
+    rec_account        = ?,
+    rec_location       = ?,
+    regulate_body= ?,
+    remit_info_summary = ?,
+    remit_state=?
+where product_series_id = ?
+  and remit_state = 1;
+
+
+select product_info.product_id,
+       product_ch_name,
+       product_type_ch_name,
+       product_info.product_series_id,
+       regulate_body,
+       open_time,
+       currency_type,
+       audit_type,
+       unit_net,
+       unit_date,
+       sum_increase_rate,
+       annual_yield,
+       sub_cycle,
+       fund_manage_fee_rate,
+       sub_rate,
+       init_invest_amount,
+       sub_fee_collect_method,
+       red_cycle,
+       red_init_amount,
+       red_amount,
+       lock_period,
+       auditor
+from product_info,
+     product_audit,
+     product_net_value,
+     product_type
+where product_info.product_id = product_audit.product_id
+  and product_info.product_series_id = product_type.product_series_id
+  and product_info.product_id = product_audit.product_id
+  and audit_state = 1
+  and pro_info_state = 1
+  and net_value_state = 1
+  and audit_state = 1
+#   and product_ch_name like '%?%'
+#   and product_info.product_type_id = ?
+#   and audit_type = ?
+group by product_info.product_id
+limit ?,?;
+
+
+select count(*)
+from (select product_ch_name,
+             product_type_ch_name,
+             product_info.product_type_id,
+             regulate_body,
+             open_time,
+             currency_type,
+             audit_type,
+             unit_net,
+             unit_date,
+             sum_increase_rate
+      from product_info,
+           product_audit,
+           product_net_value,
+           product_type
+      where product_info.product_id = product_audit.product_id
+        and product_info.product_series_id = product_type.product_series_id
+        and product_info.product_id = product_audit.product_id
+        and audit_state = 1
+        and pro_info_state = 1
+        and net_value_state = 1
+        and audit_state = 1
+#         and product_ch_name like '%?%'
+#         and product_info.product_type_id = ?
+#         and audit_type = ?
+      group by product_info.product_id) as pipa;
+
+
+
+update product_info
+set product_series_id      = ?,
+    regulate_body          = ?,
+    product_ch_name        = ?,
+    annual_yield           = ?,
+    currency_type          = ?,
+    open_time              = ?,
+    sub_cycle              = ?,
+    fund_manage_fee_rate   = ?,
+    sub_rate               = ?,
+    init_invest_amount     = ?,
+    sub_fee_collect_method = ?,
+    red_cycle              = ?,
+    red_init_amount        = ?,
+    red_amount             = ?,
+    lock_period            = ?,
+    pro_info_state         = ?
+where product_id = ?
+  and pro_info_state = 1;
+
+
+update product_audit
+set auditor = ?
+where product_id = ?
+
+
+-- 产品
+drop table if exists product_second_type;
+create table product_second_type
+(
+    sec_id            int(10) primary key auto_increment comment '主键',
+    product_series_id int(10) comment '产品系列编号',
+    sec_name          varchar(50) comment '二级分类名称'
+);
+insert into product_second_type
+values (sec_id, 1, '股票基金');
+insert into product_second_type
+values (sec_id, 1, '混合型基金');
+insert into product_second_type
+values (sec_id, 1, '债券型基金');
+insert into product_second_type
+values (sec_id, 1, '指数型基金');
+
+insert into product_second_type
+values (sec_id, 2, '重疾保障');
+insert into product_second_type
+values (sec_id, 2, '年金保险');
+insert into product_second_type
+values (sec_id, 2, '少儿/女性/养老保险');
+
+insert into product_second_type
+values (sec_id, 2, '寿险保障');
+insert into product_second_type
+values (sec_id, 2, '医疗保险');
+insert into product_second_type
+values (sec_id, 2, '意外保障');
+

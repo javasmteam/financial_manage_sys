@@ -7,20 +7,31 @@ package com.javasm.product.control; /**
  * @Version : 1.0
  **/
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
-import java.io.IOException;
 
-@WebServlet(name = "RemitInfoServlet", value = "/RemitInfoServlet")
-public class RemitInfoServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+import com.javasm.controlUtil.BaseServlet;
+import com.javasm.product.bean.RemitInfo;
+import com.javasm.product.service.RemitInfoService;
+import com.javasm.product.service.impl.RemitInfoServiceImpl;
+import com.javasm.util.ServletUtil;
 
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+
+@WebServlet("/remitInfo.do")
+public class RemitInfoServlet extends BaseServlet<RemitInfo> {
+    private final RemitInfoService remitInfoService = new RemitInfoServiceImpl();
+
+    public void updateProductTypeById(RemitInfo remitInfo) {
+        remitInfoService.updateRemitInfo(remitInfo);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    public String addRemitInfo(HttpServletRequest request) {
+        RemitInfo remitInfo = ServletUtil.jsonConvertToEntity(request, RemitInfo.class);
+        if (remitInfoService.addRemitInfo(remitInfo)) {
+            return "1";
+        }
+        return "-1";
     }
+
+
 }

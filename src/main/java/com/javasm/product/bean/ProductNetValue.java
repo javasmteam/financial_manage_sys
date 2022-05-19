@@ -3,6 +3,8 @@ package com.javasm.product.bean;
 
 import lombok.*;
 
+import java.util.Date;
+
 /**
  * <h4>Financial_manage_sys</h4>
  * <p>产品净值类</p>
@@ -19,7 +21,8 @@ import lombok.*;
 public class ProductNetValue {
     private Integer proNetValueId;
     private Integer productId;
-    private Float initInvestAmount;
-    private Float afterInvestAmount;
-    private Float netValue;
+    private Float unitNet;
+    private Date unitDate;
+    private Float sumIncreaseRate;
+    private Integer netValueState;
 }

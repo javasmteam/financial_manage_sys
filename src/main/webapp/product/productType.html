@@ -14,10 +14,7 @@
 <body>
 <div id="app" class="content-container" direction="vertical">
     <!--    导航-->
-    <el-breadcrumb class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/' }">产品管理</el-breadcrumb-item>
-        <el-breadcrumb-item>产品系列管理</el-breadcrumb-item>
-    </el-breadcrumb>
+    <el-descriptions title="产品管理>产品系列管理"></el-descriptions>
     <!--    input-->
     <div>
         <el-container class="content-row">
@@ -39,7 +36,7 @@
     <div class="content-row">
         <el-container>
             <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
-            <el-button type="primary" icon="el-icon-edit-outline" @click="add">添加</el-button>
+            <el-button type="primary" icon="el-icon-edit-outline" @click="saveFlag2=true">添加</el-button>
         </el-container>
     </div>
     <!--    list -->
@@ -67,11 +64,11 @@
                     prop="remitInfoSummary"
                     label="汇款信息概略" width="200">
             </el-table-column>
-            <el-table-column label="操作" width="200">
-                <template #default="scope">
+            <el-table-column label="操作" width="300">
+                <template slot-scope="scope">
                     <el-button
                             size="mini"
-                            @click="handleEdit(scope.$index, scope.row)">修改
+                            @click="handleEdit(scope.row)">修改
                     </el-button>
                     <el-button
                             size="mini"
@@ -80,95 +77,127 @@
                     </el-button>
                     <el-button
                             size="mini"
-                            @click="saveFlag1 = true">汇款信息
+                            @click="showRemitInfo(scope.row)">汇款信息
                     </el-button>
                 </template>
             </el-table-column>
         </el-table>
     </div>
-    <el-row>
-        <el-col span="20" offset="5">
-            <el-pagination
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page="currentPage"
-                    :page-sizes="[5,10,15,20]"
-                    :page-size="pageSize"
-                    layout="total, sizes, prev, pager, next, jumper"
-                    :total="total">
-            </el-pagination>
-        </el-col>
-    </el-row>
+    <div>
+        <el-row>
+            <el-col span="20" offset="5">
+                <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="pageInfo.nowPage"
+                        :page-sizes="[5,10,15,20]"
+                        :page-size="pageInfo.pageSize"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="pageInfo.allCount">
+                </el-pagination>
+            </el-col>
+        </el-row>
+    </div>
+
+    <el-dialog title="汇款信息" :visible.sync="saveFlag1" id="remitInfo" :data="productTypeVO">
+        <el-form :model="productTypeVO" :rules="rules" ref="productTypeVO">
+            <el-form-item label="收款银行名称">
+                <el-input v-model="productTypeVO.recBankName" prop="recBankName" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="银行SWIFT码">
+                <el-input v-model="productTypeVO.swiftCode" prop="recBankName" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="BANK CODE">
+                <el-input v-model="productTypeVO.bankCode" prop="recBankName" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="CNAPS编号">
+                <el-input v-model="productTypeVO.cnapsId" prop="recBankName" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="收款银行地区">
+                <el-input v-model="productTypeVO.recBankArea" prop="recBankName" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="收款银行城市">
+                <el-input v-model="productTypeVO.recBankCity" prop="recBankName" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="收款人户名">
+                <el-input v-model="productTypeVO.recAccountName" prop="recBankName" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="收款人账号">
+                <el-input v-model="productTypeVO.recAccount" prop="recBankName" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="收款人地址">
+                <el-input v-model="productTypeVO.recLocation" prop="recBankName" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="监管机构">
+                <el-input v-model="productTypeVO.regulateBody" prop="recBankName" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="汇款附言">
+                <el-input v-model="productTypeVO.remitInfoSummary" prop="recBankName" autocomplete="off"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="saveFlag1 = false">取 消</el-button>
+            <el-button type="primary" @click="updateRemitInfo">确 定</el-button>
+        </div>
+    </el-dialog>
 
 
-<!--    <el-dialog title="汇款信息" :visible.sync="saveFlag1" id="remitInfo">-->
-<!--        <el-form :model="productTypeVO" :rules="rules" ref="productTypeVO">-->
-<!--            <el-form-item label="收款银行名称">-->
-<!--                <el-input v-model="form.name" autocomplete="off"></el-input>-->
-<!--            </el-form-item>-->
-<!--            <el-form-item label="银行SWIFT码">-->
-<!--                <el-input v-model="form.name" autocomplete="off"></el-input>-->
-<!--            </el-form-item>-->
-<!--            <el-form-item label="BANK CODE">-->
-<!--                <el-input v-model="form.name" autocomplete="off"></el-input>-->
-<!--            </el-form-item>-->
-<!--            <el-form-item label="CNAPS编号">-->
-<!--                <el-input v-model="form.name" autocomplete="off"></el-input>-->
-<!--            </el-form-item>-->
-<!--            <el-form-item label="收款银行地区">-->
-<!--                <el-input v-model="form.name" autocomplete="off"></el-input>-->
-<!--            </el-form-item>-->
-<!--            <el-form-item label="收款银行城市">-->
-<!--                <el-input v-model="form.name" autocomplete="off"></el-input>-->
-<!--            </el-form-item>-->
-<!--            <el-form-item label="收款人户名">-->
-<!--                <el-input v-model="form.name" autocomplete="off"></el-input>-->
-<!--            </el-form-item>-->
-<!--            <el-form-item label="收款人账号">-->
-<!--                <el-input v-model="form.name" autocomplete="off"></el-input>-->
-<!--            </el-form-item>-->
-<!--            <el-form-item label="收款人地址">-->
-<!--                <el-input v-model="form.name" autocomplete="off"></el-input>-->
-<!--            </el-form-item>-->
-<!--            <el-form-item label="监管机构">-->
-<!--                <el-input v-model="form.name" autocomplete="off"></el-input>-->
-<!--            </el-form-item>-->
-<!--        </el-form>-->
-
-<!--        <div slot="footer" class="dialog-footer">-->
-<!--            <el-button @click="dialogFormVisible = false">取 消</el-button>-->
-<!--            <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>-->
-<!--        </div>-->
-<!--    </el-dialog>-->
+    <el-dialog title="修改产品系列" :visible.sync="saveFlag3" id="editProductType">
+        <el-form :model="productType" :rules="rules" ref="productTypeVO">
+            <el-form-item label="产品渠道">
+                <el-select v-model="productType.productChannel" placeholder="请选择产品渠道">
+                    <el-option label="香港资管" :value="1"></el-option>
+                    <el-option label="内地资管" :value="2"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="产品分类">
+                <el-select v-model="productType.productParentId" placehold er="请选择产品分类">
+                    <el-option label="基金" :value="1"></el-option>
+                    <el-option label="保险" :value="2"></el-option>
+                    <el-option label="证券" :value="3"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="中文名称">
+                <el-input v-model="productType.productTypeChName" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="英文名称">
+                <el-input v-model="productType.productTypeEngName" autocomplete="off"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="saveFlag3=false">取 消</el-button>
+            <el-button type="primary" @click="changeProductType">确 定</el-button>
+        </div>
+    </el-dialog>
 
 
-<!--    <el-dialog title="编辑产品系列" :visible.sync="saveFlag2" id="editProductType">-->
-<!--        <el-form :model="productTypeVO" :rules="rules" ref="productTypeVO">-->
-<!--            <el-form-item label="产品渠道" :label-width="formLabelWidth">-->
-<!--                <el-select v-model="form.region" placeholder="请选择产品渠道">-->
-<!--                    <el-option label="香港资管" value="shanghai"></el-option>-->
-<!--                    <el-option label="内地资管" value="beijing"></el-option>-->
-<!--                </el-select>-->
-<!--            </el-form-item>-->
-<!--            <el-form-item label="产品分类" :label-width="formLabelWidth">-->
-<!--                <el-select v-model="form.region" placeholder="请选择产品分类">-->
-<!--                    <el-option label="基金" value="shanghai"></el-option>-->
-<!--                    <el-option label="保险" value="beijing"></el-option>-->
-<!--                    <el-option label="证券" value="beijing"></el-option>-->
-<!--                </el-select>-->
-<!--            </el-form-item>-->
-<!--            <el-form-item label="中文名称">-->
-<!--                <el-input v-model="form.name" autocomplete="off"></el-input>-->
-<!--            </el-form-item>-->
-<!--            <el-form-item label="英文名称">-->
-<!--                <el-input v-model="form.name" autocomplete="off"></el-input>-->
-<!--            </el-form-item>-->
-<!--        </el-form>-->
-<!--        <div slot="footer" class="dialog-footer">-->
-<!--            <el-button @click="dialogFormVisible = false">取 消</el-button>-->
-<!--            <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>-->
-<!--        </div>-->
-<!--    </el-dialog>-->
+    <el-dialog title="编辑产品系列" :visible.sync="saveFlag2" id="addProductType">
+        <el-form :model="productTypeVO" :rules="rules" ref="productTypeVO">
+            <el-form-item label="产品渠道">
+                <el-select v-model="productType.productChannel" placeholder="请选择产品渠道">
+                    <el-option label="香港资管" value="1"></el-option>
+                    <el-option label="内地资管" value="2"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="产品分类">
+                <el-select v-model="productType.productParentId" placeholder="请选择产品分类">
+                    <el-option label="基金" value="1"></el-option>
+                    <el-option label="保险" value="2"></el-option>
+                    <el-option label="证券" value="3"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="中文名称">
+                <el-input v-model="productType.productTypeChName" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="英文名称">
+                <el-input v-model="productType.productTypeEngName" autocomplete="off"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="saveFlag2=false">取 消</el-button>
+            <el-button type="primary" @click="addProductType">确 定</el-button>
+        </div>
+    </el-dialog>
 </div>
 </body>
 <script src="../js/productType.js"></script>

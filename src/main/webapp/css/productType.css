@@ -12,7 +12,7 @@ body {
     padding: 20px;
     margin: 20px;
     border-radius: 10px;
-    min-width: 1200px;
+    min-width: 1400px;
     display: inline-block;
     width: 90%;
 }
@@ -35,6 +35,9 @@ body {
     margin-top: 50px;
 }
 
-.el-icon-arrow-right {
+.el-breadcrumb {
     margin-bottom: 30px;
 }
+
+
+

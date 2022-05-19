@@ -59,7 +59,7 @@ public class PageInfo<T> {
 
         //赋值
         this.nowPage = nowPage == null || nowPage < 1 ? 1 : nowPage;
-        this.pageNum = pageNum == null || pageNum < 2 ? 3 : pageNum;
+        this.pageNum = pageNum == null || pageNum < 2 ? 5 : pageNum;
         this.allCount = allCount;
 
         //计算

@@ -1,4 +1,4 @@
-package com.javasm.product.dao;
+package com.javasm.product.service;
 
 import com.javasm.product.bean.PageInfo;
 import com.javasm.product.bean.ProductInfo;
@@ -10,14 +10,13 @@ import java.util.List;
 
 /**
  * <h4>Financial_manage_sys</h4>
- * <p>产品信息dao</p>
+ * <p></p>
  *
  * @Author : zhao Yuanming
- * @Date : 2022-05-15 20:41
+ * @Date : 2022-05-19 03:02
  * @Version : 1.0
  **/
-public interface ProductInfoDao {
-
+public interface ProductInfoService {
 
     /**
      * 增加产品信息
@@ -46,11 +45,12 @@ public interface ProductInfoDao {
 
 
     /**
-     * 分页查询产品信息
+     * 分页查询商品信息
      *
-     * @param page          分页信息
-     * @param productInfoVO 产品信息vo
-     * @return 查询vo集合
+     * @param nowPage
+     * @param pageSize
+     * @param productInfoVO
+     * @return
      */
-    List<ProductInfoVO> queryProductInfoByPage(PageInfo<ProductInfoVO> page, ProductInfoVO productInfoVO);
+    PageInfo<ProductInfoVO> getProductInfoByPage(String nowPage, String pageSize, ProductInfoVO productInfoVO);
 }

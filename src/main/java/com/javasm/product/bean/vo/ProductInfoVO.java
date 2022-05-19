@@ -17,22 +17,17 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ProductInfoVO{
-
-    private String productChName;
-    private String productTypeChName;
-
-    private Integer productTypeId;
-    private Integer productParentId;
-
+public class ProductInfoVO {
+    private Integer productId;
+    private Integer productSeriesId;
     private String regulateBody;
-    private Date openTime;
-    private String currencyType;
-    private Integer auditState;
+    private String productChName;
     private Float annualYield;
+    private String currencyType;
+    private Date openTime;
     private Integer subCycle;
-    private Float subRate;
     private Float fundManageFeeRate;
+    private Float subRate;
     private Float initInvestAmount;
     private String subFeeCollectMethod;
     private Integer redCycle;
@@ -40,5 +35,9 @@ public class ProductInfoVO{
     private Float redAmount;
     private Integer lockPeriod;
     private Integer proInfoState;
-    
+    private Integer auditType;
+    private String auditor;
+    private Float unitNet;
+    private Date unitDate;
+    private Float sumIncreaseRate;
 }
