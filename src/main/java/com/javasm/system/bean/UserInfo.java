@@ -2,6 +2,7 @@ package com.javasm.system.bean;
 
 import cn.hutool.core.codec.Base64;
 import com.alibaba.fastjson.annotation.JSONField;
+import com.javasm.constant.Cons;
 import com.javasm.system.bean.vo.RegUser;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -60,7 +61,7 @@ public class UserInfo {
         this.sex = regUser.getSex();
         this.phone = regUser.getPhone();
         //新注册的用户角色默认为会员
-        this.roleId = 5;
+        this.roleId = Cons.DEFAULT_ROLE;
         this.createTime = new Date();
         this.userState = 1;
 

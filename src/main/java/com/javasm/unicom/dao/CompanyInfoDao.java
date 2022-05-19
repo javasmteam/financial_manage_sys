@@ -36,7 +36,13 @@ public interface CompanyInfoDao {
     List<CompanyInfo> selectCompanyInfoByPage(PageInfo<CompanyInfo> page, CompanyInfo companyInfo);
 
 
-
+    /**
+     * 修改
+     *
+     * @param companyInfo
+     * @return
+     */
+    Boolean updateCompany(CompanyInfo companyInfo);
 
 
 

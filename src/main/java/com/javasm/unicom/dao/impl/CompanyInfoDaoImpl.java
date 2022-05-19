@@ -34,10 +34,21 @@ public class CompanyInfoDaoImpl implements CompanyInfoDao {
                 "       c.new_maker_amount newMakerAmount from company_info c");
         if (companyInfo != null ){
             if (companyInfo.getComName()!=null && !"".equals(companyInfo.getComName())){
-                sql.append(" and c.com_name  like '% "+companyInfo.getComName() +" %' ");
+                sql.append(" where c.com_name  like '%"+companyInfo.getComName() +"%' ");
             }
         }
         sql.append(" limit ?,? ");
         return JDBCUtils.query(sql.toString(),CompanyInfo.class,page.getStartIndex(),page.getPageNum());
+    }
+
+    @Override
+    public Boolean updateCompany(CompanyInfo companyInfo) {
+        String sql = "update company_info set com_name=?,trade_code=?,com_logo=?,app_logo=?," +
+                "com_industry=?,com_create_year=?,com_ceo=?,com_location=?,com_rate=?," +
+                "new_maker_amount=?,com_seq_code=?,com_intro=?,com_info_state=? where com_id=? ";
+        return JDBCUtils.update(sql,companyInfo.getComName(),companyInfo.getTradeCode(),companyInfo.getComLogo(),
+                companyInfo.getAppLogo(),companyInfo.getComIndustry(),companyInfo.getComCreateYear(),companyInfo.getComCeo(),
+                companyInfo.getComLocation(),companyInfo.getComRate(),companyInfo.getNewMakerAmount(),
+                companyInfo.getComSeqCode(),companyInfo.getComIntro(),companyInfo.getComInfoState(),companyInfo.getComId())>0;
     }
 }

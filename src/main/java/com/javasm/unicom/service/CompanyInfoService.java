@@ -32,4 +32,15 @@ public interface CompanyInfoService {
      * @return
      */
     PageInfo<CompanyInfo> getCompanyInfoByPage(String nowPage, String pageNum, CompanyInfo companyInfo);
+
+
+    /**
+     * 修改
+     *
+     * @param companyInfo
+     * @return
+     */
+    Boolean updateCompany(CompanyInfo companyInfo);
+
+
 }

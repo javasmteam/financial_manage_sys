@@ -231,6 +231,14 @@ create table history_funding
     hy_fun_state    int(10) default 1 comment '历史融资表状态'
 );
 
+select c.com_name comName,h.fun_date funDate,h.fun_type funType,h.fun_amount funAmount,
+       h.after_fun_val afterFunVal,h.total_shares totalShares,h.price_per_share pricePerShare
+       from company_info c ,history_funding h where c.com_id = h.com_id and c.com_id = 1;
+
+select c.com_name comName,c.trade_code tradeCode,c.com_seq_code comSeqCode,
+                      c.new_maker_amount newMakerAmount from company_info c where  c.com_name  like;
+
+
 insert into history_funding
 values(hy_fun_id,1,'1997-02-28','天使轮',1,2,1,2,hy_fun_state);
 insert into history_funding
@@ -289,11 +297,13 @@ values(hy_fun_id,5,'2010-10-09','D轮',60,300,40,40,hy_fun_state);
 
 
 
+-- 在表中添加一列
+ -- alter table bk_business_info add business_state int(10);
 
 
 
-
-
+select c.com_name comName,c.trade_code tradeCode,c.com_seq_code comSeqCode,
+       c.new_maker_amount newMakerAmount from company_info c where c.com_name  like '%步长制药%';
 
 
 

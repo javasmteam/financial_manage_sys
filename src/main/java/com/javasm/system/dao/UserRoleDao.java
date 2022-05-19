@@ -1,6 +1,7 @@
 package com.javasm.system.dao;
 
 import com.javasm.system.bean.UserRole;
+import com.javasm.system.bean.vo.UserRoleVo;
 
 import java.util.List;
 
@@ -23,4 +24,11 @@ public interface UserRoleDao {
      * @return
      */
     UserRole get(Integer roleId);
+
+    /**
+     * 获取用户全部集合的vo类
+     * @param userId
+     * @return
+     */
+    UserRoleVo getUserRoleVo(Integer userId);
 }

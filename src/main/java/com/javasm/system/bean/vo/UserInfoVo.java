@@ -1,6 +1,7 @@
 package com.javasm.system.bean.vo;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.javasm.system.bean.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,5 +30,6 @@ public class UserInfoVo {
     private String roleName;
     @JSONField(format = "yyyy-MM-dd hh:mm:ss")
     private Date lastLogin;
+    private Integer userState;
     
 }

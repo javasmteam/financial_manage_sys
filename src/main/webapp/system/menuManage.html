@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>菜单管理</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <link rel="stylesheet" href="../css/menuManage.css">
+    <script src="../js/constant.js"></script>
+</head>
+<body>
+<div id="app">
+    <el-card class="box-card">
+        <!-- 查询控件 -->
+        <el-form :inline="true" :model="pageSelect" class="demo-form-inline">
+            <el-form-item label="菜单名">
+                <el-input v-model="pageSelect.menuName" placeholder="请输入查询的用户姓名"></el-input>
+            </el-form-item>
+            <el-form-item label="父级菜单">
+                <el-select v-model="pageSelect.permissionId" placeholder="请选择">
+                    <el-option
+                            v-for="parentMenu in parentMenus"
+                            :key="parentMenu.permissionId"
+                            :label="parentMenu.permissionName"
+                            :value="parentMenu.permissionId">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="queryPageSelect">查询</el-button>
+                <el-button type="primary" @click="addFlag=true">新增</el-button>
+            </el-form-item>
+        </el-form>
+        <!-- 表格显示 -->
+        <el-table
+                ref="multipleTable"
+                :data="menuList"
+                tooltip-effect="dark"
+                style="width: 100%"
+                stripe="true"
+                border="true"
+                @selection-change="handleSelectionChange">
+            <el-table-column
+                    type="selection"
+                    width="55">
+            </el-table-column>
+            <el-table-column
+                    prop="permissionName"
+                    label="菜单名称"
+                    width="120">
+            </el-table-column>
+            <el-table-column
+                    prop="parentId"
+                    label="父级菜单编号"
+                    width="120">
+            </el-table-column>
+            <el-table-column
+                    prop="parentName"
+                    label="父级菜单名称"
+                    width="120">
+            </el-table-column>
+            <el-table-column
+                    prop="permissionPath"
+                    label="访问地址"
+                    width="120">
+            </el-table-column>
+            <el-table-column
+                    label="菜单图标"
+                    width="120">
+                <template slot-scope="scope">
+                    <i :class="scope.row.permissionImage"></i>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="操作"
+                    show-overflow-tooltip>
+                <template slot-scope="scope">
+                    <el-button-group>
+                        <el-button type="primary" icon="el-icon-orange" @click="showMenuInfo(scope.row)"></el-button>
+                        <el-button type="primary" icon="el-icon-edit" @click="showSetMenuInfo(scope.row)"></el-button>
+                        <el-button type="primary" icon="el-icon-delete" @click="reqDelMenu(scope.row)"></el-button>
+                    </el-button-group>
+                </template>
+            </el-table-column>
+        </el-table>
+
+        <!-- 翻页组件 -->
+        <el-pagination
+                @size-change="SetPageCount"
+                @current-change="SetNowPage"
+                :current-page="page.nowPage"
+                :page-sizes="[5, 10, 15, 20]"
+                :page-size="page.pageCount"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="page.allCount">
+        </el-pagination>
+
+        <!-- 详情弹窗 -->
+        <el-dialog title="菜单详情" :visible.sync="menuDetailsFlag">
+
+            <el-descriptions class="margin-top" title="个人信息" :column="1" :size="size" border>
+                <el-descriptions-item>
+                    <template slot="label">
+                        <i class="el-icon-user"></i>
+                        用户头像
+                    </template>
+                    <el-image style="width:100px;height:100px" :url="projectPath+userInfo.headPic"
+                              fit="fill" alt="用户还没有设置头像"></el-image>
+                </el-descriptions-item>
+                <el-descriptions-item>
+                    <template slot="label">
+                        <i class="el-icon-mobile-phone"></i>
+                        用户id
+                    </template>
+                    {{userInfo.userId}}
+                </el-descriptions-item>
+                <el-descriptions-item>
+                    <template slot="label">
+                        <i class="el-icon-location-outline"></i>
+                        用户账号
+                    </template>
+                    {{userInfo.userAct}}
+                </el-descriptions-item>
+                <el-descriptions-item>
+                    <template slot="label">
+                        <i class="el-icon-tickets"></i>
+                        用户名
+                    </template>
+                    {{userInfo.userName == '' ? '还没有用户名' : userInfo.userName}}
+                </el-descriptions-item>
+                <el-descriptions-item>
+                    <template slot="label">
+                        <i class="el-icon-tickets"></i>
+                        用户签名
+                    </template>
+                    {{userInfo.des == '' ? '还没有用户签名' : userInfo.des}}
+                </el-descriptions-item>
+                <el-descriptions-item>
+                    <template slot="label">
+                        <i class="el-icon-office-building"></i>
+                        用户性别
+                    </template>
+                    {{userInfo.sex == 0 ? '男' : '女'}}
+                </el-descriptions-item>
+                <el-descriptions-item>
+                    <template slot="label">
+                        <i class="el-icon-office-building"></i>
+                        用户生日
+                    </template>
+                    {{userInfo.birthday == '' ? '2000-01-01' : userInfo.birthday}}
+                </el-descriptions-item>
+                <el-descriptions-item>
+                    <template slot="label">
+                        <i class="el-icon-office-building"></i>
+                        用户爱好
+                    </template>
+                    {{userInfo.avatarColor == '' ? '用户没有爱好' : userInfo.avatarColor}}
+                </el-descriptions-item>
+                <el-descriptions-item>
+                    <template slot="label">
+                        <i class="el-icon-office-building"></i>
+                        用户手机
+                    </template>
+                    {{userInfo.phone == '' ? '用户还没有设置联系方式' : userInfo.avatarColor}}
+                </el-descriptions-item>
+                <el-descriptions-item>
+                    <template slot="label">
+                        <i class="el-icon-office-building"></i>
+                        用户当前角色
+                    </template>
+                    {{userInfo.roleName}}
+                </el-descriptions-item>
+                <el-descriptions-item>
+                    <template slot="label">
+                        <i class="el-icon-office-building"></i>
+                        用户最后登录时间
+                    </template>
+                    {{userInfo.lastLogin}}
+                </el-descriptions-item>
+            </el-descriptions>
+        </el-dialog>
+
+        <!-- 修改弹窗 -->
+        <el-dialog title="修改菜单" :visible.sync="setMenuFlag">
+            <el-form :model="setUserInfo" rules="vriSetUser" ref="setUserInfo" label-width="100px">
+                <el-form-item label="用户名">
+                    <el-input v-model="setUserInfo.userName" placeholder="请输入内容"></el-input>
+                </el-form-item>
+                <el-form-item label="用户签名">
+                    <el-input v-model="setUserInfo.des" placeholder="请输入签名"></el-input>
+                </el-form-item>
+                <el-form-item label="用户性别">
+                    <el-radio v-model="setUserInfo.sex" label="0">男</el-radio>
+                    <el-radio v-model="setUserInfo.sex" label="1">女</el-radio>
+                </el-form-item>
+                <el-form-item label="用户生日">
+                    <el-date-picker v-model="setUserInfo.birthday" type="date" placeholder="选择日期"></el-date-picker>
+                </el-form-item>
+                <el-form-item label="用户爱好">
+                    <el-input v-model="setUserInfo.avatarColor" placeholder="请输入爱好"></el-input>
+                </el-form-item>
+                <el-form-item label="用户联系方式">
+                    <el-input v-model="setUserInfo.phone" placeholder="请输入联系方式"></el-input>
+                </el-form-item>
+                <el-form-item label="用户默认角色">
+                    <el-select v-model="setUserInfo.roles.nowRole" value-key="roleId" placeholder="请设置默认角色">
+                        <el-option
+                                v-for="role in setUserInfo.roles.userRoles"
+                                :key="role.roleId"
+                                :label="role.roleName"
+                                :value="role">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+            <el-button @click="setUser(false)">取 消</el-button>
+             <el-button type="primary" @click="setUser(true)">确 定</el-button>
+        </span>
+        </el-dialog>
+
+        <!-- 新增弹窗 -->
+        <el-dialog title="新增菜单 " :visible.sync="regFlag">
+            <el-form :model="regUser" class="reg-form" label-width="80px" :rules="regRules" ref="regUser">
+
+                <el-form-item label="账号:" prop="userAct">
+                    <el-input v-model="regUser.userAct"></el-input>
+                </el-form-item>
+
+                <el-form-item label="密码:" prop="userPwd">
+                    <el-input v-model="regUser.userPwd" show-password></el-input>
+                </el-form-item>
+
+                <el-form-item label="用户姓名" prop="userName">
+                    <el-input v-model="regUser.userName"></el-input>
+                </el-form-item>
+
+                <el-form-item label="性别" prop="sex">
+                    <el-radio v-model="regUser.sex" label="0">男</el-radio>
+                    <el-radio v-model="regUser.sex" label="1">女</el-radio>
+                </el-form-item>
+
+                <el-form-item label="生日" prop="birthday">
+                    <el-date-picker v-model="regUser.birthday" type="date" placeholder="选择日期"></el-date-picker>
+                </el-form-item>
+
+                <el-form-item label="联系方式" prop="phone">
+                    <el-input v-model="regUser.phone"></el-input>
+                </el-form-item>
+
+                <el-form-item>
+                    <div class="reg-button">
+                        <el-button @click="regFlag=false">取 消</el-button>
+                        <el-button type="primary" @click="userReg('regUser')">确 定</el-button>
+                    </div>
+                </el-form-item>
+
+            </el-form>
+        </el-dialog>
+    </el-card>
+</div>
+
+<script src="../js/menuManage.js"></script>
+
+</body>
+</html>

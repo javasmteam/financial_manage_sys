@@ -1,6 +1,8 @@
 package com.javasm.system.service;
 
+import com.javasm.system.bean.PageInfo;
 import com.javasm.system.bean.UserInfo;
+import com.javasm.system.bean.vo.PageSelect;
 import com.javasm.system.bean.vo.SetUserInfo;
 import com.javasm.system.bean.vo.UserInfoVo;
 
@@ -30,4 +32,25 @@ public interface UserService {
      * @return
      */
     Integer updateUserInfo(SetUserInfo setUserInfo);
+
+    /**
+     * 获取设置用户对象  -- id
+     * @param userId
+     * @return
+     */
+    SetUserInfo getSetUserInfo(Integer userId);
+
+    /**
+     * 分页查询用户信息
+     * @param pageSelect
+     * @return
+     */
+    PageInfo<UserInfoVo> queryPageUser(PageSelect pageSelect);
+
+    /**
+     * 删除用户
+     * @param userId
+     * @return
+     */
+    Integer delUser(String userId);
 }
