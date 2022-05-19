@@ -58,9 +58,9 @@ public class FileUploadCompanyServlet extends HttpServlet {
 
                         String projectPath = getServletContext().getRealPath( "/" );
                         //上传路径
-                        String path = projectPath + "//img";
+                        String path = projectPath + "/img";
                         //文件名
-//                        fileName = new Date().getTime() + fileItem.getName();
+//                       fileName = new Date().getTime() + fileItem.getName();
                         fileName = fileItem.getName();
                         //创建一个空的文件
                         File newFile = new File( path + fileName );

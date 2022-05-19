@@ -34,7 +34,7 @@ public class CompanyInfoDaoImpl implements CompanyInfoDao {
                 "       c.new_maker_amount newMakerAmount from company_info c");
         if (companyInfo != null ){
             if (companyInfo.getComName()!=null && !"".equals(companyInfo.getComName())){
-                sql.append(" and c.com_name  like '% "+companyInfo.getComName() +" %' ");
+                sql.append(" where c.com_name  like '%"+companyInfo.getComName() +"%' ");
             }
         }
         sql.append(" limit ?,? ");
