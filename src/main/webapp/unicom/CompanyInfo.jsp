@@ -33,41 +33,158 @@
 <div id="app">
     <el-descriptions title="独角兽管理>充值管理信息"></el-descriptions>
 
-        <el-form :inline="true" id="companySelect">
-            <el-form-item label="企业名：">
-                <el-input v-model="selectParams.comName"></el-input>
+    <el-form :inline="true" id="companySelect">
+        <el-form-item label="企业名：">
+            <el-input v-model="selectParams.comName"></el-input>
+        </el-form-item>
+        <el-button type="primary" plain @click="showCompany()">查询</el-button>
+        <el-button type="primary" plain @click="addFlag=true">新增</el-button>
+    </el-form>
+
+    <el-table :data="companyList" height="330">
+        <el-table-column type="selection" width="55"></el-table-column>
+        <el-table-column prop="comName" label="企业名称" width="150"></el-table-column>
+        <el-table-column prop="tradeCode" label="交易代码" width="150"></el-table-column>
+        <el-table-column prop="comSeqCode" label="顺序" width="80"></el-table-column>
+        <el-table-column prop="newMakerAmount" label="最新挂牌价" width="110"></el-table-column>
+        <el-table-column label="操作" width="260">
+            <template slot-scope="scope">
+                <el-button @click="initUpdate(scope.row)" type="text" size="small">详情</el-button>
+                <el-button @click="initUpdate(scope)" type="text" size="small">修改</el-button>
+                <el-button type="text" size="small" @click="deleteHero()">删除</el-button>
+                <el-button type="text" size="small" @click="addMaker(scope)">编辑挂单</el-button>
+                <el-button type="text" size="small" @click="showHistory(scope)">历史融资</el-button>
+            </template>
+        </el-table-column>
+    </el-table>
+
+    <%--分页--%>
+    <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="pageInfo.nowPage"
+            :page-sizes="[5, 10, 15, 20]"
+            :page-size="pageInfo.pageNum"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="pageInfo.total">
+    </el-pagination>
+
+    <%--添加企业信息--%>
+    <el-dialog id="editCompany" title="编辑企业信息" :visible.sync="addFlag" width="30%">
+        <el-form :inline="true" :model="company">
+
+            <el-form-item label="企业名称" prop="comName">
+                <el-input v-model="company.comName" placeholder="企业名称"></el-input>
             </el-form-item>
-            <el-button type="primary" plain @click="showCompany()">查询</el-button>
-            <el-button type="primary" plain @click="addFlag=true">新增</el-button>
+
+            <el-form-item label="交易代码" prop="tradeCode">
+                <el-input v-model="company.tradeCode" placeholder="交易代码"></el-input>
+            </el-form-item>
+
+            <el-form-item label="企业logo" prop="comLogo">
+                <el-upload class="upload-demo" action="${appPath}/fileUpload.do" multiple
+                        :limit="3" :on-success="getFileName">
+                    <el-button size="small" type="primary">点击上传</el-button>
+                </el-upload>
+            </el-form-item>
+
+            <el-form-item label="APP端logo" prop="appLogo">
+                <el-upload class="upload-demo" action="${appPath}/fileUpload.do" multiple
+                :limit="3" :on-success="getFileName">
+                    <el-button size="small" type="primary">点击上传</el-button>
+                </el-upload>
+            </el-form-item>
+
+            <el-form-item label="所属行业" prop="company.comIndustry">
+                <el-select v-model="company.comIndustry" placeholder="请选择">
+                    <el-option label="软件开发" value="软件开发"></el-option>
+                    <el-option label="医疗器械" value="医疗器械"></el-option>
+                    <el-option label="有色金属" value="有色金属"></el-option>
+                    <el-option label="工程建设" value="工程建设"></el-option>
+                    <el-option label="专用设备" value="专用设备"></el-option>
+                </el-select>
+            </el-form-item>
+
+            <el-form-item label="成立年份" prop="comCreateYear">
+                <el-col :span="11">
+                    <el-date-picker type="date" placeholder="选择日期" v-model="company.comCreateYear"
+                                    style="width: 100%;"></el-date-picker>
+                </el-col>
+            </el-form-item>
+
+            <el-form-item label="CEO" prop="comCeo">
+                <el-input v-model="company.comCeo" placeholder="CEO"></el-input>
+            </el-form-item>
+
+            <el-form-item label="企业所在地" prop="comLocation">
+                <el-input v-model="company.comLocation" placeholder="企业所在地"></el-input>
+            </el-form-item>
+
+            <el-form-item label="费率(%)" prop="comRate">
+                <el-input v-model="company.comRate" placeholder="费率(%)"></el-input>
+            </el-form-item>
+
+            <el-form-item label="企业顺序" prop="comSeqCode">
+                <el-input-number v-model="company.comSeqCode" @change="handleChange" :min="1" :max="10"
+                                 label="描述文字"></el-input-number>
+            </el-form-item>
+
+            <el-form-item label="企业介绍" prop="comIntro">
+                <el-input v-model="company.comIntro" placeholder="企业介绍"></el-input>
+            </el-form-item>
+
+            <span slot="footer" class="dialog-footer">
+            <el-button @click="addFlag=false">取消</el-button>
+            <el-button @click="editCompany()" type="primary">保存</el-button>
+            </span>
+
         </el-form>
+    </el-dialog>
 
-        <el-table :data="companyList" height="330" >
-            <el-table-column type="selection" width="55"></el-table-column>
-            <el-table-column prop="comName" label="企业名称" width="150"></el-table-column>
-            <el-table-column prop="tradeCode" label="交易代码" width="150"></el-table-column>
-            <el-table-column prop="comSeqCode" label="顺序" width="80"></el-table-column>
-            <el-table-column prop="newMakerAmount" label="最新挂牌价" width="110"></el-table-column>
-            <el-table-column label="操作" width="260">
-                <template slot-scope="scope">
-                    <el-button @click="initUpdate(scope.row)" type="text" size="small">详情</el-button>
-                    <el-button @click="initUpdate(scope.row)" type="text" size="small">修改</el-button>
-                    <el-button type="text" size="small" @click="deleteHero(scope.row.heroId)">删除</el-button>
-                    <el-button type="text" size="small" @click="">编辑挂单</el-button>
-                    <el-button type="text" size="small" @click="">历史融资</el-button>
-                </template>
-            </el-table-column>
-        </el-table>
+    <%--挂单价--%>
+    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+        <el-descriptions title="挂单价"></el-descriptions>
 
-        <el-pagination
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page="pageInfo.nowPage"
-                    :page-sizes="[5, 10, 15, 20]"
-                    :page-size="pageInfo.pageNum"
-                    layout="total, sizes, prev, pager, next, jumper"
-                    :total="pageInfo.total">
-        </el-pagination>
+        <el-form-item label="买一">
+            <el-input v-model="formInline.user" placeholder="买一"></el-input>
+        </el-form-item>
+        <el-form-item label="买入几手">
+            <el-input v-model="formInline.user" placeholder="买入几手"></el-input>
+        </el-form-item>
+        <el-form-item label="买二">
+            <el-input v-model="formInline.user" placeholder="买二"></el-input>
+        </el-form-item>
+        <el-form-item label="买入几手">
+            <el-input v-model="formInline.user" placeholder="买入几手"></el-input>
+        </el-form-item>
+        <el-form-item label="买三">
+            <el-input v-model="formInline.user" placeholder="买三"></el-input>
+        </el-form-item>
+        <el-form-item label="买入几手">
+            <el-input v-model="formInline.user" placeholder="买入几手"></el-input>
+        </el-form-item>
 
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="addFlag=false">取消</el-button>
+            <el-button @click="editHero()" type="primary">保存</el-button>
+        </span>
+    </el-form>
+
+    <%--历史融资--%>
+    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+        <el-descriptions title="历史融资"></el-descriptions>
+        <el-table-column prop="comName" label="企业名称" width="150"></el-table-column>
+        <el-table-column prop="tradeCode" label="投资日期" width="150"></el-table-column>
+        <el-table-column prop="comSeqCode" label="投资轮" width="80"></el-table-column>
+        <el-table-column prop="newMakerAmount" label="投资资金(百万)" width="110"></el-table-column>
+        <el-table-column prop="newMakerAmount" label="投后估值(百万)" width="110"></el-table-column>
+        <el-table-column prop="newMakerAmount" label="总发行股数(百万)" width="110"></el-table-column>
+        <el-table-column prop="newMakerAmount" label="每股单价" width="110"></el-table-column>
+
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="addFlag=false">取消</el-button>
+        </span>
+    </el-form>
 
 </div>
 
@@ -76,9 +193,9 @@
         el: "#app",
         data: {
             selectParams: {
-                comName: "",
                 type: "showCompany",
-                newMakerAmount:"",
+                comName: "",
+                newMakerAmount: "",
                 nowPage: 1,
                 pageNum: 5
             },
@@ -87,10 +204,37 @@
                 pageNum: 5,
                 total: 0
             },
+            company: {
+                type:"addCompany",
+                comName: "",
+                tradeCode: "",
+                comLogo: "",
+                appLogo: "",
+                comIndustry: 1,
+                comCreateYear: "1997",
+                comCeo: "",
+                comRate: "",
+                comSeqCode: 0,
+                comIntro: ""
+            },
+            maker: {
+                type:"addMaker",
+                makerAmount: "",
+                tradeAmount: ""
+            },
+            selectHistory: {
+                type:"showHistory",
+                comName: "",
+                funDate: "",
+                funType: "",
+                funAmount: "",
+                afterFunVal: "",
+                totalShares: "",
+                pricePerShare: ""
+            },
             companyList: [],
-            // tableData: [{
-            //     companyList:[]
-            // }]
+            comIndustryList:[],
+
 
         },
         methods: {
@@ -118,16 +262,7 @@
                 //  调用 methods中查询英雄的函数
                 this.queryCompany();
             },
-            // toggleSelection(rows) {
-            //     if (rows) {
-            //         rows.forEach(row => {
-            //             this.$refs.multipleTable.toggleRowSelection(row);
-            //         });
-            //     } else {
-            //         this.$refs.multipleTable.clearSelection();
-            //     }
-            //     this.queryCompany();
-            // },
+
 
         }
     })

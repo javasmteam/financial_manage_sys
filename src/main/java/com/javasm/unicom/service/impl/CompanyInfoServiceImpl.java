@@ -34,6 +34,10 @@ public class CompanyInfoServiceImpl implements CompanyInfoService {
         return page;
     }
 
+    @Override
+    public Boolean updateCompany(CompanyInfo companyInfo) {
+        return companyInfoDao.updateCompany(companyInfo);
+    }
 
 
 }
