@@ -65,10 +65,12 @@ public class UserInfoServlet extends BaseServlet<UserInfo> {
     public String reqSetUser(HttpServletRequest req) {
         SetUserInfo setUserInfo = BaseUtil.readBean(req, SetUserInfo.class);
         Integer integer = userService.updateUserInfo(setUserInfo);
+        //判断是否成功,成功
         if (integer > 0) {
             UserInfo u = (UserInfo) req.getSession().getAttribute("login");
             updateLogin(u,setUserInfo);
-            return JSON.toJSONString(u);
+            UserInfoVo userInfoVo = userService.showUserInfo(u.getUserId());
+            return JSON.toJSONString(userInfoVo);
         }else {
             return "-1";
         }

@@ -1,0 +1,211 @@
+function RegUserF() {
+    this.userAct = '';
+    this.userPwd = '';
+    this.userName = '';
+    this.sex = '';
+    this.birthday = '';
+    this.phone = '';
+}
+
+var app = new Vue({
+    el: "#app",
+    data: {
+        //分页请求条件
+        pageSelect: {
+            nowPage: 1,
+            pageCount: 5,
+            userName: '',
+            userId: '',
+        },
+        //分页数据
+        page: {
+            nowPage: '',
+            pageCount: '',
+            allCount: ''
+        },
+        //详细显示用户
+        userInfo: {
+            headPic: '',
+            userId: '',
+            userAct: '',
+            userName: '',
+            des: '',
+            sex: 0,
+            birthday: '',
+            avatarColor: '',
+            phone: '',
+            roleName: '',
+            lastLogin: '',
+            userState: 1,
+        },
+        //表格显示用户集合
+        userInfoList: [{
+            headPic: '',
+            userId: '',
+            userAct: '',
+            userName: '',
+            des: '',
+            sex: 0,
+            birthday: '',
+            avatarColor: '',
+            phone: '',
+            roleName: '',
+            lastLogin: '',
+            userState: '1'
+        }],
+        //修改用户数据
+        setUserInfo: {
+            userName: '',
+            des: '',
+            sex: 0,
+            birthday: '',
+            avatarColor: '',
+            phone: '',
+            roles: {
+                nowRole: {},
+                userRoles: []
+            },
+        },
+        //请求注册对象
+        regUser: new RegUserF(),
+
+        regFlag: false,
+        userDetailsFlag: false,
+        setUserFlag: false,
+
+
+        //添加用户验证规则
+        regRules: {
+            userAct: [
+                {required: true, message: "请输入账号", trigger: 'change'}
+            ],
+            userPwd: [
+                {required: true, message: "请输入密码", trigger: 'change'}
+            ],
+            userName: [
+                {required: true, message: "请输入姓名", trigger: 'change'}
+            ],
+            sex: [
+                {required: true, message: "请选择性别", trigger: 'change'}
+            ],
+            birthday: [
+                {required: true, message: "请输入生日", trigger: 'change'}
+            ],
+            phone: [
+                {required: true, message: "请输入联系方式", trigger: 'change'}
+            ],
+        },
+
+
+    },
+    methods: {
+        //请求修改用户数据
+        reqSetUserInfo(id) {
+            axios.post(projectPath + "/userManage?type=reqSetUserInfo&userId=" + id).then(resp => {
+                if (resp.data == "-1") {
+                    this.$message.error("网络请求有误");
+                } else {
+                    this.setUserInfo = resp.data;
+                }
+            })
+        },
+        //请求修改用户数据
+        reqSetUser() {
+            axios.post(projectPath + "/userManage?type=reqSetUser", this.setUserInfo).then(resp => {
+                if (resp.data == "-1") {
+                    this.$message.error("修改失败");
+                } else {
+                    this.$message.success("修改成功");
+                }
+            })
+        },
+        //请求添加用户请求
+        reqReg: function () {
+            axios.post(projectPath + "/login?type=reqReg", this.regUser).then(resp => {
+                if (resp.data == "-1") {
+                    this.$message.error("添加失败")
+                } else {
+                    this.$message({message: "添加成功", type: "success"})
+                    this.regUser = new RegUserF();
+                    this.loginDialog = false;
+                }
+            })
+        },
+        //请求分页查询
+        reqPageSelect() {
+            axios.post(projectPath + "/userManage?type=reqPageSelect", this.pageSelect).then(resp => {
+                if (resp.data == "-1") {
+                    this.$message.error("数据连接有误");
+                } else {
+                    this.userInfoList = resp.data.dataList;
+                    this.page.nowPage = resp.data.nowPage;
+                    this.page.pageCount = resp.data.pageCount;
+                    this.page.allCount = resp.data.allCount;
+                }
+            })
+        },
+
+        //请求删除用户
+        reqDelUser(user) {
+            axios.post(projectPath + "/userManage?type=reqDelUser", user).then(resp => {
+                if (resp.data == "-1") {
+                    this.$message.error("注册失败")
+                } else {
+                    this.$message({message: "注册成功", type: "success"})
+                    this.regUser = new regUserF();
+                    this.loginDialog = false;
+                }
+            })
+        },
+
+        //请求设置每页数据
+        SetPageCount(pageCount) {
+            this.pageSelect.pageCount = pageCount;
+            this.reqPageSelect();
+        },
+        //请求设置当前页
+        SetNowPage(nowPage) {
+            this.pageSelect.nowPage = nowPage;
+            this.reqPageSelect();
+        },
+        //分页查询
+        queryPageSelect() {
+            this.pageSelect.nowPage = 1;
+            this.reqPageSelect();
+        },
+        //用户注册
+        userReg: function (rules) {
+            this.$refs[rules].validate((valid) => {
+                if (valid) {
+                    this.reqReg()
+                } else {
+                    return false
+                }
+            });
+        },
+
+        //修改用户
+        setUser(flag) {
+            if (flag) {
+                this.reqSetUser();
+            }
+            this.setUserFlag = false;
+
+        },
+
+        //显示用户详情
+        showUserInfo(user) {
+            this.userInfo = user;
+            this.userDetailsFlag = true;
+        },
+        //显示修改用户弹窗
+        showSetUserInfo(user) {
+            this.reqSetUserInfo(user.userId);
+            this.setUserFlag = true;
+        },
+
+    },
+    created() {
+        this.reqPageSelect();
+    },
+});
