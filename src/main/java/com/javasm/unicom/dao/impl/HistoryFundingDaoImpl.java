@@ -18,6 +18,7 @@ public class HistoryFundingDaoImpl implements HistoryFundingDao {
 
     @Override
     public HistoryFunding selectHistory(Integer hyFunId) {
+        String sql = "";
         return null;
     }
 }
