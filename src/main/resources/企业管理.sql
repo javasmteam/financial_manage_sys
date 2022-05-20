@@ -36,6 +36,10 @@ CREATE table bk_invest_money
 insert into bk_invest_money values(investmoneyid,?,?,?,?,?,?,?,?,?,1);
 
 select i.userid,i.userName,i.investmoneytype,i.investmoney,i.investrequesttime,
+                     i.investhandletime,i.investbankcode,i.state from bk_invest_money i
+
+
+select i.userid,i.userName,i.investmoneytype,i.investmoney,i.investrequesttime,
        i.investhandletime,i.investbankcode,i.investstate from bk_invest_money i ;
 
 -- 用户表（客户）
