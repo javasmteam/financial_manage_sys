@@ -162,7 +162,7 @@
 
         <!-- 新增弹窗 -->
         <el-dialog title="新增菜单 " :visible.sync="addFlag">
-            <el-form :model="addMenuInfo"  label-width="80px" :rules="addMenuInfo" ref="addMenu">
+            <el-form :model="addMenuInfo"  label-width="80px" :rules="addMenuRule" ref="addMenuInfo">
 
                 <el-form-item label="菜单名">
                     <el-input v-model="addMenuInfo.permissionName"></el-input>
