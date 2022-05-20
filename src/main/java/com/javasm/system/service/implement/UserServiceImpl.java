@@ -2,8 +2,7 @@ package com.javasm.system.service.implement;
 
 import com.javasm.system.bean.PageInfo;
 import com.javasm.system.bean.UserInfo;
-import com.javasm.system.bean.UserRole;
-import com.javasm.system.bean.vo.PageSelect;
+import com.javasm.system.bean.vo.PageSelectUser;
 import com.javasm.system.bean.vo.SetUserInfo;
 import com.javasm.system.bean.vo.UserInfoVo;
 import com.javasm.system.bean.vo.UserRoleVo;
@@ -12,7 +11,6 @@ import com.javasm.system.dao.UserRoleDao;
 import com.javasm.system.dao.implement.UserDaoImpl;
 import com.javasm.system.dao.implement.UserRoleDaoImpl;
 import com.javasm.system.service.UserService;
-import com.javasm.util.JDBCUtils;
 
 import java.util.List;
 
@@ -58,7 +56,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public PageInfo<UserInfoVo> queryPageUser(PageSelect pageSelect) {
+    public PageInfo<UserInfoVo> queryPageUser(PageSelectUser pageSelect) {
         List<UserInfoVo> list = userDao.queryPageUserInfoVo(pageSelect);
         if (list == null || list.size() == 0){
             return null;

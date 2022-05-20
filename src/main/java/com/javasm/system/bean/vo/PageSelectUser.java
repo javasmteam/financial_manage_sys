@@ -10,7 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class PageSelect {
+public class PageSelectUser {
     private String userName;
     private String userId;
     private Integer nowPage;

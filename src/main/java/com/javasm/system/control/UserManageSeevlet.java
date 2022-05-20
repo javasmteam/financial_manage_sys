@@ -6,7 +6,7 @@ import com.javasm.controlUtil.BaseServlet;
 import com.javasm.myEnum.ResponseEnum;
 import com.javasm.system.bean.PageInfo;
 import com.javasm.system.bean.UserInfo;
-import com.javasm.system.bean.vo.PageSelect;
+import com.javasm.system.bean.vo.PageSelectUser;
 import com.javasm.system.bean.vo.SetUserInfo;
 import com.javasm.system.bean.vo.UserInfoVo;
 import com.javasm.system.service.UserService;
@@ -70,7 +70,7 @@ public class UserManageSeevlet extends BaseServlet<UserInfo> {
      */
     @ResponseTypeAnnotation(ResponseEnum.AJAX)
     public String reqPageSelect(HttpServletRequest req) {
-        PageSelect pageSelect = BaseUtil.readBean(req, PageSelect.class);
+        PageSelectUser pageSelect = BaseUtil.readBean(req, PageSelectUser.class);
         if(pageSelect==null){
             return "-1";
         }
