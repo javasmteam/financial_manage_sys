@@ -19,16 +19,15 @@ import java.util.Date;
 @ToString
 public class ProductInfo {
     private Integer productId;
-    private Integer productTypeId;
+    private Integer productSeriesId;
     private String regulateBody;
     private String productChName;
-    private String productEngName;
     private Float annualYield;
     private String currencyType;
     private Date openTime;
     private Integer subCycle;
-    private Float subRate;
     private Float fundManageFeeRate;
+    private Float subRate;
     private Float initInvestAmount;
     private String subFeeCollectMethod;
     private Integer redCycle;

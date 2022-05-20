@@ -3,6 +3,7 @@ package com.javasm.product.service.impl;
 import com.javasm.product.bean.PageInfo;
 import com.javasm.product.bean.ProductType;
 import com.javasm.product.bean.RemitInfo;
+import com.javasm.product.bean.vo.ProductTypeIdVO;
 import com.javasm.product.bean.vo.ProductTypeVO;
 import com.javasm.product.dao.ProductTypeDao;
 import com.javasm.product.dao.RemitInfoDao;
@@ -22,7 +23,6 @@ import java.util.List;
  **/
 public class ProductTypeServiceImpl implements ProductTypeService {
     private final ProductTypeDao productTypeDao = new ProductTypeDaoImpl();
-    private final RemitInfoDao remitInfoDao = new RemitInfoDaoImpl();
 
     /**
      * 增加产品信息
@@ -65,25 +65,31 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     }
 
     /**
-     * 增加汇款信息
-     *
-     * @param remitInfo 汇款信息
-     * @return 影响行数
+     * @param productSeriesId
+     * @return
      */
     @Override
-    public Boolean addRemitInfo(RemitInfo remitInfo) {
-
-        return remitInfoDao.addRemitInfo(remitInfo);
+    public ProductType getProductTypeById(Integer productSeriesId) {
+        return productTypeDao.findProductTypeById(productSeriesId);
     }
 
     /**
-     * 更新汇款信息
+     * 寻找产品类型
      *
-     * @param remitInfo 汇款信息
-     * @return 影响行数
+     * @return
      */
     @Override
-    public Boolean updateRemitInfo(RemitInfo remitInfo) {
-        return remitInfoDao.updateRemitInfo(remitInfo);
+    public List<ProductTypeIdVO> findProductTypeId() {
+        return productTypeDao.findProductTypeId();
+    }
+
+    /**
+     * 单表查询总条数
+     *
+     * @return
+     */
+    @Override
+    public Integer count() {
+        return productTypeDao.count();
     }
 }

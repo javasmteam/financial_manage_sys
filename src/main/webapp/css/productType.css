@@ -6,20 +6,38 @@ body {
     padding: 0;
     background-color: #f1f1f1;
 }
-.content-
+
+.content-container {
+    background-color: white;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    min-width: 1400px;
+    display: inline-block;
+    width: 90%;
+}
+
+.input-tip {
+    margin: 0 10px;
+    line-height: 40px;
+}
+
+.input-field {
+    margin-right: 40px;
+}
+
+.content-row {
+    margin-bottom: 20px;
+}
+
 #app {
     margin-left: 30px;
     margin-top: 50px;
 }
 
-.el-icon-arrow-right {
-    margin-bottom: 50px;
+.el-breadcrumb {
+    margin-bottom: 30px;
 }
 
-.el-input {
-    width: 250px;
-}
 
-.el-table {
-    width: 400px;
-}
+

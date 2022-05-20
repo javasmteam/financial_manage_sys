@@ -18,7 +18,8 @@ import lombok.*;
 public class ProductType {
     private Integer productSeriesId;
     private Integer productParentId;
-    private String productChannel;
+    private Integer productChannel;
+    private Integer productTypeId;
     private String productTypeChName;
     private String productTypeEngName;
     private Integer productTypeLv;

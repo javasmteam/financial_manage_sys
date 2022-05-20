@@ -7,21 +7,25 @@ package com.javasm.product.control; /**
  * @Version : 1.0
  **/
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.javasm.annotation.ResponseTypeAnnotation;
 import com.javasm.controlUtil.BaseServlet;
+import com.javasm.myEnum.ResponseEnum;
 import com.javasm.product.bean.PageInfo;
 import com.javasm.product.bean.ProductType;
+import com.javasm.product.bean.Value;
 import com.javasm.product.bean.vo.ProductTypeVO;
 import com.javasm.product.service.ProductTypeService;
 import com.javasm.product.service.impl.ProductTypeServiceImpl;
+import com.javasm.util.DataUtil;
+import com.javasm.util.ServletUtil;
 
-import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
-import java.io.IOException;
 
 @WebServlet("/productType.do")
-public class ProductTypeServlet extends BaseServlet<ProductTypeVO> {
+public class ProductTypeServlet extends BaseServlet<ProductType> {
     private final ProductTypeService productTypeService = new ProductTypeServiceImpl();
 
 
@@ -34,20 +38,48 @@ public class ProductTypeServlet extends BaseServlet<ProductTypeVO> {
      */
     public String showProductType(ProductType productType, HttpServletRequest request) {
         String nowPage = request.getParameter("nowPage");
-        String pageNum = request.getParameter("pageNum");
+        String pageNum = request.getParameter("pageSize");
+        String productSeriesIdStr = request.getParameter("productSeriesId");
+        String productTypeChName = request.getParameter("productTypeChName");
+        String productTypeEngName = request.getParameter("productTypeEngName");
+        Integer productSeriesId = DataUtil.stringConvertToInteger(productSeriesIdStr);
+        productType.setProductSeriesId(productSeriesId);
+        productType.setProductTypeChName(productTypeChName);
+        productType.setProductTypeEngName(productTypeEngName);
         PageInfo<ProductTypeVO> page = productTypeService.getProductTypesByPage(nowPage, pageNum, productType);
         return JSONObject.toJSONString(page);
     }
 
-    public void updateProductType(ProductType productType) {
-        productTypeService.updateProductType(productType);
+    public String updateProductTypeById(HttpServletRequest request) {
+        ProductType productType = ServletUtil.jsonConvertToEntity(request, ProductType.class);
+        if (productTypeService.updateProductType(productType)) {
+            return "1";
+        }
+        return "-1";
     }
 
-    public void addProductType(ProductType productType) {
-        productTypeService.addProductType(productType);
+    public String addProductType(HttpServletRequest request) {
+        ProductType productType = ServletUtil.jsonConvertToEntity(request, ProductType.class);
+        if (productTypeService.addProductType(productType)) {
+            return "1";
+        }
+        return "-1";
     }
 
-    ;
+
+    @ResponseTypeAnnotation(ResponseEnum.AJAX)
+    public String findProductTypeById(HttpServletRequest request) {
+        String id = request.getParameter("addProductType");
+        return JSONObject.toJSONString(productTypeService.getProductTypeById(Integer.valueOf(id)));
+    }
+
+    @ResponseTypeAnnotation(ResponseEnum.AJAX)
+    public String countProductType(HttpServletRequest request) {
+        Integer count = productTypeService.count();
+        Value value = new Value();
+        value.setValue(count);
+        return JSONObject.toJSONString(value);
+    }
 
 
 }

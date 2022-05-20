@@ -3,7 +3,10 @@ package com.javasm.product.service;
 import com.javasm.product.bean.PageInfo;
 import com.javasm.product.bean.ProductType;
 import com.javasm.product.bean.RemitInfo;
+import com.javasm.product.bean.vo.ProductTypeIdVO;
 import com.javasm.product.bean.vo.ProductTypeVO;
+
+import java.util.List;
 
 /**
  * <h4>Financial_manage_sys</h4>
@@ -44,19 +47,26 @@ public interface ProductTypeService {
     PageInfo<ProductTypeVO> getProductTypesByPage(String nowPage, String pageSize, ProductType productType);
 
     /**
-     * 增加汇款信息
+     * 通过id获取商品类别对象
      *
-     * @param remitInfo 汇款信息
-     * @return 影响行数
+     * @param productSeriesId
+     * @return
      */
-    Boolean addRemitInfo(RemitInfo remitInfo);
+    ProductType getProductTypeById(Integer productSeriesId);
 
 
     /**
-     * 更新汇款信息
+     * 寻找产品类型
      *
-     * @param remitInfo 汇款信息
-     * @return 影响行数
+     * @return
      */
-    Boolean updateRemitInfo(RemitInfo remitInfo);
+    List<ProductTypeIdVO> findProductTypeId();
+
+    /**
+     * 单表查询总条数
+     *
+     * @return
+     */
+    Integer count();
+
 }

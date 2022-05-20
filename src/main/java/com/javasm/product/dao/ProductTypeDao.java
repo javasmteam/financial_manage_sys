@@ -2,6 +2,7 @@ package com.javasm.product.dao;
 
 import com.javasm.product.bean.PageInfo;
 import com.javasm.product.bean.ProductType;
+import com.javasm.product.bean.vo.ProductTypeIdVO;
 import com.javasm.product.bean.vo.ProductTypeVO;
 
 import java.util.List;
@@ -35,7 +36,6 @@ public interface ProductTypeDao {
     Boolean updateProductType(ProductType productType);
 
 
-
     /**
      * 查询商品类别总条数
      *
@@ -43,6 +43,13 @@ public interface ProductTypeDao {
      * @return 影响行数
      */
     Integer count(ProductType productType);
+
+    /**
+     * 单表查询总条数
+     *
+     * @return
+     */
+    Integer count();
 
 
     /**
@@ -54,5 +61,19 @@ public interface ProductTypeDao {
      */
     List<ProductTypeVO> queryProductTypesByPage(PageInfo<ProductTypeVO> page, ProductType productType);
 
+
+    /**
+     * @param productSeriesId
+     * @return
+     */
+    ProductType findProductTypeById(Integer productSeriesId);
+
+
+    /**
+     * 寻找产品类型
+     *
+     * @return
+     */
+    List<ProductTypeIdVO> findProductTypeId();
 
 }

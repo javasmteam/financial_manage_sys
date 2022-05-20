@@ -17,5 +17,6 @@ public class ProductAudit {
     private String auditorOpinion;
     private Timestamp firstCreateTime;
     private Timestamp latestModifyTime;
+    private Integer auditType;
     private Integer auditState;
 }
