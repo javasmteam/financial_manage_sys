@@ -62,6 +62,15 @@ public class ProductTypeServlet extends BaseServlet<ProductType> {
         return "-1";
     }
 
+    public String deleteProductTypeById(HttpServletRequest request) {
+        String idStr = request.getParameter("id");
+        Integer id = DataUtil.stringConvertToInteger(idStr);
+        if (productTypeService.deleteProductTypeById(id)) {
+            return "1";
+        }
+        return "-1";
+    }
+
     public String addProductType(HttpServletRequest request) {
         ProductType productType = ServletUtil.jsonConvertToEntity(request, ProductType.class);
         if (productTypeService.addProductType(productType)) {

@@ -69,4 +69,14 @@ public interface ProductTypeService {
      */
     Integer count();
 
+
+    /**
+     * 根据id连表修改状态
+     *
+     * @param id
+     * @return
+     */
+    Boolean deleteProductTypeById(Integer id);
+
+
 }

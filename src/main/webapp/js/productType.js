@@ -20,7 +20,7 @@ var vue = new Vue({
             recLocation: "",
             regulateBody: "",
             remitInfoSummary: "",
-            remitState:"",
+            remitState: "",
         }, productType: {
             productSeriesId: "",
             productParentId: "",
@@ -30,12 +30,12 @@ var vue = new Vue({
             productTypeLv: 1,
             productTypeState: 1
         }, pageInfo: {
-            nowPage: 1, pageNum: 5, allCount: 0,
-        }, saveFlag2: false, saveFlag1: false, saveFlag3: false,//产品系列数据
-        productTypeVOList: [], productTypeVO: {}, rules: {},
+            nowPage: 1, pageNum: 5, allCount: 0
+        }, saveFlag2: false, saveFlag1: false, saveFlag3: false, saveFlag4: false,//产品系列数据
+        productTypeVOList: [], productTypeVO: {}, rules: {}, deleteId: "",
     }, methods: {
         search() {
-            axios.get(projectPath + "/productType.do?", {params: this.queryParams}).then(response => {
+            axios.get(projectPath + "/productType.do?showProductType", {params: this.queryParams}).then(response => {
                 this.productTypeVOList = response.data.dataList;
                 this.nowPage = response.data.nowPage;
                 this.pageSize = response.data.pageNum;
@@ -49,11 +49,25 @@ var vue = new Vue({
             //改变当前页
             this.queryParams.nowPage = nowPage;
             this.search();
-        }, deleteItem(item) {
+        }, deleteProduct(item) {
             //删除
-            this.productTypeVOList.splice(item, 1)
-            axios.get(projectPath + "productType.do", {})
-        }, showRemitInfo(obj) {
+            this.deleteId = item.productSeriesId;
+            //显示弹框
+            this.saveFlag4 = true;
+        },
+        deleteItem() {
+            axios.get(projectPath + "/productType.do?type=deleteProductTypeById", {params: {id: this.deleteId}}).then(response => {
+                if (response.data == "1") {
+                    this.search();
+                    this.$message.success("删除成功!")
+                } else {
+                    this.$message.error("删除失败!")
+                }
+                this.saveFlag4 = false;
+                this.search();
+            })
+        },
+        showRemitInfo(obj) {
             //数据回填
             this.remitInfo.productSeriesId = obj.productSeriesId;
             this.productTypeVO = obj;
@@ -99,6 +113,7 @@ var vue = new Vue({
                     this.$message.error("修改失败!")
                 }
                 this.saveFlag3 = false;
+                this.search();
             })
         },
         updateRemitInfo() {
@@ -122,9 +137,9 @@ var vue = new Vue({
                     this.$message.error("修改失败!")
                 }
                 this.saveFlag3 = false;
+                this.search();
             })
         },
-
     }, created() {
         this.search();
         axios.get(projectPath + "/productType.do", {params: {type: "showProductType"}}).then(response => {

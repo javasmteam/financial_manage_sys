@@ -92,4 +92,15 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     public Integer count() {
         return productTypeDao.count();
     }
+
+    /**
+     * 根据id连表修改状态
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Boolean deleteProductTypeById(Integer id) {
+        return productTypeDao.deleteProductTypeById(id);
+    }
 }

@@ -779,7 +779,11 @@ values (pro_net_value_id, 63, 1.8638, 20220518, 0.2638, net_value_state);
 insert into product_type
 values (product_series_id, ?, ?, ?, ?, ?, 1, product_type_state);
 
-
+update product_type,remit_info
+set product_type_state = 0,
+    remit_state= 0
+where product_type.product_series_id = remit_info.product_series_id
+and product_type.product_series_id=?;
 
 select *
 from product_type
