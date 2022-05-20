@@ -134,7 +134,7 @@ var app = new Vue({
         },
         showSetMenuInfo(menu){
             this.reqParentMenu();
-            this.setMenuInfo = menu;
+            this.reqSetMenuInfo(menu.permissionId);
             this.setMenuFlag=true;
         },
         setMenu(flag){
@@ -157,6 +157,6 @@ var app = new Vue({
     },
     created() {
         this.reqParentMenu();
-        this.reqParentMenu();
+        this.reqPageSelect();
     }
 })

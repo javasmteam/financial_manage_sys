@@ -45,6 +45,12 @@ public interface CompanyInfoDao {
     Boolean updateCompany(CompanyInfo companyInfo);
 
 
-
+    /**
+     * 通过用户id查询信息
+     *
+     * @param comId
+     * @return
+     */
+    CompanyInfo selectCompanyById(Integer comId);
 
 }

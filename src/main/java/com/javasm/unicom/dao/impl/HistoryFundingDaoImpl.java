@@ -15,11 +15,10 @@ import java.util.List;
  * @Version : 1.0
  **/
 public class HistoryFundingDaoImpl implements HistoryFundingDao {
+
     @Override
-    public List<HistoryFunding> selectHistory(HistoryFunding historyFunding) {
-        StringBuilder sql = new StringBuilder("select c.com_name comName,h.fun_date funDate,h.fun_type funType,h.fun_amount funAmount,\n" +
-                "       h.after_fun_val afterFunVal,h.total_shares totalShares,h.price_per_share pricePerShare\n" +
-                "       from company_info c ,history_funding h where c.com_id = h.com_id and h.com_id = ?");
-        return JDBCUtils.query(sql.toString(),HistoryFunding.class,historyFunding.getComId());
+    public HistoryFunding selectHistory(Integer hyFunId) {
+        String sql = "";
+        return null;
     }
 }

@@ -36,7 +36,7 @@ CREATE table bk_invest_money
 insert into bk_invest_money values(investmoneyid,?,?,?,?,?,?,?,?,?,1);
 
 select i.userid,i.userName,i.investmoneytype,i.investmoney,i.investrequesttime,
-                     i.investhandletime,i.investbankcode,i.state from bk_invest_money i
+                     i.investhandletime,i.investbankcode,i.state from bk_invest_money i;
 
 
 select i.userid,i.userName,i.investmoneytype,i.investmoney,i.investrequesttime,
@@ -80,6 +80,15 @@ create table company_info
     com_intro       varchar(500) comment '企业介绍',
     com_info_state  int(10) default 1 comment '公司信息状态'
 );
+select c.com_id comId,c.com_name comName,c.trade_code tradeCode,
+       c.com_logo comLoge,c.app_logo appLogo,c.com_industry comIndustry,
+       c.com_create_year comCreateYear,c.com_ceo comCeo,c.com_location comLocation,
+       c.com_rate comRate,c.new_maker_amount newMakerAmount,c.com_seq_code comSeqCode,
+       c.com_intro comIntro from company_info c where c.com_id = 1;
+
+
+
+
 select c.com_name comName,c.trade_code tradeCode,c.com_seq_code comSeqCode,
        c.new_maker_amount newMakerAmount from company_info c;
 
@@ -234,6 +243,9 @@ create table history_funding
     price_per_share int(10) comment '每股单价',
     hy_fun_state    int(10) default 1 comment '历史融资表状态'
 );
+
+select * from history_funding;
+
 
 select c.com_name comName,h.fun_date funDate,h.fun_type funType,h.fun_amount funAmount,
        h.after_fun_val afterFunVal,h.total_shares totalShares,h.price_per_share pricePerShare

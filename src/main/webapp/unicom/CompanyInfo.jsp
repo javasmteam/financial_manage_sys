@@ -71,7 +71,7 @@
 
     <%--添加企业信息--%>
     <el-dialog id="editCompany" title="编辑企业信息" :visible.sync="addFlag" width="35%">
-        <el-form :inline="true" :model="company">
+        <el-form :inline="true" :model="company" label-width="100px">
 
             <el-row>
                 <el-col :span="12">
@@ -108,7 +108,7 @@
             <el-row>
                 <el-col :span="12">
                     <el-form-item label="所属行业" prop="comIndustry">
-                      <el-select v-model="company.comIndustry" placeholder="请选择">
+                      <el-select v-model="company.comIndustry" placeholder="请选择" style="width: 150px">
                         <el-option label="软件开发" value="软件开发"></el-option>
                         <el-option label="医疗器械" value="医疗器械"></el-option>
                         <el-option label="有色金属" value="有色金属"></el-option>
@@ -121,7 +121,8 @@
                     <el-form-item label="成立年份" prop="comCreateYear">
                       <el-col :span="11">
                         <el-date-picker type="date" placeholder="选择日期" v-model="company.comCreateYear"
-                                        style="width: 100%;">
+                                        style="width: 200px;"
+                        >
                         </el-date-picker>
                       </el-col>
                     </el-form-item>
@@ -170,7 +171,6 @@
                     </el-form-item>
             </el-row>
 
-
         </el-form>
     </el-dialog>
 
@@ -203,22 +203,21 @@
 <%--        </span>--%>
 <%--    </el-form>--%>
 
-<%--    &lt;%&ndash;历史融资&ndash;%&gt;--%>
-<%--    <el-form :inline="true" :model="formInline" class="demo-form-inline">--%>
-<%--        <el-descriptions title="历史融资"></el-descriptions>--%>
-<%--        <el-table-column prop="comName" label="企业名称" width="150"></el-table-column>--%>
-<%--        <el-table-column prop="tradeCode" label="投资日期" width="150"></el-table-column>--%>
-<%--        <el-table-column prop="comSeqCode" label="投资轮" width="80"></el-table-column>--%>
-<%--        <el-table-column prop="newMakerAmount" label="投资资金(百万)" width="110"></el-table-column>--%>
-<%--        <el-table-column prop="newMakerAmount" label="投后估值(百万)" width="110"></el-table-column>--%>
-<%--        <el-table-column prop="newMakerAmount" label="总发行股数(百万)" width="110"></el-table-column>--%>
-<%--        <el-table-column prop="newMakerAmount" label="每股单价" width="110"></el-table-column>--%>
+    <%--历史融资--%>
+    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+       <el-descriptions title="历史融资"></el-descriptions>
+        <el-table-column prop="comName" label="企业名称" width="150"></el-table-column>
+        <el-table-column prop="tradeCode" label="投资日期" width="150"></el-table-column>
+        <el-table-column prop="comSeqCode" label="投资轮" width="80"></el-table-column>
+        <el-table-column prop="newMakerAmount" label="投资资金(百万)" width="110"></el-table-column>
+        <el-table-column prop="newMakerAmount" label="投后估值(百万)" width="110"></el-table-column>
+        <el-table-column prop="newMakerAmount" label="总发行股数(百万)" width="110"></el-table-column>
+        <el-table-column prop="newMakerAmount" label="每股单价" width="110"></el-table-column>
 
-<%--        <span slot="footer" class="dialog-footer">--%>
-<%--            <el-button @click="addFlag=false">取消</el-button>--%>
-<%--        </span>--%>
-<%--    </el-form>--%>
-
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="addFlag=false">取消</el-button>
+        </span>
+    </el-form>
 </div>
 
 <script>
@@ -296,6 +295,7 @@
                 this.queryCompany();
             },
             editCompany(){
+                console.log(this.company)
                 let string = window.Qs.stringify(this.company);
                 axios.post("http://localhost:8088/Financial_manage_sys_war_exploded/companyInfo.do",string).then(response =>{
                     this.$message({

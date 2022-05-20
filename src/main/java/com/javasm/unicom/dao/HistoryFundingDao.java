@@ -6,12 +6,10 @@ import java.util.List;
 
 public interface HistoryFundingDao {
 
-
     /**
-     * 查询历史融资
-     *
-     * @param historyFunding
+     * 根据id查询历史融资
+     * @param hyFunId
      * @return
      */
-    List<HistoryFunding> selectHistory(HistoryFunding historyFunding);
+    HistoryFunding selectHistory(Integer hyFunId);
 }

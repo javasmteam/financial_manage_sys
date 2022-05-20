@@ -41,7 +41,7 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
     @Override
     public Boolean updateProductType(ProductType productType) {
         String sql = JDBCUtils.getSql("changeProductType");
-        return update(sql, productType.getProductParentId(), productType.getProductChannel(), productType.getProductTypeId(), productType.getProductTypeChName(), productType.getProductTypeEngName(), productType.getProductTypeState(), productType.getProductSeriesId()) > 0;
+        return update(sql, productType.getProductParentId(), productType.getProductChannel(), productType.getProductTypeChName(), productType.getProductTypeEngName(), productType.getProductTypeState(), productType.getProductSeriesId()) > 0;
     }
 
     /**

@@ -20,17 +20,19 @@ var vue = new Vue({
             recLocation: "",
             regulateBody: "",
             remitInfoSummary: "",
+            remitState:"",
         }, productType: {
-            product_series_id: "",
+            productSeriesId: "",
             productParentId: "",
             productChannel: "",
             productTypeChName: "",
             productTypeEngName: "",
             productTypeLv: 1,
+            productTypeState: 1
         }, pageInfo: {
             nowPage: 1, pageNum: 5, allCount: 0,
         }, saveFlag2: false, saveFlag1: false, saveFlag3: false,//产品系列数据
-        productTypeVOList: [], productTypeVO: {}, rules: {}, count: {}
+        productTypeVOList: [], productTypeVO: {}, rules: {},
     }, methods: {
         search() {
             axios.get(projectPath + "/productType.do?", {params: this.queryParams}).then(response => {
@@ -40,59 +42,56 @@ var vue = new Vue({
                 this.pageInfo.allCount = response.data.allCount;
             })
         }, handleSizeChange(pageSize) {
+            //改变每页数据
             this.queryParams.pageSize = pageSize;
             this.search();
         }, handleCurrentChange(nowPage) {
+            //改变当前页
             this.queryParams.nowPage = nowPage;
             this.search();
         }, deleteItem(item) {
+            //删除
             this.productTypeVOList.splice(item, 1)
             axios.get(projectPath + "productType.do", {})
         }, showRemitInfo(obj) {
+            //数据回填
             this.remitInfo.productSeriesId = obj.productSeriesId;
             this.productTypeVO = obj;
             this.saveFlag1 = true;
-        }, addProductType() {
+        },
+        addProductType() {
             axios.post(projectPath + "/productType.do?type=addProductType", this.productType).then(response => {
                 if (response.data == "1") {
-                    axios.get(projectPath + "/productType.do?type=countProductType").then(response => {
-                        this.count = response.data;
-                    })
-                    this.remitInfo.productSeriesId = this.count.value + 1
-                    axios.post(projectPath + "/remitInfo.do?type=addRemitInfo", this.remitInfo).then(response => {
-                        if (response.data == "1") {
-                            this.$message.success("添加成功!")
-                            this.search();
-                        } else {
-                            this.$message.error("添加失败!")
-                        }
-                    })
+                    this.$message.success("添加成功！")
                 } else {
                     this.$message.error("添加失败!")
                 }
                 this.saveFlag2 = false;
+                this.search();
             },)
         }, handleEdit(obj) {
-            this.productType.product_series_id = obj.product_series_id;
+            this.productType.productSeriesId = obj.productSeriesId;
             axios.get(projectPath + "/productType.do?type=findProductTypeById", {params: {addProductType: obj.productSeriesId}}).then(response => {
-                if (response.data.productChannel == "1") {
-                    this.productType.productChannel = "香港资管"
-                } else if (response.data.productChannel == "2") {
-                    this.productType.productChannel = "内地资管"
-                }
-                if (response.data.productParentId == "1") {
-                    this.productType.productParentId = "基金"
-                } else if (response.data.productParentId == "2") {
-                    this.productType.productParentId = "保险"
-                } else if (response.data.productParentId == "3") {
-                    this.productType.productParentId = "证券"
-                }
+                // if (response.data.productChannel == "1") {
+                //     this.productType.productChannel = "香港资管"
+                // } else if (response.data.productChannel == "2") {
+                //     this.productType.productChannel = "内地资管"
+                // }
+                // if (response.data.productParentId == "1") {
+                //     this.productType.productParentId = "基金"
+                // } else if (response.data.productParentId == "2") {
+                //     this.productType.productParentId = "保险"
+                // } else if (response.data.productParentId == "3") {
+                //     this.productType.productParentId = "证券"
+                // }
+                this.productType.productParentId = response.data.productParentId;
+                this.productType.productChannel = response.data.productChannel;
                 this.productType.productTypeChName = response.data.productTypeChName
                 this.productType.productTypeEngName = response.data.productTypeEngName
             })
             this.saveFlag3 = true;
         }, changeProductType() {
-            axios.post(projectPath + "/remitInfo.do?type=updateProductTypeById", this.productType).then(response => {
+            axios.post(projectPath + "/productType.do?type=updateProductTypeById", this.productType).then(response => {
                 if (response.data == "1") {
                     this.search();
                     this.$message.success("修改成功!")
@@ -114,7 +113,8 @@ var vue = new Vue({
             this.remitInfo.recLocation = this.productTypeVO.recLocation;
             this.remitInfo.regulateBody = this.productTypeVO.regulateBody;
             this.remitInfo.remitInfoSummary = this.productTypeVO.remitInfoSummary;
-            axios.post(projectPath + "/productType.do?type=updateRemitInfoById", this.remitInfo).then(response => {
+            this.remitInfo.remitState = 1;
+            axios.post(projectPath + "/remitInfo.do?type=updateRemitInfoById", this.remitInfo).then(response => {
                 if (response.data == "1") {
                     this.search();
                     this.$message.success("修改成功!")
