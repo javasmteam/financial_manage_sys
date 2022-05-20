@@ -20,6 +20,7 @@ import java.util.Date;
 public class ProductInfoVO {
     private Integer productId;
     private Integer productSeriesId;
+    private Integer secId;
     private String secName;
     private String regulateBody;
     private String productChName;

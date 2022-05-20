@@ -29,6 +29,13 @@ public interface ProductInfoDao {
 
 
     /**
+     * 删除商品信息
+     * @param id
+     * @return
+     */
+    Boolean deleteProductInfo(Integer id);
+
+    /**
      * 更新产品信息
      *
      * @param productInfo 产品信息

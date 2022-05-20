@@ -783,7 +783,7 @@ update product_type,remit_info
 set product_type_state = 0,
     remit_state= 0
 where product_type.product_series_id = remit_info.product_series_id
-and product_type.product_series_id=?;
+  and product_type.product_series_id = ?;
 
 select *
 from product_type
@@ -919,44 +919,60 @@ where product_info.product_id = product_audit.product_id
   and pro_info_state = 1
   and net_value_state = 1
   and audit_state = 1
+  and product_ch_name like '%?%'
+  and product_info.sec_id = ?
+  and audit_type = ?
 group by product_id
-#   and product_ch_name like '%?%'
-#   and product_info.sec_id = ?
-#   and audit_type = ?
 limit ?,?;
 
 
 select count(*)
-from (select product_ch_name,
+from (select product_info.product_id,
+             product_ch_name,
              product_type_ch_name,
-             product_info.product_type_id,
+             sec_name,
              regulate_body,
              open_time,
              currency_type,
              audit_type,
              unit_net,
              unit_date,
-             sum_increase_rate
+             sum_increase_rate,
+             annual_yield,
+             sub_cycle,
+             fund_manage_fee_rate,
+             sub_rate,
+             init_invest_amount,
+             sub_fee_collect_method,
+             red_cycle,
+             red_init_amount,
+             red_amount,
+             lock_period,
+             auditor
       from product_info,
            product_audit,
            product_net_value,
-           product_type
+           product_type,
+           product_second_type
       where product_info.product_id = product_audit.product_id
         and product_info.product_series_id = product_type.product_series_id
         and product_info.product_id = product_audit.product_id
+        and product_info.sec_id = product_second_type.sec_id
         and audit_state = 1
         and pro_info_state = 1
         and net_value_state = 1
         and audit_state = 1
-#         and product_ch_name like '%?%'
-#         and product_info.product_type_id = ?
-#         and audit_type = ?
-      group by product_info.product_id) as pipa;
+        and product_ch_name like '%?%'
+        and product_info.sec_id = ?
+        and audit_type = ?
+      group by product_id
+      limit ?,?) as pipa;
 
 
 
-update product_info
+update product_info,product_second_type,product_audit
 set product_series_id      = ?,
+    sec_id                 = ?,
     regulate_body          = ?,
     product_ch_name        = ?,
     annual_yield           = ?,
@@ -971,14 +987,28 @@ set product_series_id      = ?,
     red_init_amount        = ?,
     red_amount             = ?,
     lock_period            = ?,
-    pro_info_state         = ?
-where product_id = ?
-  and pro_info_state = 1;
+    pro_info_state         = ?,
+    auditor                = ?
+where product_info.product_id = product_audit.product_id
+  and pro_info_state = 1
+  and audit_state = 1;
+
+update product_net_value
+set unit_net          = ?,
+    unit_date         = ?,
+    sum_increase_rate = ?,
+    net_value_state   = ?
+where product_id = ?;
 
 
-update product_audit
-set auditor = ?
-where product_id = ?
+
+update product_info,product_net_value,product_audit
+set pro_info_state  = 0,
+    net_value_state = 0,
+    audit_state     = 0
+where product_info.product_id = product_net_value.product_id
+  and product_info.product_id = product_audit.product_id
+  and product_info.product_id = 1;
 
 
 -- 产品
