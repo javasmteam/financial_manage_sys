@@ -48,8 +48,10 @@ public class ServletUtil {
                                 Class<?> type = field.getType();
                                 if ("java.lang.Integer".equals(type.getName())) {
                                     Integer integer = DataUtil.stringConvertToInteger(value);
+                                    field.set(entity, integer);
                                 } else if ("java.lang.Float".equals(type.getName())) {
                                     Float aFloat = DataUtil.stringConvertToFloat(value);
+                                    field.set(entity, aFloat);
                                 } else {
                                     field.set(entity, value);
                                 }

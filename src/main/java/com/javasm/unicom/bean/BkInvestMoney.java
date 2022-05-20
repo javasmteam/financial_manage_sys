@@ -1,14 +1,17 @@
 package com.javasm.unicom.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.Setter;
 
-@Data
+import java.util.Date;
+
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class BkInvestMoney {
 
     //充值提现管理
@@ -31,11 +34,13 @@ public class BkInvestMoney {
     /**
      * 请求时间
      */
-    private Data investrequesttime;
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    private Date investrequesttime;
     /**
      * 处理时间
      */
-    private Data investhandletime;
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    private Date investhandletime;
     /**
      * 银行代码
      */

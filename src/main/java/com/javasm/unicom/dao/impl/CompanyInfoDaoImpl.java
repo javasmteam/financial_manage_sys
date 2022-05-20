@@ -30,8 +30,8 @@ public class CompanyInfoDaoImpl implements CompanyInfoDao {
 
     @Override
     public List<CompanyInfo> selectCompanyInfoByPage(PageInfo<CompanyInfo> page, CompanyInfo companyInfo) {
-        StringBuilder sql = new StringBuilder("select c.com_name comName,c.trade_code tradeCode,c.com_seq_code comSeqCode,\n" +
-                "       c.new_maker_amount newMakerAmount from company_info c");
+        StringBuilder sql = new StringBuilder("select c.com_id comId,c.com_name comName,c.trade_code tradeCode,c.com_seq_code comSeqCode,\n" +
+                "       c.new_maker_amount newMakerAmount from company_info c ");
         if (companyInfo != null ){
             if (companyInfo.getComName()!=null && !"".equals(companyInfo.getComName())){
                 sql.append(" where c.com_name  like '%"+companyInfo.getComName() +"%' ");
@@ -50,5 +50,15 @@ public class CompanyInfoDaoImpl implements CompanyInfoDao {
                 companyInfo.getAppLogo(),companyInfo.getComIndustry(),companyInfo.getComCreateYear(),companyInfo.getComCeo(),
                 companyInfo.getComLocation(),companyInfo.getComRate(),companyInfo.getNewMakerAmount(),
                 companyInfo.getComSeqCode(),companyInfo.getComIntro(),companyInfo.getComInfoState(),companyInfo.getComId())>0;
+    }
+
+    @Override
+    public CompanyInfo selectCompanyById(Integer comId) {
+        String sql = "select c.com_id comId,c.com_name comName,c.trade_code tradeCode,\n" +
+                "       c.com_logo comLoge,c.app_logo appLogo,c.com_industry comIndustry,\n" +
+                "       c.com_create_year comCreateYear,c.com_ceo comCeo,c.com_location comLocation,\n" +
+                "       c.com_rate comRate,c.new_maker_amount newMakerAmount,c.com_seq_code comSeqCode,\n" +
+                "       c.com_intro comIntro from company_info c where c.com_id = ?";
+        return JDBCUtils.find(sql,CompanyInfo.class,comId);
     }
 }

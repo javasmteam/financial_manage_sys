@@ -26,6 +26,6 @@ public class BkInvestMoneyServiceImpl implements BkInvestMoneyService {
         PageInfo<BkInvestMoney> page = new PageInfo<>(nowPage,pageNum,count);
         List<BkInvestMoney> list =bkInvestMoneyDao.selectBkInvestMoney(page,bkInvestMoney);
         page.setDataList(list);
-        return null;
+        return page;
     }
 }

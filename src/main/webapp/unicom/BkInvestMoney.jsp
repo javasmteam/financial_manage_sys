@@ -38,13 +38,13 @@
 
     <el-table :data="investList" height="330">
         <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column prop="userid" label="客户编号" width="150"></el-table-column>
+        <el-table-column prop="userid" label="客户编号" width="130"></el-table-column>
         <el-table-column prop="userName" label="客户名称" width="150"></el-table-column>
         <el-table-column prop="investmoneytype" label="交易类型" width="150"></el-table-column>
-        <el-table-column prop="investmoney" label="金额(万)" width="80"></el-table-column>
-        <el-table-column prop="investrequesttime" label="请求时间" width="180"></el-table-column>
-        <el-table-column prop="investhandletime" label="处理完成时间" width="180"></el-table-column>
-        <el-table-column prop="investbankcode" label="银行交易编号" width="110"></el-table-column>
+        <el-table-column prop="investmoney" label="金额(万)" width="100"></el-table-column>
+        <el-table-column prop="investrequesttime" label="请求时间" width="200"></el-table-column>
+        <el-table-column prop="investhandletime" label="处理完成时间" width="200"></el-table-column>
+        <el-table-column prop="investbankcode" label="银行交易编号" width="150"></el-table-column>
         <el-table-column prop="state" label="状态" width="110"></el-table-column>
 
     </el-table>
@@ -58,6 +58,7 @@
             layout="total, sizes, prev, pager, next, jumper"
             :total="pageInfo.total">
     </el-pagination>
+
 </div>
 <script>
     new Vue({
