@@ -9,6 +9,7 @@ package com.javasm.product.control; /**
 
 
 import com.javasm.controlUtil.BaseServlet;
+import com.javasm.product.bean.ProductType;
 import com.javasm.product.bean.RemitInfo;
 import com.javasm.product.service.RemitInfoService;
 import com.javasm.product.service.impl.RemitInfoServiceImpl;
@@ -21,8 +22,12 @@ import javax.servlet.http.HttpServletRequest;
 public class RemitInfoServlet extends BaseServlet<RemitInfo> {
     private final RemitInfoService remitInfoService = new RemitInfoServiceImpl();
 
-    public void updateProductTypeById(RemitInfo remitInfo) {
-        remitInfoService.updateRemitInfo(remitInfo);
+    public String updateRemitInfoById(HttpServletRequest request) {
+        RemitInfo remitInfo = ServletUtil.jsonConvertToEntity(request, RemitInfo.class);
+        if (remitInfoService.updateRemitInfo(remitInfo)) {
+            return "1";
+        }
+        return "-1";
     }
 
     public String addRemitInfo(HttpServletRequest request) {

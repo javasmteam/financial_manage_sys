@@ -36,7 +36,7 @@
     <div class="content-row">
         <el-container>
             <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
-            <el-button type="primary" icon="el-icon-edit-outline" @click="saveFlag2=true">添加</el-button>
+            <el-button type="primary" icon="el-icon-edit-outline" @click="saveFlag2 = true">添加</el-button>
         </el-container>
     </div>
     <!--    list -->
@@ -151,7 +151,7 @@
                 </el-select>
             </el-form-item>
             <el-form-item label="产品分类">
-                <el-select v-model="productType.productParentId" placehold er="请选择产品分类">
+                <el-select v-model="productType.productParentId" placeholder="请选择产品分类">
                     <el-option label="基金" :value="1"></el-option>
                     <el-option label="保险" :value="2"></el-option>
                     <el-option label="证券" :value="3"></el-option>
