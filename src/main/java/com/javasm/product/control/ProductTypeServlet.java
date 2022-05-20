@@ -14,10 +14,13 @@ import com.javasm.controlUtil.BaseServlet;
 import com.javasm.myEnum.ResponseEnum;
 import com.javasm.product.bean.PageInfo;
 import com.javasm.product.bean.ProductType;
+import com.javasm.product.bean.RemitInfo;
 import com.javasm.product.bean.Value;
 import com.javasm.product.bean.vo.ProductTypeVO;
 import com.javasm.product.service.ProductTypeService;
+import com.javasm.product.service.RemitInfoService;
 import com.javasm.product.service.impl.ProductTypeServiceImpl;
+import com.javasm.product.service.impl.RemitInfoServiceImpl;
 import com.javasm.util.DataUtil;
 import com.javasm.util.ServletUtil;
 
@@ -27,6 +30,7 @@ import javax.servlet.annotation.*;
 @WebServlet("/productType.do")
 public class ProductTypeServlet extends BaseServlet<ProductType> {
     private final ProductTypeService productTypeService = new ProductTypeServiceImpl();
+    private final RemitInfoService remitInfoService = new RemitInfoServiceImpl();
 
 
     /**
@@ -61,6 +65,10 @@ public class ProductTypeServlet extends BaseServlet<ProductType> {
     public String addProductType(HttpServletRequest request) {
         ProductType productType = ServletUtil.jsonConvertToEntity(request, ProductType.class);
         if (productTypeService.addProductType(productType)) {
+            Integer count = productTypeService.count();
+            RemitInfo remitInfo = new RemitInfo();
+            remitInfo.setProductSeriesId(count);
+            remitInfoService.addRemitInfo(remitInfo);
             return "1";
         }
         return "-1";
@@ -71,14 +79,6 @@ public class ProductTypeServlet extends BaseServlet<ProductType> {
     public String findProductTypeById(HttpServletRequest request) {
         String id = request.getParameter("addProductType");
         return JSONObject.toJSONString(productTypeService.getProductTypeById(Integer.valueOf(id)));
-    }
-
-    @ResponseTypeAnnotation(ResponseEnum.AJAX)
-    public String countProductType(HttpServletRequest request) {
-        Integer count = productTypeService.count();
-        Value value = new Value();
-        value.setValue(count);
-        return JSONObject.toJSONString(value);
     }
 
 

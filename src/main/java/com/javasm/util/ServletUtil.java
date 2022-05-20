@@ -83,9 +83,9 @@ public class ServletUtil {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        byte[] bytes = s.getBytes(StandardCharsets.ISO_8859_1);
-        String s1 = new String(bytes, StandardCharsets.UTF_8);
-        return JSONObject.parseObject(s1, clazz);
+//        byte[] bytes = s.getBytes(StandardCharsets.ISO_8859_1);
+//        String s1 = new String(bytes, StandardCharsets.UTF_8);
+        return JSONObject.parseObject(s, clazz);
     }
 
     public static <T> List<T> jsonConvertToEntity(String path, Class<T> clazz) {
