@@ -53,7 +53,7 @@
                 <el-button @click="initUpdate(scope.row)" type="text" size="small">修改</el-button>
                 <el-button type="text" size="small" @click="deleteHero()">删除</el-button>
                 <el-button type="text" size="small" @click="addMaker(scope)">编辑挂单</el-button>
-                <el-button type="text" size="small" @click="showHistory(scope)">历史融资</el-button>
+                <el-button type="text" size="small" @click="showHistory()">历史融资</el-button>
             </template>
         </el-table-column>
     </el-table>
@@ -204,20 +204,22 @@
 <%--    </el-form>--%>
 
     <%--历史融资--%>
-    <el-form :inline="true" :model="formInline" class="demo-form-inline">
-       <el-descriptions title="历史融资"></el-descriptions>
+    <el-dialog  title="历史融资表" Z width="35%">
+    <el-form :inline="true" :model="history" :data="historyList" >
+
         <el-table-column prop="comName" label="企业名称" width="150"></el-table-column>
-        <el-table-column prop="tradeCode" label="投资日期" width="150"></el-table-column>
-        <el-table-column prop="comSeqCode" label="投资轮" width="80"></el-table-column>
-        <el-table-column prop="newMakerAmount" label="投资资金(百万)" width="110"></el-table-column>
-        <el-table-column prop="newMakerAmount" label="投后估值(百万)" width="110"></el-table-column>
-        <el-table-column prop="newMakerAmount" label="总发行股数(百万)" width="110"></el-table-column>
-        <el-table-column prop="newMakerAmount" label="每股单价" width="110"></el-table-column>
+        <el-table-column prop="funDate" label="投资日期" width="150"></el-table-column>
+        <el-table-column prop="funType" label="投资轮" width="80"></el-table-column>
+        <el-table-column prop="funAmount" label="投资资金(百万)" width="110"></el-table-column>
+        <el-table-column prop="afterFunVal" label="投后估值(百万)" width="110"></el-table-column>
+        <el-table-column prop="totalShares" label="总发行股数(百万)" width="110"></el-table-column>
+        <el-table-column prop="pricePerShare" label="每股单价" width="110"></el-table-column>
 
         <span slot="footer" class="dialog-footer">
-            <el-button @click="addFlag=false">取消</el-button>
+            <el-button >取消</el-button>
         </span>
     </el-form>
+    </el-dialog>
 </div>
 
 <script>
@@ -254,7 +256,7 @@
                 makerAmount: "",
                 tradeAmount: ""
             },
-            selectHistory: {
+            history: {
                 type:"showHistory",
                 comName: "",
                 funDate: "",
@@ -262,11 +264,13 @@
                 funAmount: "",
                 afterFunVal: "",
                 totalShares: "",
-                pricePerShare: ""
+                pricePerShare: "",
+                comId:""
             },
             companyList: [],
             comIndustryList:[],
-            addFlag:false
+            addFlag:false,
+            historyList:[],
 
         },
         methods: {
@@ -342,6 +346,13 @@
                     comId:company.comId
                 };
                 this.addFlag = true;
+            },
+            showHistory(){
+                axios.get("http://localhost:8088/Financial_manage_sys_war_exploded/companyInfo.do", {
+                    params: this.history
+                }).then(response => {
+                    this.historyList = response.data.dataList;
+                });
             }
         },
         created(){
