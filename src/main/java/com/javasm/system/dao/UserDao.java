@@ -1,7 +1,7 @@
 package com.javasm.system.dao;
 
 import com.javasm.system.bean.UserInfo;
-import com.javasm.system.bean.vo.PageSelect;
+import com.javasm.system.bean.vo.PageSelectUser;
 import com.javasm.system.bean.vo.SetUserInfo;
 import com.javasm.system.bean.vo.UserInfoVo;
 import com.javasm.system.bean.vo.UserRoleMiddle;
@@ -100,7 +100,7 @@ public interface UserDao {
      * @param pageSelect
      * @return
      */
-    List<UserInfoVo> queryPageUserInfoVo(PageSelect pageSelect);
+    List<UserInfoVo> queryPageUserInfoVo(PageSelectUser pageSelect);
 
     /**
      * 删除用户id
@@ -114,5 +114,5 @@ public interface UserDao {
      * @param pageSelect
      * @return
      */
-    Integer selectSize(PageSelect pageSelect);
+    Integer selectSize(PageSelectUser pageSelect);
 }

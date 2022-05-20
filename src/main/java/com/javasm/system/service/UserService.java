@@ -2,7 +2,7 @@ package com.javasm.system.service;
 
 import com.javasm.system.bean.PageInfo;
 import com.javasm.system.bean.UserInfo;
-import com.javasm.system.bean.vo.PageSelect;
+import com.javasm.system.bean.vo.PageSelectUser;
 import com.javasm.system.bean.vo.SetUserInfo;
 import com.javasm.system.bean.vo.UserInfoVo;
 
@@ -45,7 +45,7 @@ public interface UserService {
      * @param pageSelect
      * @return
      */
-    PageInfo<UserInfoVo> queryPageUser(PageSelect pageSelect);
+    PageInfo<UserInfoVo> queryPageUser(PageSelectUser pageSelect);
 
     /**
      * 删除用户

@@ -31,17 +31,17 @@ public class BkInvestMoney {
     /**
      * 请求时间
      */
-    private String investrequesttime;
+    private Data investrequesttime;
     /**
      * 处理时间
      */
-    private String investhandletime;
+    private Data investhandletime;
     /**
      * 银行代码
      */
     private Integer investbankcode;
     /**
-     * 汇款状态  0：未汇款   1：已到PTN账号
+     * 汇款状态  0：未汇款   1：已到PTN账号  2:已到汇款到用户
      */
     private Integer investstate ;
     /**

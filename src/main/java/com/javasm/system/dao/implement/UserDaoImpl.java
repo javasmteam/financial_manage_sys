@@ -1,7 +1,7 @@
 package com.javasm.system.dao.implement;
 
 import com.javasm.system.bean.UserInfo;
-import com.javasm.system.bean.vo.PageSelect;
+import com.javasm.system.bean.vo.PageSelectUser;
 import com.javasm.system.bean.vo.SetUserInfo;
 import com.javasm.system.bean.vo.UserInfoVo;
 import com.javasm.system.bean.vo.UserRoleMiddle;
@@ -87,7 +87,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<UserInfoVo> queryPageUserInfoVo(PageSelect pageSelect) {
+    public List<UserInfoVo> queryPageUserInfoVo(PageSelectUser pageSelect) {
         ArrayList<Object> objects = new ArrayList<>();
         StringBuilder sql = new StringBuilder("SELECT\n" +
                 "\tu.head_pic,\n" +
@@ -134,7 +134,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Integer selectSize(PageSelect pageSelect) {
+    public Integer selectSize(PageSelectUser pageSelect) {
         ArrayList<Object> objects = new ArrayList<>();
         StringBuilder sql = new StringBuilder("SELECT\n" +
                 "count(u.user_id) \n" +
