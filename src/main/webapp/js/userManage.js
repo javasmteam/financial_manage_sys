@@ -150,11 +150,10 @@ var app = new Vue({
         reqDelUser(user) {
             axios.post(projectPath + "/userManage?type=reqDelUser", user).then(resp => {
                 if (resp.data == "-1") {
-                    this.$message.error("注册失败")
+                    this.$message.error("删除失败")
                 } else {
-                    this.$message({message: "注册成功", type: "success"})
-                    this.regUser = new regUserF();
-                    this.loginDialog = false;
+                    this.$message({message: "删除成功", type: "success"});
+                    this.reqPageSelect();
                 }
             })
         },
