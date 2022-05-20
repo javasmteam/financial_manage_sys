@@ -34,3 +34,8 @@ set u.user_name = ?,
     u.phone = ?,
     u.role_id = ?
 where u.user_id = ?;
+
+
+update user_permission
+set permission_state = 0
+where permission_id >0 and permission_id = ?;

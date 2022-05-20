@@ -33,7 +33,7 @@ public class UserPermissionDaoImpl implements UserPermissionDao {
         ArrayList<Object> objects = new ArrayList<>();
         StringBuilder sql = new StringBuilder("select count(permission_id)\n" +
                 "from user_permission\n" +
-                "where permission_state > 0 ");
+                "where permission_state > 0 and permission_id > 0 ");
         if (pageSelect.getPermissionId() != null && pageSelect.getPermissionId().equals("")) {
             sql.append(" and permission_id = ? ");
             Integer id = Integer.valueOf(pageSelect.getPermissionId());
@@ -43,15 +43,16 @@ public class UserPermissionDaoImpl implements UserPermissionDao {
             sql.append(" and permission_name = ? ");
             objects.add(pageSelect.getPermissionName());
         }
-        return JDBCUtils.size(sql.toString(),objects);
+        Object[] objects1 = objects.toArray();
+        return JDBCUtils.size(sql.toString(),objects1);
     }
 
     @Override
     public List<PermissionInfo> queryPagePermission(PageSelectPermission pageSelect) {
         ArrayList<Object> objects = new ArrayList<>();
-        StringBuilder sql = new StringBuilder("select u1.*,u2.permission_name\n" +
+        StringBuilder sql = new StringBuilder("select u1.*,u2.permission_name parent_name\n" +
                 "from user_permission u1 ,user_permission u2\n" +
-                "WHERE u1.parent_id = u2.permission_id and u1.permission_state > 0 ");
+                "WHERE u1.parent_id = u2.permission_id and u1.permission_state > 0 and u1.permission_id > 0 ");
         if (pageSelect.getPermissionId() != null && pageSelect.getPermissionId().equals("")) {
             sql.append(" and permission_id = ? ");
             Integer id = Integer.valueOf(pageSelect.getPermissionId());
@@ -61,7 +62,12 @@ public class UserPermissionDaoImpl implements UserPermissionDao {
             sql.append(" and permission_name = ? ");
             objects.add(pageSelect.getPermissionName());
         }
-        return JDBCUtils.query(sql.toString(),PermissionInfo.class,objects);
+        sql.append(" limit ?,?;");
+        Integer index = (pageSelect.getNowPage() - 1) * pageSelect.getPageCount();
+        objects.add(index);
+        objects.add(pageSelect.getPageCount());
+        Object[] objects1 = objects.toArray();
+        return JDBCUtils.query(sql.toString(),PermissionInfo.class,objects1);
     }
 
     @Override

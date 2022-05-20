@@ -117,7 +117,7 @@ public class UserDaoImpl implements UserDao {
             Integer integer = DataUtil.stringConvertToInteger(pageSelect.getUserId());
             objects.add(integer);
         }
-        sql.append(" and user_state >0;");
+        sql.append(" limit ?,?;");
         Integer index = (pageSelect.getNowPage() - 1) * pageSelect.getPageCount();
         objects.add(index);
         objects.add(pageSelect.getPageCount());
