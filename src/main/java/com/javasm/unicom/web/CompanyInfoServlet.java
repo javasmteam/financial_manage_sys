@@ -64,6 +64,12 @@ public class CompanyInfoServlet extends BaseServlet<CompanyInfo> {
 
     }
 
+    /**
+     * 修改
+     *
+     * @param request
+     * @return
+     */
     public String updateCompany(HttpServletRequest request){
         Map<String, String[]> map = request.getParameterMap();
 

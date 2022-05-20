@@ -23,7 +23,7 @@
 <div id="app">
     <el-descriptions title="独角兽管理>充值信息管理"></el-descriptions>
 
-    <el-form :inline="true" id="companySelect">
+    <el-form :inline="true" id="investSelect">
         <el-form-item label="姓名：">
             <el-input v-model="selectParams.userName"></el-input>
         </el-form-item>
@@ -31,7 +31,7 @@
             <el-input v-model="selectParams.investmoneytype"></el-input>
         </el-form-item>
         <el-form-item label="交易状态：">
-            <el-input v-model="selectParams.investstate"></el-input>
+            <el-input v-model="selectParams.state"></el-input>
         </el-form-item>
         <el-button type="primary" plain @click="showInvest()">查询</el-button>
     </el-form>
@@ -45,7 +45,7 @@
         <el-table-column prop="investrequesttime" label="请求时间" width="180"></el-table-column>
         <el-table-column prop="investhandletime" label="处理完成时间" width="180"></el-table-column>
         <el-table-column prop="investbankcode" label="银行交易编号" width="110"></el-table-column>
-        <el-table-column prop="investstate" label="状态" width="110"></el-table-column>
+        <el-table-column prop="state" label="状态" width="110"></el-table-column>
 
     </el-table>
 
@@ -67,7 +67,7 @@
                 type:"showInvest",
                 userName:"",
                 investmoneytype:"",
-                investstate:"",
+                state:"",
                 nowPage: 1,
                 pageNum: 5,
             },
@@ -76,22 +76,11 @@
                 pageNum: 5,
                 total: 0
             },
-            investMoney: {
-                type:"addInvest",
-                userid:"",
-                userName:"",
-                investmoneytype:"",
-                investmoney:"",
-                investrequesttime:"",
-                investhandletime:"",
-                investbankcode:"",
-                investstate:""
-            },
             investList:[]
         },
         methods: {
             queryInvest() {
-                axios.get("http://localhost:8088/Financial_manage_sys_war_exploded/companyInfo.do", {
+                axios.get("http://localhost:8088/Financial_manage_sys_war_exploded/invest.do", {
                     params: this.selectParams
                 }).then(response => {
                     this.investList = response.data.dataList;
@@ -114,6 +103,9 @@
                 //  调用 methods中查询英雄的函数
                 this.queryInvest();
             },
+        },
+        created(){
+            this.queryInvest();
         }
     })
 </script>
