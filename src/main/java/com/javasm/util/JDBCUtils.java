@@ -164,11 +164,11 @@ public class JDBCUtils {
     }
 
     //  查询数据库数据条数 -- 事务
-    public static Integer size(Connection conn, String sql) {
+    public static Integer size(Connection conn, String sql,Object...o) {
         QueryRunner queryRunner = new QueryRunner();
         Integer i = null;
         try {
-            i = queryRunner.query(conn, sql, new ScalarHandler<Long>()).intValue();
+            i = queryRunner.query(conn, sql, new ScalarHandler<Long>(),o).intValue();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -176,9 +176,9 @@ public class JDBCUtils {
     }
 
     // 查询数据库数据条数 -- 非事务
-    public static Integer size(String sql) {
+    public static Integer size(String sql,Object...o) {
         Connection conn = getConn();
-        Integer i = size(conn, sql);
+        Integer i = size(conn, sql,o);
         DbUtils.closeQuietly(conn);
         return i;
     }

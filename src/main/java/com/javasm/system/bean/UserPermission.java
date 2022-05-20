@@ -1,5 +1,6 @@
 package com.javasm.system.bean;
 
+import com.javasm.system.bean.vo.PermissionInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,4 +27,13 @@ public class UserPermission {
         private String permissionImage;
         private Integer parentId;
         private Integer permissionState;
+
+    public UserPermission(PermissionInfo permissionInfo) {
+        this.permissionId = permissionInfo.getPermissionId();
+        this.permissionName = permissionInfo.getPermissionName();
+        this.permissionPath = permissionInfo.getPermissionPath();
+        this.permissionImage = permissionInfo.getPermissionImage();
+        this.parentId = permissionInfo.getParentId();
+        this.permissionState = permissionInfo.getPermissionState();
+    }
 }
