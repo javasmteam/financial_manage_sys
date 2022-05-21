@@ -8,6 +8,7 @@ import com.javasm.system.bean.vo.PermissionInfo;
 import com.javasm.system.dao.UserPermissionDao;
 import com.javasm.system.dao.implement.UserPermissionDaoImpl;
 import com.javasm.system.service.PermissionService;
+import com.javasm.util.DataUtil;
 
 
 import java.util.List;
@@ -55,7 +56,7 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public PermissionInfo getPermissionInfo(String permissionId) {
-        Integer id = Integer.valueOf(permissionId);
+        Integer id = DataUtil.stringConvertToInteger(permissionId);
         return userPermissionDao.getPermissionInfo(id);
     }
 }

@@ -94,7 +94,7 @@ var app = new Vue({
                 if (resp.data == "-1") {
                     this.$message.error("数据连接有误");
                 } else {
-                    this.userInfoList = resp.data.dataList;
+                    this.menuList = resp.data.dataList;
                     this.page.nowPage = resp.data.nowPage;
                     this.page.pageCount = resp.data.pageCount;
                     this.page.allCount = resp.data.allCount;

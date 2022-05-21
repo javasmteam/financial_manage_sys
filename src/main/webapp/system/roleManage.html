@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>角色管理管理</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <link rel="stylesheet" href="../css/roleManage.css">
+    <script src="../js/constant.js"></script>
+</head>
+<body>
+<div id="app">
+    <el-card class="box-card">
+        <!-- 查询控件 -->
+        <el-form :inline="true" :model="pageSelect" class="demo-form-inline">
+            <el-form-item label="角色名">
+                <el-input v-model="pageSelect.roleName" placeholder="请输入查询的用户姓名"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="queryPageSelect">查询</el-button>
+                <el-button type="primary" @click="addFlag=true">新增</el-button>
+            </el-form-item>
+        </el-form>
+        <!-- 表格显示 -->
+        <el-table
+                ref="multipleTable"
+                :data="roleList"
+                tooltip-effect="dark"
+                style="width: 100%"
+                stripe="true"
+                border="true"
+                @selection-change="handleSelectionChange">
+            <el-table-column
+                    type="selection"
+                    width="55">
+            </el-table-column>
+            <el-table-column
+                    prop="roleId"
+                    label="角色id"
+                    width="120">
+            </el-table-column>
+            <el-table-column
+                    prop="roleName"
+                    label="角色名称"
+                    width="120">
+            </el-table-column>
+            <el-table-column
+                    label="操作"
+                    show-overflow-tooltip>
+                <template slot-scope="scope">
+                    <el-button-group>
+                        <el-button type="primary" icon="el-icon-orange" @click="showRoleInfo(scope.row)"></el-button>
+                        <el-button type="primary" icon="el-icon-edit" @click="showSetRoleInfo(scope.row)"></el-button>
+                        <el-button type="primary" icon="el-icon-delete" @click="reqDelRole(scope.row)"></el-button>
+                        <el-button type="primary" icon="el-icon-delete" @click="showAuthorize(scope.row)"></el-button>
+                    </el-button-group>
+                </template>
+            </el-table-column>
+        </el-table>
+
+        <!-- 翻页组件 -->
+        <el-pagination
+                @size-change="SetPageCount"
+                @current-change="SetNowPage"
+                :current-page="page.nowPage"
+                :page-sizes="[5, 10, 15, 20]"
+                :page-size="page.pageCount"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="page.allCount">
+        </el-pagination>
+
+        <!-- 详情弹窗 -->
+        <el-dialog title="拥有角色权限的用户" :visible.sync="roleDetailsFlag">
+            <el-table :data="userList" style="width: 100%" stripe="true">
+                <el-table-column prop="userId" label="用户id" width="180"></el-table-column>
+                <el-table-column prop="userName" label="用户姓名" width="180"></el-table-column>
+                <el-table-column label="用户状态" width="180">
+                    <template slot-scope="scope">
+                        {{scope.row.userState == 0 ? '已删除' : scope.row.userState == 1 ? '离线' : '上线'}}
+                    </template>
+                </el-table-column>
+                <el-table-column prop="lastLogin" label="用户最后登录时间" width="180"></el-table-column>
+                <el-table-column label="用户头像" width="180">
+                    <template slot-scope="scope">
+                        <el-image style="width: 100px;height: 100px" :src="scope.row.headPic"></el-image>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </el-dialog>
+
+        <!-- 修改弹窗 -->
+        <el-dialog title="修改菜单" :visible.sync="setRoleFlag">
+            <el-form :model="setMenuInfo" rules="vriSetMenu" ref="setMenuInfo" label-width="100px">
+                <el-form-item label="角色名">
+                    <el-input v-model="setRoleInfo.roleName"></el-input>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+            <el-button @click="setRole(false)">取 消</el-button>
+             <el-button type="primary" @click="setRole(true)">确 定</el-button>
+        </span>
+        </el-dialog>
+
+        <!-- 新增弹窗 -->
+        <el-dialog title="新增菜单 " :visible.sync="addFlag">
+            <el-form :model="addRoleInfo" label-width="80px" :rules="addRoleRule" ref="addRoleInfo">
+
+                <el-form-item label="角色名">
+                    <el-input v-model="addMenuInfo.roleName"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <div class="reg-button">
+                        <el-button @click="addRole(false)">取 消</el-button>
+                        <el-button type="primary" @click="addRole(true)">确 定</el-button>
+                    </div>
+                </el-form-item>
+            </el-form>
+        </el-dialog>
+
+        <!-- 授权弹窗 -->
+        <el-dialog title="授权" :visible.sync="authorizeFlag">
+            <el-tree :data="rolePermissions" show-checkbox node-key="id">
+            </el-tree>
+        </el-dialog>
+    </el-card>
+</div>
+
+<script src="../js/roleManage.js"></script>
+
+</body>
+</html>

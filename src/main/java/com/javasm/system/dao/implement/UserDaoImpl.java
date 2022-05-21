@@ -139,9 +139,9 @@ public class UserDaoImpl implements UserDao {
         StringBuilder sql = new StringBuilder("SELECT\n" +
                 "count(u.user_id) \n" +
                 "FROM\n" +
-                "\tuser_info u,\n" +
+                "\tuser_info u\n" +
                 "WHERE\n" +
-                "\tAND u.user_state > 0 ");
+                "\t u.user_state > 0 ");
         if (pageSelect.getUserName() != null && !pageSelect.getUserName().equals("")) {
             sql.append(" and u.user_name = ? ");
             objects.add(pageSelect.getUserName());
