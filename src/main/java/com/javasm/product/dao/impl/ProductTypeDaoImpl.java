@@ -2,6 +2,7 @@ package com.javasm.product.dao.impl;
 
 import com.javasm.product.bean.PageInfo;
 import com.javasm.product.bean.ProductType;
+import com.javasm.product.bean.Value;
 import com.javasm.product.bean.vo.ProductTypeIdVO;
 import com.javasm.product.bean.vo.ProductTypeVO;
 import com.javasm.product.dao.ProductTypeDao;
@@ -142,6 +143,14 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
     public List<ProductTypeIdVO> findProductTypeId() {
         String sql = JDBCUtils.getSql("findProductTypeId");
         return query(sql, ProductTypeIdVO.class);
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public List<Value> queryAllSecondType() {
+        return null;
     }
 }
 

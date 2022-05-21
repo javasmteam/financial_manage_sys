@@ -9,4 +9,5 @@ package com.javasm.product.dao;
  * @Version : 1.0
  **/
 public interface ProductAuditDao {
+
 }

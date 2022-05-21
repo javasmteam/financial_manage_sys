@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <link rel="stylesheet" href="../css/productType.css">
-    <script src="../js/productType.js"></script>
+    <script src="../js/constant.js"></script>
 </head>
 <body>
 <div id="app" class="content-container" direction="vertical">
@@ -24,11 +24,11 @@
             </div>
             <div class="input-tip">产品类型：</div>
             <div class="input-field">
-                <el-select v-model="value" placeholder="请选择">
+                <el-select v-model="secId" placeholder="请选择">
                     <el-option
-                            v-for="item in options"
+                            v-for="item in productSecondTypeList"
                             :key="item.value"
-                            :label="item.label"
+                            :label="item.value"
                             :value="item.value">
                     </el-option>
                 </el-select>
@@ -60,7 +60,7 @@
                 tooltip-effect="dark"
                 style="width: 100%">
             <el-table-column
-                    prop="productSeriesId"
+                    prop="productChName"
                     label="产品名称"
                     width="150">
             </el-table-column>
@@ -70,24 +70,24 @@
                     width="150">
             </el-table-column>
             <el-table-column
-                    prop="productTypeEngName"
+                    prop="secName"
                     label="二级分类"
                     width="150">
             </el-table-column>
             <el-table-column
-                    prop="remitInfoSummary"
+                    prop="regulateBody"
                     label="机构名称" width="150">
             </el-table-column>
             <el-table-column
-                    prop="remitInfoSummary"
+                    prop="openTime"
                     label="开放时间" width="150">
             </el-table-column>
             <el-table-column
-                    prop="remitInfoSummary"
+                    prop="currencyType"
                     label="币种" width="150">
             </el-table-column>
             <el-table-column
-                    prop="remitInfoSummary"
+                    prop="auditType"
                     label="审核状态" width="150">
             </el-table-column>
             <el-table-column label="操作" width="200">

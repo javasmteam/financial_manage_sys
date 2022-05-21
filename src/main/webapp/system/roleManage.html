@@ -123,6 +123,10 @@
         <el-dialog title="授权" :visible.sync="authorizeFlag">
             <el-tree :data="rolePermissions" show-checkbox node-key="id">
             </el-tree>
+            <div class="reg-button">
+                <el-button @click="authorize(false)">取 消</el-button>
+                <el-button type="primary" @click="authorize(true)">确 定</el-button>
+            </div>
         </el-dialog>
     </el-card>
 </div>

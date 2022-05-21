@@ -2,11 +2,7 @@ package com.javasm.product.service;
 
 import com.javasm.product.bean.PageInfo;
 import com.javasm.product.bean.ProductInfo;
-import com.javasm.product.bean.ProductType;
 import com.javasm.product.bean.vo.ProductInfoVO;
-import com.javasm.product.bean.vo.ProductTypeVO;
-
-import java.util.List;
 
 /**
  * <h4>Financial_manage_sys</h4>
@@ -56,9 +52,10 @@ public interface ProductInfoService {
     /**
      * 分页查询产品信息
      *
-     * @param page          分页信息
-     * @param productInfoVO 产品信息vo
-     * @return 查询vo集合
+     * @param nowPage
+     * @param pageSize
+     * @param productInfo
+     * @return
      */
-    List<ProductInfoVO> queryProductInfoByPage(PageInfo<ProductInfoVO> page, ProductInfoVO productInfoVO);
+    PageInfo<ProductInfoVO> getProductInfoByPage(String nowPage, String pageSize, ProductInfoVO productInfo);
 }
