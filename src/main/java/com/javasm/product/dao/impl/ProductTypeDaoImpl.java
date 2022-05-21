@@ -45,6 +45,19 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
     }
 
     /**
+     * 根据id连表修改状态
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Boolean deleteProductTypeById(Integer id) {
+        String sql = JDBCUtils.getSql("deleteProductType");
+
+        return JDBCUtils.update(sql, id) > 0;
+    }
+
+    /**
      * 查询商品类别总条数
      *
      * @param productType 产品系列

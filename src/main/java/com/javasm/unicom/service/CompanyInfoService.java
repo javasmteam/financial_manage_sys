@@ -1,9 +1,8 @@
 package com.javasm.unicom.service;
 
 import com.javasm.unicom.bean.CompanyInfo;
+import com.javasm.unicom.bean.HistoryFunding;
 import com.javasm.unicom.bean.PageInfo;
-
-import java.util.List;
 
 /**
  * <h4>financial_manage_sys</h4>
@@ -41,6 +40,15 @@ public interface CompanyInfoService {
      * @return
      */
     Boolean updateCompany(CompanyInfo companyInfo);
+
+
+    /**
+     * 查询历史融资
+     *
+     * @param comId
+     * @return
+     */
+    HistoryFunding selectHistory(Integer comId);
 
 
 }

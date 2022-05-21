@@ -35,6 +35,14 @@ public interface ProductTypeDao {
      */
     Boolean updateProductType(ProductType productType);
 
+    /**
+     * 根据id连表修改状态
+     *
+     * @param id
+     * @return
+     */
+    Boolean deleteProductTypeById(Integer id);
+
 
     /**
      * 查询商品类别总条数

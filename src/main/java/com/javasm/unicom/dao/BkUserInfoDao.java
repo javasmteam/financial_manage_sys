@@ -1,6 +1,10 @@
 package com.javasm.unicom.dao;
 
 import com.javasm.unicom.bean.BkUserInfo;
+import com.javasm.unicom.bean.PageInfo;
+import com.javasm.unicom.bean.vo.BkUserInfoVo;
+
+import java.util.List;
 
 /**
  * <h4>financial_manage_sys</h4>
@@ -19,4 +23,22 @@ public interface BkUserInfoDao {
      * @return
      */
     Integer addBkUserInfo(BkUserInfo bkUserInfo);
+
+    /**
+     * 统计有多少条信息
+     *
+     * @param bkUserInfo
+     * @return
+     */
+    Integer count(BkUserInfo bkUserInfo);
+
+
+    /**
+     * 分页查询
+     *
+     * @param pageInfo
+     * @param bkUserInfo
+     * @return
+     */
+    List<BkUserInfoVo> selectUserInfo(PageInfo<BkUserInfoVo> pageInfo,BkUserInfo bkUserInfo);
 }

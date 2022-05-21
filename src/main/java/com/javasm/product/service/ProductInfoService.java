@@ -18,6 +18,7 @@ import java.util.List;
  **/
 public interface ProductInfoService {
 
+
     /**
      * 增加产品信息
      *
@@ -26,6 +27,14 @@ public interface ProductInfoService {
      */
     Boolean addProductInfo(ProductInfo productInfo);
 
+
+    /**
+     * 删除商品信息
+     *
+     * @param id
+     * @return
+     */
+    Boolean deleteProductInfo(Integer id);
 
     /**
      * 更新产品信息
@@ -45,12 +54,11 @@ public interface ProductInfoService {
 
 
     /**
-     * 分页查询商品信息
+     * 分页查询产品信息
      *
-     * @param nowPage
-     * @param pageSize
-     * @param productInfoVO
-     * @return
+     * @param page          分页信息
+     * @param productInfoVO 产品信息vo
+     * @return 查询vo集合
      */
-    PageInfo<ProductInfoVO> getProductInfoByPage(String nowPage, String pageSize, ProductInfoVO productInfoVO);
+    List<ProductInfoVO> queryProductInfoByPage(PageInfo<ProductInfoVO> page, ProductInfoVO productInfoVO);
 }

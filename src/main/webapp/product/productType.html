@@ -73,7 +73,7 @@
                     <el-button
                             size="mini"
                             type="danger"
-                            @click="deleteProduct(scope.$index)">删除
+                            @click="deleteProduct(scope.row)">删除
                     </el-button>
                     <el-button
                             size="mini"
@@ -98,6 +98,20 @@
             </el-col>
         </el-row>
     </div>
+
+
+    <el-dialog
+            title="提示"
+            :visible.sync="saveFlag4"
+            width="30%"
+            :before-close="handleClose">
+        <span>请确认是否删除</span>
+        <span slot="footer" class="dialog-footer">
+    <el-button @click="saveFlag4= false">取 消</el-button>
+    <el-button type="primary" @click="deleteItem">确 定</el-button>
+     </span>
+    </el-dialog>
+
 
     <el-dialog title="汇款信息" :visible.sync="saveFlag1" id="remitInfo" :data="productTypeVO">
         <el-form :model="productTypeVO" :rules="rules" ref="productTypeVO">
