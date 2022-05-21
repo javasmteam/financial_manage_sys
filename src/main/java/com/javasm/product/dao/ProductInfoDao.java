@@ -30,6 +30,7 @@ public interface ProductInfoDao {
 
     /**
      * 删除商品信息
+     *
      * @param id
      * @return
      */
@@ -43,14 +44,8 @@ public interface ProductInfoDao {
      */
     Boolean updateProductInfo(ProductInfo productInfo);
 
-    /**
-     * 查询商品信息总条数
-     *
-     * @param productInfoVO 产品信息vo类
-     * @return 影响行数
-     */
-    Integer count(ProductInfoVO productInfoVO);
 
+    Integer count(ProductInfoVO productInfoVO);
 
     /**
      * 分页查询产品信息

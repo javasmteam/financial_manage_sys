@@ -1042,3 +1042,8 @@ values (sec_id, 2, '医疗保险');
 insert into product_second_type
 values (sec_id, 2, '意外保障');
 
+select sec_name
+from product_second_type;
+
+
+select product_type_ch_name from product_type;

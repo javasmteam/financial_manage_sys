@@ -2,6 +2,7 @@ package com.javasm.product.dao;
 
 import com.javasm.product.bean.PageInfo;
 import com.javasm.product.bean.ProductType;
+import com.javasm.product.bean.Value;
 import com.javasm.product.bean.vo.ProductTypeIdVO;
 import com.javasm.product.bean.vo.ProductTypeVO;
 
@@ -83,5 +84,8 @@ public interface ProductTypeDao {
      * @return
      */
     List<ProductTypeIdVO> findProductTypeId();
+
+
+    List<Value> queryAllSecondType();
 
 }

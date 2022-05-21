@@ -15,6 +15,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Value {
-    private Integer value;
+public class Value<T> {
+    private T value;
 }

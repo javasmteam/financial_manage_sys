@@ -61,31 +61,25 @@ public class ProductInfoServiceImpl implements ProductInfoService {
      */
     @Override
     public Integer count(ProductInfoVO productInfoVO) {
-        return null;
+        return productInfoDao.count();
     }
+
 
     /**
      * 分页查询产品信息
      *
-     * @param page          分页信息
-     * @param productInfoVO 产品信息vo
-     * @return 查询vo集合
-     */
-    @Override
-    public List<ProductInfoVO> queryProductInfoByPage(PageInfo<ProductInfoVO> page, ProductInfoVO productInfoVO) {
-        return null;
-    }
-
-    /**
-     * 分页查询商品信息
-     *
      * @param nowPage
      * @param pageSize
-     * @param productInfoVO
+     * @param productInfo
      * @return
      */
     @Override
-    public PageInfo<ProductInfoVO> getProductInfoByPage(String nowPage, String pageSize, ProductInfoVO productInfoVO) {
-        return null;
+    public PageInfo<ProductInfoVO> getProductInfoByPage(String nowPage, String pageSize, ProductInfoVO productInfo) {
+        Integer count = productInfoDao.count();
+        PageInfo<ProductInfoVO> pageInfo = new PageInfo<>(nowPage, pageSize, count);
+        List<ProductInfoVO> productInfoByPage = productInfoDao.queryProductInfoByPage(pageInfo, productInfo);
+        pageInfo.setDataList(productInfoByPage);
+        return pageInfo;
     }
+
 }
