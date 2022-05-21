@@ -19,7 +19,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "ProductSecondTypeServlet", value = "/ProductSecondTypeServlet")
+@WebServlet("/ProductSecondTypeServlet")
 public class ProductSecondTypeServlet extends BaseServlet<Value> {
     private final ProductSecondTypeService productSecondTypeService = new ProductSecondTypeServiceImpl();
 

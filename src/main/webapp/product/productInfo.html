@@ -24,11 +24,11 @@
             </div>
             <div class="input-tip">产品类型：</div>
             <div class="input-field">
-                <el-select v-model="value" placeholder="请选择">
+                <el-select v-model="secId" placeholder="请选择">
                     <el-option
-                            v-for="item in options"
+                            v-for="item in productSecondTypeList"
                             :key="item.value"
-                            :label="item.label"
+                            :label="item.value"
                             :value="item.value">
                     </el-option>
                 </el-select>

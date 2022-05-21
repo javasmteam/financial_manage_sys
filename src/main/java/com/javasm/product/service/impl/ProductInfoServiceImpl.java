@@ -61,7 +61,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
      */
     @Override
     public Integer count(ProductInfoVO productInfoVO) {
-        return productInfoDao.count();
+        return productInfoDao.count(productInfoVO);
     }
 
 
@@ -75,7 +75,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
      */
     @Override
     public PageInfo<ProductInfoVO> getProductInfoByPage(String nowPage, String pageSize, ProductInfoVO productInfo) {
-        Integer count = productInfoDao.count();
+        Integer count = productInfoDao.count(productInfo);
         PageInfo<ProductInfoVO> pageInfo = new PageInfo<>(nowPage, pageSize, count);
         List<ProductInfoVO> productInfoByPage = productInfoDao.queryProductInfoByPage(pageInfo, productInfo);
         pageInfo.setDataList(productInfoByPage);
