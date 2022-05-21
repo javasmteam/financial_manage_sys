@@ -113,6 +113,7 @@ var app = new Vue({
                 }
             })
         },
+        //请求一级菜单
         reqParentMenu() {
             axios.post(projectPath + "/menuManage?type=reqParentMenu").then(resp => {
                 if (resp.data == "-1") {
@@ -151,7 +152,17 @@ var app = new Vue({
             }else {
                 this.addMenuInfo = new MenuInfo();
             }
-        }
+        },
+        //请求设置每页数据
+        SetPageCount(pageCount) {
+            this.pageSelect.pageCount = pageCount;
+            this.reqPageSelect();
+        },
+        //请求设置当前页
+        SetNowPage(nowPage) {
+            this.pageSelect.nowPage = nowPage;
+            this.reqPageSelect();
+        },
 
 
     },

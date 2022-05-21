@@ -12,7 +12,6 @@ import lombok.Setter;
 @Setter
 public class PageSelectRole {
     private String RoleName;
-    private String RoleId;
     private Integer nowPage;
     private Integer pageCount;
 }
