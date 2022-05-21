@@ -134,7 +134,7 @@ var vue = new Vue({
                 this.search();
             })
         }, getProductSecondType() {
-            axios.post(projectPath + "/ProductSecondTypeServlet?type=showAllProductSecondTypes").then(response => {
+            axios.get(projectPath + "/ProductSecondTypeServlet?type=showAllProductSecondTypes").then(response => {
                 this.productSecondTypeList = response.data;
             })
         },
