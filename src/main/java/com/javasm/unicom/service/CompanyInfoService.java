@@ -3,6 +3,7 @@ package com.javasm.unicom.service;
 import com.javasm.unicom.bean.CompanyInfo;
 import com.javasm.unicom.bean.HistoryFunding;
 import com.javasm.unicom.bean.PageInfo;
+import com.javasm.unicom.bean.vo.HistoryFundingVo;
 
 /**
  * <h4>financial_manage_sys</h4>
@@ -48,7 +49,23 @@ public interface CompanyInfoService {
      * @param comId
      * @return
      */
-    HistoryFunding selectHistory(Integer comId);
+    HistoryFundingVo selectHistory(Integer comId);
 
+
+    /**
+     * 删除
+     *
+     * @param comId
+     * @return
+     */
+    Boolean deleteCompany(Integer comId);
+
+    /**
+     * 根据id查询企业
+     *
+     * @param comId
+     * @return
+     */
+    CompanyInfo selectCompanyById(Integer comId);
 
 }

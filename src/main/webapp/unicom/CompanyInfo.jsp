@@ -49,9 +49,9 @@
         <el-table-column prop="newMakerAmount" label="最新挂牌价" width="110"></el-table-column>
         <el-table-column label="操作" width="260">
             <template slot-scope="scope">
-                <el-button @click="initUpdate(scope.row)" type="text" size="small">详情</el-button>
+                <el-button @click="showCompanyInfo(scope.row)" type="text" size="small">详情</el-button>
                 <el-button @click="initUpdate(scope.row)" type="text" size="small">修改</el-button>
-                <el-button type="text" size="small" @click="deleteHero()">删除</el-button>
+                <el-button type="text" size="small" @click="deleteCompany(scope.$index)">删除</el-button>
                 <el-button type="text" size="small" @click="addMaker(scope)">编辑挂单</el-button>
                 <el-button type="text" size="small" @click="showHistory()">历史融资</el-button>
             </template>
@@ -156,7 +156,12 @@
             </el-row>
 
             <el-row>
-                <el-col :span="24">
+                <el-col :span="12">
+                    <el-form-item label="最新挂单价" prop="newMakerAmount" label-width="100px">
+                        <el-input v-model="company.newMakerAmount" placeholder="最新挂单价" ></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="12">
                     <el-form-item label="企业介绍" prop="comIntro" label-width="100px">
                         <el-input v-model="company.comIntro" placeholder="企业介绍" label="描述文字"></el-input>
                     </el-form-item>
@@ -204,9 +209,8 @@
 <%--    </el-form>--%>
 
     <%--历史融资--%>
-    <el-dialog  title="历史融资表" Z width="35%">
-    <el-form :inline="true" :model="history" :data="historyList" >
-
+    <el-dialog  :visible.sync="showHistoryFlag" title="历史融资" width="70%">
+        <el-table  :data="history" height="380">
         <el-table-column prop="comName" label="企业名称" width="150"></el-table-column>
         <el-table-column prop="funDate" label="投资日期" width="150"></el-table-column>
         <el-table-column prop="funType" label="投资轮" width="80"></el-table-column>
@@ -216,10 +220,31 @@
         <el-table-column prop="pricePerShare" label="每股单价" width="110"></el-table-column>
 
         <span slot="footer" class="dialog-footer">
-            <el-button >取消</el-button>
+            <el-button @click="showHistoryFlag=false" >取消</el-button>
         </span>
-    </el-form>
+        </el-table>
     </el-dialog>
+
+
+    <%--详情--%>
+    <el-dialog  :visible.sync="showCompanyFlag">
+    <el-descriptions title="企业详情" :model="companyInfo">
+        <el-descriptions-item label="企业编号">{{companyInfo.comId}}</el-descriptions-item>
+        <el-descriptions-item label="企业名称">{{companyInfo.comName}}</el-descriptions-item>
+        <el-descriptions-item label="企业交易码">{{companyInfo.tradeCode}}</el-descriptions-item>
+        <el-descriptions-item label="企业Logo">{{companyInfo.comLogo}}</el-descriptions-item>
+        <el-descriptions-item label="app端Logo">{{companyInfo.appLogo}}</el-descriptions-item>
+        <el-descriptions-item label="所属行业">{{companyInfo.comIndustry}}</el-descriptions-item>
+        <el-descriptions-item label="成立年份">{{companyInfo.comCreateYear}}</el-descriptions-item>
+        <el-descriptions-item label="企业执行官">{{companyInfo.comCeo}}</el-descriptions-item>
+        <el-descriptions-item label="企业所在地">{{companyInfo.comLocation}}</el-descriptions-item>
+        <el-descriptions-item label="费率">{{companyInfo.comRate}}</el-descriptions-item>
+        <el-descriptions-item label="最新挂牌价">{{companyInfo.newMakerAmount}}</el-descriptions-item>
+        <el-descriptions-item label="企业介绍">{{companyInfo.comIntro}}</el-descriptions-item>
+    </el-descriptions>
+    </el-dialog>
+
+
 </div>
 
 <script>
@@ -228,6 +253,7 @@
         data: {
             selectParams: {
                 type: "showCompany",
+                comId:"",
                 comName: "",
                 newMakerAmount: "",
                 nowPage: 1,
@@ -245,16 +271,18 @@
                 comLogo: "",
                 appLogo: "",
                 comIndustry: "",
-                comCreateYear: "1997",
+                comCreateYear: "",
                 comCeo: "",
                 comRate: "",
                 comSeqCode: 0,
+                newMakerAmount:"",
                 comIntro: ""
             },
             maker: {
                 type:"addMaker",
                 makerAmount: "",
-                tradeAmount: ""
+                tradeAmount: "",
+                makerId:""
             },
             history: {
                 type:"showHistory",
@@ -267,10 +295,29 @@
                 pricePerShare: "",
                 comId:""
             },
+            companyInfo:{
+                type:"showCompanyInfo",
+                comId:"",
+                comName: "",
+                tradeCode: "",
+                comLogo: "",
+                appLogo: "",
+                comIndustry: "",
+                comCreateYear: "",
+                comCeo: "",
+                comRate: "",
+                comSeqCode: 0,
+                newMakerAmount:"",
+                comIntro: ""
+            },
             companyList: [],
-            comIndustryList:[],
             addFlag:false,
-            historyList:[],
+            showCompanyFlag:false,
+            showHistoryFlag:false,
+            deleteFlag:false,
+            deleteId:"",
+
+
 
         },
         methods: {
@@ -327,8 +374,12 @@
                     }
                 })
             },
-            getFileName(){
-
+            getLogo(url){
+                return"${appPath}"+url;
+            },
+            getFileName(fileName,file,fileList){
+                this.company.comLogo = "img/"+fileName
+                this.company.appLogo = "img/"+fileName
             },
             initUpdate(company){
                 this.company={
@@ -342,19 +393,71 @@
                     comCeo: company.comCeo,
                     comRate: company.comRate,
                     comSeqCode: company.comSeqCode,
+                    newMakerAmount:company.newMakerAmount,
                     comIntro: company.comIntro,
                     comId:company.comId
                 };
                 this.addFlag = true;
             },
-            showHistory(){
+            deleteCompany(item){
+                this.deleteId = item.comId
+                this.deleteFlag=true
+            },
+            deleteCom(){
                 axios.get("http://localhost:8088/Financial_manage_sys_war_exploded/companyInfo.do", {
-                    params: this.history
+                    params: {id:this.deleteId}
                 }).then(response => {
-                    this.historyList = response.data.dataList;
-                });
+                    if (response.data == "1") {
+                        this.search();
+                        this.$message.success("删除成功!")
+                    } else {
+                        this.$message.error("删除失败!")
+                    }
+                    this.deleteFlag = false;
+                    this.search();
+                })
+            },
+            showCompanyInfo(companyInfo){
+                this.companyInfo={
+                    type:"showCompanyInfo",
+                        comId:companyInfo.comId,
+                        comName: companyInfo.comName,
+                        tradeCode: companyInfo.tradeCode,
+                        comLogo: companyInfo.comLogo,
+                        appLogo: companyInfo.appLogo,
+                        comIndustry: companyInfo.comIndustry,
+                        comCreateYear: companyInfo.comCreateYear,
+                        comCeo: companyInfo.comCeo,
+                        comRate: companyInfo.comRate,
+                        comSeqCode: companyInfo.comSeqCode,
+                        newMakerAmount:companyInfo.newMakerAmount,
+                        comIntro: companyInfo.comIntro
+                };
+                this.showCompanyFlag = true;
+            },
+            // showHistory(history){
+            //     this.history.comName=history.comName;
+            //     this.history.funDate=history.funDate;
+            //     this.history.funType=history.funType;
+            //     this.history.funAmount=history.funAmount;
+            //     this.history.afterFunVal=history.afterFunVal;
+            //     this.history.totalShares=history.totalShares;
+            //     this.history.pricePerShare=history.pricePerShare;
+            //     this.history.comId=history.comId;
+            //     this.showHistoryFlag = true;
+            // }
+            showHistory(comId){
+                this.showHistoryFlag =true
+                axios({method:"get",url:"${appPath}/companyInfo.do",params: {
+                        comId: comId,
+                        type: "showHistory"
+                    }
+                }).then(response =>{
+                    console.log(response.data)
+                    this.history=response.data
+                })
             }
-        },
+            },
         created(){
             this.queryCompany();
         }

@@ -53,4 +53,13 @@ public interface CompanyInfoDao {
      */
     CompanyInfo selectCompanyById(Integer comId);
 
+
+    /**
+     * 删除
+     *
+     * @param comId
+     * @return
+     */
+    Boolean deleteCompany(Integer comId);
+
 }
