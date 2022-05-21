@@ -90,5 +90,10 @@ public class ProductTypeServlet extends BaseServlet<ProductType> {
         return JSONObject.toJSONString(productTypeService.getProductTypeById(Integer.valueOf(id)));
     }
 
+    @ResponseTypeAnnotation(ResponseEnum.AJAX)
+    public String queryAllProductSeries() {
+        return JSONObject.toJSONString(productTypeService.queryAllProductSeries());
+    }
+
 
 }

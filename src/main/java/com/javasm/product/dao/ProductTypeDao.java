@@ -86,6 +86,6 @@ public interface ProductTypeDao {
     List<ProductTypeIdVO> findProductTypeId();
 
 
-    List<Value> queryAllSecondType();
+    List<Value> queryAllProductSeries();
 
 }

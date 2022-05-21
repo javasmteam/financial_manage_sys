@@ -1001,6 +1001,7 @@ set unit_net          = ?,
 where product_id = ?;
 
 
+select product_type_ch_name from product_type where
 
 update product_info,product_net_value,product_audit
 set pro_info_state  = 0,
@@ -1046,4 +1047,4 @@ select sec_name
 from product_second_type;
 
 
-select product_type_ch_name from product_type;
+select product_type_ch_name from product_type where product_type_lv = 1 and product_type_state = 1;

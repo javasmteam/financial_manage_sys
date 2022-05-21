@@ -3,6 +3,7 @@ package com.javasm.product.service;
 import com.javasm.product.bean.PageInfo;
 import com.javasm.product.bean.ProductType;
 import com.javasm.product.bean.RemitInfo;
+import com.javasm.product.bean.Value;
 import com.javasm.product.bean.vo.ProductTypeIdVO;
 import com.javasm.product.bean.vo.ProductTypeVO;
 
@@ -77,6 +78,8 @@ public interface ProductTypeService {
      * @return
      */
     Boolean deleteProductTypeById(Integer id);
+
+    List<Value> queryAllProductSeries();
 
 
 }

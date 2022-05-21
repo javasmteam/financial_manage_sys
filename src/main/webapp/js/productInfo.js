@@ -2,7 +2,8 @@ var vue = new Vue({
     el: "#app", data: {
         queryParams: {
             productChName: "", secId: "", auditType: "", nowPage: 1, pageSize: 5, type: "showProductInfo"
-        }, productInfo: {
+        },
+        productInfo: {
             productSeriesId: "",
             secId: "",
             regulateBody: "",
@@ -21,9 +22,11 @@ var vue = new Vue({
             redAmount: "",
             lockPeriod: "",
             proInfoState: "",
-        }, productNetValue: {
+        },
+        productNetValue: {
             productId: "", unitNet: "", unitDate: "", sumIncreaseRate: "", netValueState: "",
-        }, productAudit: {
+        },
+        productAudit: {
             productId: "",
             auditor: "",
             auditorOpinion: "",
@@ -31,12 +34,23 @@ var vue = new Vue({
             latestModifyTime: "",
             auditType: "",
             auditState: "",
-        }, productSecondType: {
+        },
+        productSecondType: {
             secId: "", secName: "", productSeriesId: "",
-        }, pageInfo: {
+        },
+        pageInfo: {
             nowPage: 1, pageNum: 5, allCount: 0
-        }, saveFlag2: false, saveFlag1: false, saveFlag3: false, saveFlag4: false,//产品系列数据
-        productInfoVOList: [], productSecondTypeList: [], productInfoVO: {}, rules: {}, deleteId: "",
+        },
+        saveFlag2: false,
+        saveFlag1: false,
+        saveFlag3: false,
+        saveFlag4: false,//产品系列数据
+        productInfoVOList: [],
+        productSecondTypeList: [],
+        productSeriesList: [],
+        productInfoVO: {},
+        rules: {},
+        deleteId: "",
     }, methods: {
         search() {
             axios.get(projectPath + "/ProductInfoServlet.do?showProductInfo", {params: this.queryParams}).then(response => {
@@ -138,11 +152,17 @@ var vue = new Vue({
                 this.productSecondTypeList = response.data;
             })
         },
+        getProductSeries() {
+            axios.get(projectPath + "/productType.do?type=queryAllProductSeries").then(response => {
+                this.productSeriesList = response.data;
+            })
+        },
     }, created() {
         this.search();
         this.getProductSecondType();
-        axios.get(projectPath + "/productType.do", {params: {type: "showProductType"}}).then(response => {
-            this.productTypeVOList = response.data;
+        this.getProductSeries();
+        axios.get(projectPath + "/productType.do", {params: {type: "showProductInfo"}}).then(response => {
+            this.productInfoVOList = response.data;
         })
     }
 })
