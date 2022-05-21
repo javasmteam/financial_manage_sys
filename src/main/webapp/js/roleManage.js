@@ -28,7 +28,7 @@ var app = new Vue({
 
         userList: [],
 
-        rolePermissions: [],
+        Permissions: [],
         setRolePermissions: [],
 
         roleList: [new RoleInfo()],
@@ -72,6 +72,16 @@ var app = new Vue({
                 }
             })
         },
+        //请求全部权限
+        reqPermissions(){
+          axios.post(projectPath +"/roleManage?type=reqPermissions").than(resp=>{
+              if(date=="-1"){
+                  this.$message.error("网络请求有误");
+              }else {
+                  this.Permissions = resp.data;
+              }
+          })
+        },
 
         //请求修改角色
         reqSetRole() {
@@ -92,7 +102,7 @@ var app = new Vue({
                 if (resp.data == "-1") {
                     this.$message.error("网络连接有误")
                 } else {
-                    this.rolePermissions = resp.data;
+                    this.setRolePermissions = resp.data;
                 }
             })
         },
