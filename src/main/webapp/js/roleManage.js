@@ -29,7 +29,10 @@ var app = new Vue({
         userList: [],
 
         Permissions: [],
-        setRolePermissions: [],
+        setRolePermissions: {
+            roleId:'',
+            permissions:[],
+        },
 
         roleList: [new RoleInfo()],
         roleInfo: new RoleInfo(),
@@ -103,6 +106,7 @@ var app = new Vue({
                     this.$message.error("网络连接有误")
                 } else {
                     this.setRolePermissions = resp.data;
+                    this.$refs.roleTree.setCheckedKeys(this.setRolePermissions.permissions);
                 }
             })
         },
@@ -155,7 +159,7 @@ var app = new Vue({
         },
         //显示授权弹窗
         showAuthorize(role) {
-            this.reqRolePermissions(role);
+            this.reqRolePermissions(role.roleId);
             this.authorizeFlag = true;
         },
         //设置角色
@@ -182,7 +186,7 @@ var app = new Vue({
               this.reqSetRolePermissions();
           }else {
               this.authorizeFlag = false;
-              this.setRolePermissions = [];
+              this.setRolePermissions = {};
           }
         },
         //请求设置每页数据
