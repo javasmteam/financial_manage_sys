@@ -17,6 +17,7 @@ import com.javasm.util.JDBCUtils;
 import org.apache.commons.dbutils.DbUtils;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -49,16 +50,16 @@ public class LoginServiceImpl implements LoginService {
         UserInfo userInfo = new UserInfo(regUser);
         Connection conn = JDBCUtils.getConn();
         Integer id = userDao.add(conn, userInfo);
-        if (id < 1) {
-            DbUtils.closeQuietly(conn);
-            return "-1";
+        Integer i = null;
+        if (id > 0) {
+            UserRoleMiddle ur = new UserRoleMiddle(id, Cons.DEFAULT_ROLE);
+            i = userDao.addUserRole(conn, ur);
         }
-        UserRoleMiddle ur = new UserRoleMiddle(id, Cons.DEFAULT_ROLE);
-        Integer i = userDao.addUserRole(conn, ur);
-        DbUtils.closeQuietly(conn);
-        if (i > 0 && id > 0){
+        if(i>0&&id>0){
+            DbUtils.commitAndCloseQuietly(conn);
             return "1";
         }
+        DbUtils.rollbackAndCloseQuietly(conn);
         return "-1";
 
 

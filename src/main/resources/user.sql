@@ -39,3 +39,7 @@ where u.user_id = ?;
 update user_permission
 set permission_state = 0
 where permission_id >0 and permission_id = ?;
+
+select permission_id id,permission_name label
+from user_permission
+where permission_id>0 and parent_id = ?;
