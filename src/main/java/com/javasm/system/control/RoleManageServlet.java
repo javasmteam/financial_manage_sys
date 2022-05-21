@@ -14,6 +14,7 @@ import com.javasm.system.bean.vo.UserInfoSimple;
 import com.javasm.system.service.RoleService;
 import com.javasm.system.service.implement.RoleServiceImpl;
 import com.javasm.util.BaseUtil;
+import com.javasm.util.DataUtil;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -72,6 +73,7 @@ public class RoleManageServlet extends BaseServlet<UserInfo> {
     @ResponseTypeAnnotation(ResponseEnum.AJAX)
     public String reqRolePermissions(HttpServletRequest req) {
         String id = req.getParameter("id");
+        Integer roleId = DataUtil.stringConvertToInteger(id);
         if (id == null || id.equals("")) {
             return "-1";
         }
@@ -79,7 +81,8 @@ public class RoleManageServlet extends BaseServlet<UserInfo> {
         if (list == null) {
             return "-1";
         }
-        return JSON.toJSONString(list);
+        SetRolePermissions setRolePermissions = new SetRolePermissions(roleId,list);
+        return JSON.toJSONString(setRolePermissions);
 
     }
 
@@ -90,7 +93,7 @@ public class RoleManageServlet extends BaseServlet<UserInfo> {
         if (i < 1) {
             return "-1";
         } else {
-            return "-1";
+            return "1";
         }
 
     }
@@ -102,7 +105,7 @@ public class RoleManageServlet extends BaseServlet<UserInfo> {
         if (i < 1) {
             return "-1";
         } else {
-            return "-1";
+            return "1";
         }
 
     }

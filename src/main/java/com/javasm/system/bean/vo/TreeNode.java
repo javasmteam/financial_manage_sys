@@ -19,5 +19,5 @@ import java.util.List;
 public class TreeNode {
     private Integer id;
     private String label;
-    private List<TreeNode> TreeNodes;
+    private List<TreeNode> children;
 }

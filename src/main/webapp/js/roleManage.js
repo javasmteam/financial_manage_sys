@@ -28,7 +28,7 @@ var app = new Vue({
 
         userList: [],
 
-        Permissions: [],
+        permissions: [],
         setRolePermissions: {
             roleId:'',
             permissions:[],
@@ -53,7 +53,7 @@ var app = new Vue({
     methods: {
         //分页查询请求
         reqPageSelect() {
-            axios.post(projectPath + "/roleManage?type=reqPageSelect", this.pageSelect).than(resp => {
+            axios.post(projectPath + "/roleManage?type=reqPageSelect", this.pageSelect).then(resp => {
                 if (resp.data == "-1") {
                     this.$messages.error("网络连接有误")
                 } else {
@@ -66,7 +66,7 @@ var app = new Vue({
         },
         //请求删除角色
         reqDelRole(role) {
-            axios.post(projectPath + "/roleManage?type=reqDelRole&id=" + role.roleId).than(resp => {
+            axios.post(projectPath + "/roleManage?type=reqDelRole&id=" + role.roleId).then(resp => {
                 if (data == "-1") {
                     this.$message.error("删除失败");
                 } else {
@@ -77,11 +77,11 @@ var app = new Vue({
         },
         //请求全部权限
         reqPermissions(){
-          axios.post(projectPath +"/roleManage?type=reqPermissions").than(resp=>{
-              if(date=="-1"){
+          axios.post(projectPath +"/roleManage?type=reqPermissions").then(resp=>{
+              if(resp.data=="-1"){
                   this.$message.error("网络请求有误");
               }else {
-                  this.Permissions = resp.data;
+                  this.permissions = resp.data;
               }
           })
         },
@@ -183,6 +183,7 @@ var app = new Vue({
         //授权
         authorize(flag){
           if(flag){
+              this.setRolePermissions.permissions = this.$refs.roleTree.getCheckedKeys();
               this.reqSetRolePermissions();
           }else {
               this.authorizeFlag = false;
@@ -203,5 +204,6 @@ var app = new Vue({
     },
     created() {
         this.queryPageSelect();
+        this.reqPermissions();
     }
 })
