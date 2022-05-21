@@ -149,8 +149,9 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
      * @return
      */
     @Override
-    public List<Value> queryAllSecondType() {
-        return null;
+    public List<Value> queryAllProductSeries() {
+        String sql = JDBCUtils.getSql("findAllProductSeries");
+        return JDBCUtils.query(sql,Value.class);
     }
 }
 

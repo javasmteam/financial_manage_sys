@@ -8,7 +8,9 @@ package com.javasm.product.control; /**
  **/
 
 import com.alibaba.fastjson.JSONObject;
+import com.javasm.annotation.ResponseTypeAnnotation;
 import com.javasm.controlUtil.BaseServlet;
+import com.javasm.myEnum.ResponseEnum;
 import com.javasm.product.bean.Value;
 import com.javasm.product.service.ProductSecondTypeService;
 import com.javasm.product.service.impl.ProductSecondTypeServiceImpl;
@@ -23,6 +25,8 @@ import java.util.List;
 public class ProductSecondTypeServlet extends BaseServlet<Value> {
     private final ProductSecondTypeService productSecondTypeService = new ProductSecondTypeServiceImpl();
 
+
+    @ResponseTypeAnnotation(ResponseEnum.AJAX)
     public String showAllProductSecondTypes() {
         List<Value> allSecondType = productSecondTypeService.getAllSecondType();
         return JSONObject.toJSONString(allSecondType);
