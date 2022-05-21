@@ -122,6 +122,49 @@ public class JDBCUtils {
         return list;
     }
 
+    /**
+     * 将查询到的数据库表的第一列数据添加到集合中 -- 事务
+     *
+     * @param conn
+     * @param sql
+     * @param list
+     * @param o
+     * @param <T>
+     */
+    public static <T> void queryList(Connection conn, String sql, List<T> list, Object... o) {
+        PreparedStatement prst = null;
+        ResultSet rs = null;
+        try {
+            prst = conn.prepareStatement(sql);
+            for (int i = 0; i < o.length; i++) {
+                prst.setObject(i + 1, o[i]);
+            }
+            rs = prst.executeQuery();
+            while (rs.next()) {
+                T t = (T) rs.getObject(1);
+                list.add(t);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DbUtils.closeQuietly(rs);
+            DbUtils.closeQuietly(prst);
+        }
+    }
+
+    /**
+     * 将查询到的数据库表的第一列数据添加到集合中 -- 非事务
+     * @param sql
+     * @param list
+     * @param o
+     * @param <T>
+     */
+    public static <T> void queryList(String sql,List<T> list,Object...o){
+        Connection conn = getConn();
+        queryList(conn, sql,list, o);
+        DbUtils.closeQuietly(conn);
+    }
+
     //    查询单个 -- 事务
     public static <T> T find(Connection conn, String sql, Class<T> clazz, Object... o) {
         List<T> list = query(conn, sql, clazz, o);
@@ -164,11 +207,11 @@ public class JDBCUtils {
     }
 
     //  查询数据库数据条数 -- 事务
-    public static Integer size(Connection conn, String sql,Object...o) {
+    public static Integer size(Connection conn, String sql, Object... o) {
         QueryRunner queryRunner = new QueryRunner();
         Integer i = null;
         try {
-            i = queryRunner.query(conn, sql, new ScalarHandler<Long>(),o).intValue();
+            i = queryRunner.query(conn, sql, new ScalarHandler<Long>(), o).intValue();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -176,9 +219,9 @@ public class JDBCUtils {
     }
 
     // 查询数据库数据条数 -- 非事务
-    public static Integer size(String sql,Object...o) {
+    public static Integer size(String sql, Object... o) {
         Connection conn = getConn();
-        Integer i = size(conn, sql,o);
+        Integer i = size(conn, sql, o);
         DbUtils.closeQuietly(conn);
         return i;
     }
