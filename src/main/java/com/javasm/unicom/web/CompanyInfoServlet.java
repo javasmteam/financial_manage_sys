@@ -13,9 +13,11 @@ import com.javasm.annotation.ResponseTypeAnnotation;
 import com.javasm.controlUtil.BaseServlet;
 import com.javasm.myEnum.ResponseEnum;
 import com.javasm.unicom.bean.CompanyInfo;
+import com.javasm.unicom.bean.HistoryFunding;
 import com.javasm.unicom.bean.PageInfo;
 import com.javasm.unicom.service.CompanyInfoService;
 import com.javasm.unicom.service.impl.CompanyInfoServiceImpl;
+import com.javasm.util.DataUtil;
 import com.javasm.util.ServletUtil;
 import com.jhlabs.image.MapColorsFilter;
 
@@ -80,6 +82,23 @@ public class CompanyInfoServlet extends BaseServlet<CompanyInfo> {
         return flag ? "修改成功" : "修改失败" ;
 
     }
+
+    /**
+     * 根据ID查询
+     *
+     * @param request
+     * @return
+     */
+    public String showHistory(HttpServletRequest request){
+        String comIdStr = request.getParameter("comId");
+
+        Integer comId = DataUtil.stringConvertToInteger(comIdStr);
+
+        HistoryFunding history = companyInfoService.selectHistory(comId);
+        return String.valueOf(history);
+    }
+
+
 
 
 

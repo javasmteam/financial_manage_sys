@@ -8,13 +8,27 @@ create table bk_customer_assets
 (
     customerid    int(10) primary key auto_increment comment '主键',
     userid        int(10) comment '客户id',
-    cabusinessid int(10) comment '企业id',
+    com_id        int(10) comment '企业id',
     holdnumber    int(10) comment '持有数量',
     holdmoney     float(10, 2) comment '成本价格',
     state          int(10) default 1 comment '状态' -- 0.删除  1.可用
 );
 
-insert into bk_customer_assets values (customerId,?,?,?,?,1);
+insert into bk_customer_assets values (customerId,1,1,30,25.22,1);
+insert into bk_customer_assets values (customerId,1,2,78,18.88,1);
+insert into bk_customer_assets values (customerId,2,1,25,38.23,1);
+insert into bk_customer_assets values (customerId,2,2,121,10.34,1);
+insert into bk_customer_assets values (customerId,2,3,23,35.88,1);
+insert into bk_customer_assets values (customerId,2,4,130,1.88,1);
+insert into bk_customer_assets values (customerId,3,1,130,14.38,1);
+insert into bk_customer_assets values (customerId,3,2,10,28.38,1);
+insert into bk_customer_assets values (customerId,3,3,88,34.47,1);
+insert into bk_customer_assets values (customerId,3,4,1,4.38,1);
+insert into bk_customer_assets values (customerId,3,5,15,7.38,1);
+insert into bk_customer_assets values (customerId,3,6,53,14.55,1);
+insert into bk_customer_assets values (customerId,4,1,33,10.55,1);
+insert into bk_customer_assets values (customerId,4,4,11,15.55,1);
+insert into bk_customer_assets values (customerId,5,1,143,8.05,1);
 
 -- 充值提现管理
 drop table if exists bk_invest_money;
@@ -60,6 +74,11 @@ create table bk_user_info(
     state int(10) default 1 -- 状态 1为可用  0为删除
 );
 insert into bk_user_info values(userid,?,?,?,?,?,?,?,?,?,?,?,1);
+
+select count(userid) from bk_user_info;
+
+select u.usercode ,u.username,u.iphone,c.com_name comName,a.holdnumber,a.holdmoney
+from bk_user_info u,bk_customer_assets a,company_info c where u.userid = a.userid and a.com_id = c.com_id;
 
 -- 独角兽🦄公司信息表
 drop table if exists company_info;
@@ -244,7 +263,9 @@ create table history_funding
     hy_fun_state    int(10) default 1 comment '历史融资表状态'
 );
 
-select * from history_funding;
+select c.com_name comName,h.fun_date funDate,h.fun_type funType,
+       h.fun_amount funAmount,h.after_fun_val aftreFunVal,h.total_shares totalShares,
+       h.price_per_share pricePerShare from history_funding h,company_info c where h.com_id=c.com_id and c.com_id =1;
 
 
 select c.com_name comName,h.fun_date funDate,h.fun_type funType,h.fun_amount funAmount,

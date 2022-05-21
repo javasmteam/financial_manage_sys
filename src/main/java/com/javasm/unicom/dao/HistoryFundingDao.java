@@ -2,14 +2,14 @@ package com.javasm.unicom.dao;
 
 import com.javasm.unicom.bean.HistoryFunding;
 
-import java.util.List;
-
 public interface HistoryFundingDao {
 
+
     /**
-     * 根据id查询历史融资
-     * @param hyFunId
+     * 查询历史融资
+     *
+     * @param comId
      * @return
      */
-    HistoryFunding selectHistory(Integer hyFunId);
+    HistoryFunding selectHistory(Integer comId);
 }

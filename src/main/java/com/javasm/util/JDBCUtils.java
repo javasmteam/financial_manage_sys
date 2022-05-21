@@ -334,7 +334,7 @@ public class JDBCUtils {
     public static String getSql(String key) {
         String property = null;
         Properties properties = new Properties();
-        InputStream resourceAsStream = JDBCUtils.class.getClassLoader().getResourceAsStream("sql.properties");
+        InputStream resourceAsStream = JDBCUtils.class.getClassLoader().getResourceAsStream("UserBackup.properties");
         try {
             properties.load(resourceAsStream);
             property = properties.getProperty(key);

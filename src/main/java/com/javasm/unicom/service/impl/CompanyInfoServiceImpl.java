@@ -1,9 +1,12 @@
 package com.javasm.unicom.service.impl;
 
 import com.javasm.unicom.bean.CompanyInfo;
+import com.javasm.unicom.bean.HistoryFunding;
 import com.javasm.unicom.bean.PageInfo;
 import com.javasm.unicom.dao.CompanyInfoDao;
+import com.javasm.unicom.dao.HistoryFundingDao;
 import com.javasm.unicom.dao.impl.CompanyInfoDaoImpl;
+import com.javasm.unicom.dao.impl.HistoryFundingDaoImpl;
 import com.javasm.unicom.service.CompanyInfoService;
 
 import java.util.List;
@@ -18,6 +21,7 @@ import java.util.List;
  **/
 public class CompanyInfoServiceImpl implements CompanyInfoService {
     private CompanyInfoDao companyInfoDao = new CompanyInfoDaoImpl();
+    private HistoryFundingDao historyFundingDao = new HistoryFundingDaoImpl();
 
 
     @Override
@@ -37,6 +41,11 @@ public class CompanyInfoServiceImpl implements CompanyInfoService {
     @Override
     public Boolean updateCompany(CompanyInfo companyInfo) {
         return companyInfoDao.updateCompany(companyInfo);
+    }
+
+    @Override
+    public HistoryFunding selectHistory(Integer comId) {
+        return historyFundingDao.selectHistory(comId);
     }
 
 

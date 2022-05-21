@@ -32,16 +32,16 @@ public class BkInvestMoneyDaoImpl implements BkInvestMoneyDao {
     @Override
     public List<BkInvestMoney> selectBkInvestMoney(PageInfo<BkInvestMoney> page, BkInvestMoney bkInvestMoney) {
         StringBuilder sql = new StringBuilder("select i.userid,i.userName,i.investmoneytype,i.investmoney,i.investrequesttime,\n" +
-                "       i.investhandletime,i.investbankcode,i.state from bk_invest_money i");
+                "       i.investhandletime,i.investbankcode,i.state from bk_invest_money i where 1=1");
         if (bkInvestMoney!=null){
             if (bkInvestMoney.getUserName() != null && "".equals(bkInvestMoney.getUserName())){
-                sql.append("  where i.userName  like '%"+bkInvestMoney.getUserName() +"%'");
+                sql.append("  and i.userName  like '%"+bkInvestMoney.getUserName() +"%'");
             }
             if (bkInvestMoney.getInvestmoneytype() !=null && !"".equals(bkInvestMoney.getInvestmoneytype())){
-                sql.append(" where i.investmoneytype like '%"+bkInvestMoney.getInvestmoneytype()+"%'");
+                sql.append(" and i.investmoneytype like '%"+bkInvestMoney.getInvestmoneytype()+"%'");
             }
             if (bkInvestMoney.getInveststate() != null && !"".equals(bkInvestMoney.getInveststate())){
-                sql.append(" where i.investstate like '%"+bkInvestMoney.getInveststate()+"%'");
+                sql.append(" and i.investstate like '%"+bkInvestMoney.getInveststate()+"%'");
             }
         }
         sql.append(" limit ?,? ");

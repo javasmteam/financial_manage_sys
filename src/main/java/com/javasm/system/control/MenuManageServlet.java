@@ -2,8 +2,10 @@ package com.javasm.system.control;
 
 import com.alibaba.fastjson.JSON;
 import com.javasm.annotation.ResponseTypeAnnotation;
+import com.javasm.controlUtil.BaseServlet;
 import com.javasm.myEnum.ResponseEnum;
 import com.javasm.system.bean.PageInfo;
+import com.javasm.system.bean.UserPermission;
 import com.javasm.system.bean.vo.FirstMenu;
 import com.javasm.system.bean.vo.PageSelectPermission;
 import com.javasm.system.bean.vo.PermissionInfo;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 
 @WebServlet("/menuManage")
-public class MenuManageServlet {
+public class MenuManageServlet extends BaseServlet<UserPermission> {
     private PermissionService permissionService = new PermissionServiceImpl();
 
     @ResponseTypeAnnotation(ResponseEnum.AJAX)
