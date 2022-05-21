@@ -3,6 +3,7 @@ package com.javasm.unicom.service.impl;
 import com.javasm.unicom.bean.CompanyInfo;
 import com.javasm.unicom.bean.HistoryFunding;
 import com.javasm.unicom.bean.PageInfo;
+import com.javasm.unicom.bean.vo.HistoryFundingVo;
 import com.javasm.unicom.dao.CompanyInfoDao;
 import com.javasm.unicom.dao.HistoryFundingDao;
 import com.javasm.unicom.dao.impl.CompanyInfoDaoImpl;
@@ -44,8 +45,18 @@ public class CompanyInfoServiceImpl implements CompanyInfoService {
     }
 
     @Override
-    public HistoryFunding selectHistory(Integer comId) {
+    public HistoryFundingVo selectHistory(Integer comId) {
         return historyFundingDao.selectHistory(comId);
+    }
+
+    @Override
+    public Boolean deleteCompany(Integer comId) {
+        return companyInfoDao.deleteCompany(comId);
+    }
+
+    @Override
+    public CompanyInfo selectCompanyById(Integer comId) {
+        return companyInfoDao.selectCompanyById(comId);
     }
 
 

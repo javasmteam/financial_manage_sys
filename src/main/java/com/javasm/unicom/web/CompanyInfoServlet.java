@@ -7,7 +7,6 @@ package com.javasm.unicom.web; /**
  * @Version : 1.0
  **/
 
-import cn.hutool.core.convert.impl.MapConverter;
 import com.alibaba.fastjson.JSONObject;
 import com.javasm.annotation.ResponseTypeAnnotation;
 import com.javasm.controlUtil.BaseServlet;
@@ -15,11 +14,11 @@ import com.javasm.myEnum.ResponseEnum;
 import com.javasm.unicom.bean.CompanyInfo;
 import com.javasm.unicom.bean.HistoryFunding;
 import com.javasm.unicom.bean.PageInfo;
+import com.javasm.unicom.bean.vo.HistoryFundingVo;
 import com.javasm.unicom.service.CompanyInfoService;
 import com.javasm.unicom.service.impl.CompanyInfoServiceImpl;
 import com.javasm.util.DataUtil;
 import com.javasm.util.ServletUtil;
-import com.jhlabs.image.MapColorsFilter;
 
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -84,7 +83,7 @@ public class CompanyInfoServlet extends BaseServlet<CompanyInfo> {
     }
 
     /**
-     * 根据ID查询
+     * 根据ID查询历史融资
      *
      * @param request
      * @return
@@ -94,11 +93,40 @@ public class CompanyInfoServlet extends BaseServlet<CompanyInfo> {
 
         Integer comId = DataUtil.stringConvertToInteger(comIdStr);
 
-        HistoryFunding history = companyInfoService.selectHistory(comId);
-        return String.valueOf(history);
+        HistoryFundingVo history = companyInfoService.selectHistory(comId);
+        String toJSONString = JSONObject.toJSONString(history);
+        return toJSONString;
     }
 
 
+    /**
+     * 删除
+     *
+     * @param request
+     * @return
+     */
+    public String deleteCompany(HttpServletRequest request){
+        String comIdStr = request.getParameter("comId");
+        Integer comId = DataUtil.stringConvertToInteger(comIdStr);
+        if (companyInfoService.deleteCompany(comId)){
+            return "1";
+        }
+        return "-1";
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    public String showCompanyInfo(HttpServletRequest request){
+        String comIdStr = request.getParameter("comId");
+        Integer comId = DataUtil.stringConvertToInteger(comIdStr);
+        CompanyInfo byId = companyInfoService.selectCompanyById(comId);
+        String jsonString = JSONObject.toJSONString(byId);
+
+        return jsonString;
+    }
 
 
 

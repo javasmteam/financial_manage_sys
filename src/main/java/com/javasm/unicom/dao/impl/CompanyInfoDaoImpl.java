@@ -61,4 +61,10 @@ public class CompanyInfoDaoImpl implements CompanyInfoDao {
                 "       c.com_intro comIntro from company_info c where c.com_id = ?";
         return JDBCUtils.find(sql,CompanyInfo.class,comId);
     }
+
+    @Override
+    public Boolean deleteCompany(Integer comId) {
+        String sql = JDBCUtils.getSql("deleteCompany");
+        return JDBCUtils.update(sql,comId)>0;
+    }
 }
