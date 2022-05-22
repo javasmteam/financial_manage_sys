@@ -45,12 +45,12 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     /**
      * 更新产品信息
      *
-     * @param productInfo 产品信息
+     * @param productInfoVO 产品信息
      * @return 影响行数
      */
     @Override
-    public Boolean updateProductInfo(ProductInfo productInfo) {
-        return null;
+    public Boolean updateProductInfo(ProductInfoVO productInfoVO) {
+        return productInfoDao.updateProductInfo(productInfoVO);
     }
 
     /**
@@ -62,6 +62,14 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     @Override
     public Integer count(ProductInfoVO productInfoVO) {
         return productInfoDao.count(productInfoVO);
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public Integer count() {
+        return productInfoDao.count();
     }
 
 

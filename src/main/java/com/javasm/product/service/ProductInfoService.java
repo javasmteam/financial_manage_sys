@@ -35,10 +35,10 @@ public interface ProductInfoService {
     /**
      * 更新产品信息
      *
-     * @param productInfo 产品信息
+     * @param productInfoVO 产品信息
      * @return 影响行数
      */
-    Boolean updateProductInfo(ProductInfo productInfo);
+    Boolean updateProductInfo(ProductInfoVO productInfoVO);
 
     /**
      * 查询商品信息总条数
@@ -47,6 +47,9 @@ public interface ProductInfoService {
      * @return 影响行数
      */
     Integer count(ProductInfoVO productInfoVO);
+
+
+    Integer count();
 
 
     /**

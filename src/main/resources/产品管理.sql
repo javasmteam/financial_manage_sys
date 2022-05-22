@@ -310,7 +310,8 @@ create table product_recommend
     is_visible         int(10) default 0 comment '是否投顾端可见',
     is_ipo             int(10) default 0 comment '是否首发',
     is_online_purchase int(10) default 0 comment '是否线上申购',
-    recommend_reason   varchar(255) comment '推荐理由'
+    recommend_reason   varchar(255) comment '推荐理由',
+    recommend_state    int(10) default 1 comment '产品推荐'
 );
 -- 产品关连表
 drop table if exists m_product;
@@ -330,8 +331,8 @@ create table product_audit
     product_id         int(10) comment '产品id',
     auditor            varchar(50) comment '审核人',
     auditor_opinion    varchar(255) comment '审核意见',
-    first_create_time  timestamp comment '首次创建时间',
-    latest_modify_time timestamp comment '最新修改时间',
+    first_create_time  datetime comment '首次创建时间',
+    latest_modify_time datetime comment '最新修改时间',
     audit_type         int(10) default 0 comment '产品审核状态',
     audit_state        int(10) default 1 comment '数据状态'
 );
@@ -885,6 +886,8 @@ where product_series_id = ?
 
 
 select product_info.product_id,
+       product_info.product_series_id,
+       product_info.sec_id,
        product_ch_name,
        product_type_ch_name,
        sec_name,
@@ -905,7 +908,10 @@ select product_info.product_id,
        red_init_amount,
        red_amount,
        lock_period,
-       auditor
+       auditor,
+       unit_net,
+       unit_date,
+       sum_increase_rate
 from product_info,
      product_audit,
      product_net_value,
@@ -926,51 +932,69 @@ group by product_id
 limit ?,?;
 
 
-select count(*)
-from (select product_info.product_id,
-             product_ch_name,
-             product_type_ch_name,
-             sec_name,
-             regulate_body,
-             open_time,
-             currency_type,
-             audit_type,
-             unit_net,
-             unit_date,
-             sum_increase_rate,
-             annual_yield,
-             sub_cycle,
-             fund_manage_fee_rate,
-             sub_rate,
-             init_invest_amount,
-             sub_fee_collect_method,
-             red_cycle,
-             red_init_amount,
-             red_amount,
-             lock_period,
-             auditor
-      from product_info,
-           product_audit,
-           product_net_value,
-           product_type,
-           product_second_type
-      where product_info.product_id = product_audit.product_id
-        and product_info.product_series_id = product_type.product_series_id
-        and product_info.product_id = product_audit.product_id
-        and product_info.sec_id = product_second_type.sec_id
-        and audit_state = 1
-        and pro_info_state = 1
-        and net_value_state = 1
-        and audit_state = 1
-        and product_ch_name like '%?%'
-        and product_info.sec_id = ?
-        and audit_type = ?
-      group by product_id
-      limit ?,?) as pipa;
+
+select count(product_info.product_id)
+from product_info,
+     product_audit,
+     product_net_value
+where product_info.product_id = product_audit.product_id
+  and product_info.product_id = product_net_value.product_id
+  and pro_info_state = 1
+  and net_value_state = 1
+  and audit_state = 1;
+
+
+select *
+from product_info
+order by product_id desc
+limit 1;
 
 
 
-update product_info,product_second_type,product_audit
+# select count(*)
+# from (select product_info.product_id,
+#              product_ch_name,
+#              product_type_ch_name,
+#              sec_name,
+#              regulate_body,
+#              open_time,
+#              currency_type,
+#              audit_type,
+#              unit_net,
+#              unit_date,
+#              sum_increase_rate,
+#              annual_yield,
+#              sub_cycle,
+#              fund_manage_fee_rate,
+#              sub_rate,
+#              init_invest_amount,
+#              sub_fee_collect_method,
+#              red_cycle,
+#              red_init_amount,
+#              red_amount,
+#              lock_period,
+#              auditor
+#       from product_info,
+#            product_audit,
+#            product_net_value,
+#            product_type,
+#            product_second_type
+#       where product_info.product_id = product_audit.product_id
+#         and product_info.product_series_id = product_type.product_series_id
+#         and product_info.product_id = product_audit.product_id
+#         and product_info.sec_id = product_second_type.sec_id
+#         and audit_state = 1
+#         and pro_info_state = 1
+#         and net_value_state = 1
+#         and audit_state = 1
+#         and product_ch_name like '%?%'
+#         and product_info.sec_id = ?
+#         and audit_type = ?
+#       group by product_id
+#       limit ?,?) as pipa;
+
+
+update product_info
 set product_series_id      = ?,
     sec_id                 = ?,
     regulate_body          = ?,
@@ -987,11 +1011,28 @@ set product_series_id      = ?,
     red_init_amount        = ?,
     red_amount             = ?,
     lock_period            = ?,
-    pro_info_state         = ?,
-    auditor                = ?
-where product_info.product_id = product_audit.product_id
-  and pro_info_state = 1
+    pro_info_state         = ?
+where pro_info_state = 1
+  and product_id = ?;
+
+
+update product_audit
+set auditor            = ?,
+    auditor_opinion    = ?,
+    latest_modify_time = now(),
+    audit_type         = ?,
+    audit_state        = ?
+where product_id = ?
   and audit_state = 1;
+
+
+update product_net_value
+set unit_net          = ?,
+    unit_date         = ?,
+    sum_increase_rate = ?,
+    net_value_state   = ?
+where product_id = ?
+  and net_value_state = 1;
 
 update product_net_value
 set unit_net          = ?,
@@ -1001,7 +1042,6 @@ set unit_net          = ?,
 where product_id = ?;
 
 
-select product_type_ch_name from product_type where
 
 update product_info,product_net_value,product_audit
 set pro_info_state  = 0,
@@ -1010,6 +1050,56 @@ set pro_info_state  = 0,
 where product_info.product_id = product_net_value.product_id
   and product_info.product_id = product_audit.product_id
   and product_info.product_id = 1;
+
+
+
+select product_ch_name, recommend_lv, is_ipo, is_online_purchase
+from product_info,
+     product_recommend
+
+where product_info.product_id = product_recommend.product_id
+  and pro_info_state = 1
+  and recommend_state = 1
+  and product_series_id = ?
+  and product_ch_name like '%?%'
+limit ?,?;
+
+
+with C as (select product_id, product_ch_name
+           from product_info A
+           where NOT exists(
+                   select 1 from product_recommend B where A.product_id = B.product_id group by B.product_id
+               )
+             and A.pro_info_state = 1
+           group by A.product_id)
+select C.product_id, C.product_ch_name
+from C;
+
+
+update product_audit
+set audit_type         = ?,
+    auditor_opinion    = ?,
+    latest_modify_time = now()
+where product_id = ?
+  and audit_state = 1;
+
+
+update product_audit
+set audit_type         = 1,
+    auditor            = ?,
+    latest_modify_time = now()
+where product_id = ?
+  and audit_state = 1;
+
+
+
+select count(product_info.product_id)
+from product_recommend,
+     product_info
+where product_info.product_id = product_recommend.product_id
+  and pro_info_state = 1
+  and recommend_state = 1
+  and product_series_id = 10;
 
 
 -- 产品
@@ -1043,8 +1133,106 @@ values (sec_id, 2, '医疗保险');
 insert into product_second_type
 values (sec_id, 2, '意外保障');
 
-select sec_name
+select sec_id, sec_name
 from product_second_type;
 
 
-select product_type_ch_name from product_type where product_type_lv = 1 and product_type_state = 1;
+select product_series_id, product_type_ch_name
+from product_type
+where product_type_lv = 1
+  and product_type_state = 1;
+
+
+insert into product_recommend
+values (recommend_id, 1, 3, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 2, 2, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 3, 1, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 4, 0, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 5, 3, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 6, 2, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 7, 1, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 8, 0, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 9, 3, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 10, 2, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 11, 1, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 12, 0, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 13, 3, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 14, 2, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 15, 1, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 16, 0, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 17, 3, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 18, 2, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 19, 1, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 20, 0, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 21, 3, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 22, 2, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 23, 1, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 24, 0, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 25, 0, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 26, 0, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 27, 0, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 28, 0, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 29, 0, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+insert into product_recommend
+values (recommend_id, 30, 0, is_visible, is_ipo, is_online_purchase, '产品收益高', recommend_state);
+
+
+
+update product_net_value
+set unit_net          = ?,
+    unit_date         = ?,
+    sum_increase_rate = ?
+where product_id = ?
+  and net_value_state = 1;
+
+
+
+update product_recommend,product_info
+set product_ch_name    = ?,
+    recommend_lv       = ?,
+    is_visible         = ?,
+    is_ipo             = ?,
+    is_online_purchase = ?,
+    recommend_reason   = ?
+where product_recommend.product_id = product_info.product_id
+  and product_recommend.product_id = ?
+  and pro_info_state = 1
+  and recommend_state > 0
+  and recommend_state = 1;
+
+select *
+from product_recommend
+where product_id = 16
+  and recommend_state > 0
+  and recommend_state = 1;
+
+
+

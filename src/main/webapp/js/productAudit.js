@@ -31,8 +31,6 @@ var vue = new Vue({
             productId: "",
             auditor: "",
             auditorOpinion: "",
-            firstCreateTime: "",
-            latestModifyTime: "",
             auditType: 0,
             auditState: 1,
         },
@@ -87,34 +85,21 @@ var vue = new Vue({
                 this.saveFlag4 = false;
                 this.search();
             })
-        }, showProductInfo(obj) {
+        }, showProductAudit(obj) {
             //数据回填
             // this.remitInfo.productSeriesId = obj.productSeriesId;
             this.productInfoVO = obj;
+            this.productAudit.productId = obj.productId;
+            this.productAudit.auditor = obj.auditor;
             this.saveFlag3 = true;
-        },
-        resetProductInfo() {
-            this.productInfoVO = "";
-            this.saveFlag1 = false;
-        },
-        showProductNetValue(obj) {
-            this.productNetValue = obj;
+        }, showProductNetValue(obj) {
+            this.productInfoVO = obj;
             // this.productNetValue.productId = obj.productId;
             // this.productNetValue.unitNet = obj.unitNet;
             // this.productNetValue.unitDate = obj.unitDate;
             // this.productNetValue.sumIncreaseRate = obj.sumIncreaseRate;
             this.saveFlag1 = true;
-        },
-        addProductInfo() {
-            axios.post(projectPath + "/ProductInfoServlet.do?type=addProductInfo&auditor=" + this.productAudit.auditor, this.productInfo).then(response => {
-                if (response.data == "1") {
-                    this.$message.success("添加成功！")
-                } else {
-                    this.$message.error("添加失败!")
-                }
-                this.saveFlag2 = false;
-                this.search();
-            },)
+
         }, handleEdit(obj) {
             this.productType.productSeriesId = obj.productSeriesId;
             axios.get(projectPath + "/productType.do?type=findProductTypeById", {params: {addProductType: obj.productSeriesId}}).then(response => {
@@ -139,16 +124,15 @@ var vue = new Vue({
         }, changeProductInfo() {
             axios.post(projectPath + "/ProductInfoServlet.do?type=updateProductInfo", this.productInfoVO).then(response => {
                 if (response.data == "1") {
-                    this.$message.success("修改成功！")
+                    this.$message.success("添加成功！")
                 } else {
-                    this.$message.error("修改失败!")
+                    this.$message.error("添加失败!")
                 }
                 this.saveFlag3 = false;
                 this.search();
             },)
-        },
-        changeProductNetValue() {
-            axios.post(projectPath + "/ProductNetValueServlet?type=updateProductNetValueById", this.productNetValue).then(response => {
+        }, changeProductNetValue() {
+            axios.post(projectPath + "/remitInfo.do?type=updateRemitInfoById", this.remitInfo).then(response => {
                 if (response.data == "1") {
                     this.search();
                     this.$message.success("修改成功!")
@@ -158,22 +142,42 @@ var vue = new Vue({
                 this.saveFlag3 = false;
                 this.search();
             })
-        }
-        ,
-        getProductSecondType() {
+        }, getProductSecondType() {
             axios.get(projectPath + "/ProductSecondTypeServlet?type=showAllProductSecondTypes").then(response => {
                 this.productSecondTypeList = response.data;
             })
-        }
-        ,
-        getProductSeries() {
+        }, getProductSeries() {
             axios.get(projectPath + "/productType.do?type=queryAllProductSeries").then(response => {
                 this.productSeriesList = response.data;
             })
+        },
+        passAudit() {
+            this.productAudit.auditType = 1;
+            axios.post(projectPath + "/ProductAuditServlet.do?type=productAudit", this.productAudit).then(response => {
+                if (response.data == "1") {
+                    this.search();
+                    this.$message.success("审核成功!")
+                } else {
+                    this.$message.error("审核成功!")
+                }
+                this.saveFlag3 = false;
+                this.search();
+            })
+        },
+        rejectAudit() {
+            this.productAudit.auditType = 2;
+            axios.post(projectPath + "/ProductAuditServlet.do?type=productAudit", this.productAudit).then(response => {
+                if (response.data == "1") {
+                    this.search();
+                    this.$message.success("审核成功!")
+                } else {
+                    this.$message.error("审核成功!")
+                }
+                this.saveFlag3 = false;
+                this.search();
+            })
         }
-        ,
-    },
-    created() {
+    }, created() {
         this.search();
         this.getProductSecondType();
         this.getProductSeries();

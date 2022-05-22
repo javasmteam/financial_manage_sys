@@ -24,13 +24,13 @@ public class ProductInfo {
     private String regulateBody;
     private String productChName;
     private Float annualYield;
-    private String currencyType;
+    private Integer currencyType;
     private Date openTime;
     private Integer subCycle;
     private Float fundManageFeeRate;
     private Float subRate;
     private Float initInvestAmount;
-    private String subFeeCollectMethod;
+    private Integer subFeeCollectMethod;
     private Integer redCycle;
     private Float redInitAmount;
     private Float redAmount;

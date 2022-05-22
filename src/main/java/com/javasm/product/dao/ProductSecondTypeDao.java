@@ -1,6 +1,6 @@
 package com.javasm.product.dao;
 
-import com.javasm.product.bean.Value;
+import com.javasm.product.bean.vo.SecValueVO;
 
 import java.util.List;
 
@@ -14,5 +14,5 @@ import java.util.List;
  **/
 public interface ProductSecondTypeDao {
 
-    List<Value> queryAllSecondType();
+    List<SecValueVO> queryAllSecondType();
 }

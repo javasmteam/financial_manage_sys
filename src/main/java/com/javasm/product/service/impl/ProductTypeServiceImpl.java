@@ -3,7 +3,7 @@ package com.javasm.product.service.impl;
 import com.javasm.product.bean.PageInfo;
 import com.javasm.product.bean.ProductType;
 import com.javasm.product.bean.RemitInfo;
-import com.javasm.product.bean.Value;
+
 import com.javasm.product.bean.vo.ProductTypeIdVO;
 import com.javasm.product.bean.vo.ProductTypeVO;
 import com.javasm.product.dao.ProductTypeDao;
@@ -109,7 +109,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
      * @return
      */
     @Override
-    public List<Value> queryAllProductSeries() {
+    public List<ProductTypeIdVO> queryAllProductSeries() {
         return productTypeDao.queryAllProductSeries();
     }
 }

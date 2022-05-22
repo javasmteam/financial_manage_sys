@@ -7,20 +7,28 @@ package com.javasm.product.control; /**
  * @Version : 1.0
  **/
 
+import com.javasm.controlUtil.BaseServlet;
+import com.javasm.product.bean.ProductNetValue;
+import com.javasm.product.bean.RemitInfo;
+import com.javasm.product.service.ProductNetValueService;
+import com.javasm.product.service.impl.ProductNetValueServiceImpl;
+import com.javasm.util.ServletUtil;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "ProductNetValueServlet", value = "/ProductNetValueServlet")
-public class ProductNetValueServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+@WebServlet("/ProductNetValueServlet")
+public class ProductNetValueServlet extends BaseServlet<ProductNetValue> {
+    private final ProductNetValueService productNetValueService = new ProductNetValueServiceImpl();
 
+    public String updateProductNetValueById(HttpServletRequest request) {
+        ProductNetValue productNetValue = ServletUtil.jsonConvertToEntity(request, ProductNetValue.class);
+        if (productNetValueService.updateProductNetValue(productNetValue)) {
+            return "1";
+        }
+        return "-1";
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 }

@@ -1,5 +1,6 @@
 package com.javasm.product.bean.vo;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.*;
 
 import java.util.Date;
@@ -24,14 +25,16 @@ public class ProductInfoVO {
     private String secName;
     private String regulateBody;
     private String productChName;
+    private String productTypeChName;
     private Float annualYield;
-    private String currencyType;
+    private Integer currencyType;
+    @JSONField(format = "yyyy-MM-dd")
     private Date openTime;
     private Integer subCycle;
     private Float fundManageFeeRate;
     private Float subRate;
     private Float initInvestAmount;
-    private String subFeeCollectMethod;
+    private Integer subFeeCollectMethod;
     private Integer redCycle;
     private Float redInitAmount;
     private Float redAmount;

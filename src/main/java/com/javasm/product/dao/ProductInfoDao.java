@@ -4,7 +4,7 @@ import com.javasm.product.bean.PageInfo;
 import com.javasm.product.bean.ProductInfo;
 import com.javasm.product.bean.ProductType;
 import com.javasm.product.bean.vo.ProductInfoVO;
-import com.javasm.product.bean.vo.ProductTypeVO;
+
 
 import java.util.List;
 
@@ -39,13 +39,16 @@ public interface ProductInfoDao {
     /**
      * 更新产品信息
      *
-     * @param productInfo 产品信息
+     * @param productInfoVO 产品信息
      * @return 影响行数
      */
-    Boolean updateProductInfo(ProductInfo productInfo);
+    Boolean updateProductInfo(ProductInfoVO productInfoVO);
 
 
     Integer count(ProductInfoVO productInfoVO);
+
+    Integer count();
+
 
     /**
      * 分页查询产品信息
@@ -55,4 +58,6 @@ public interface ProductInfoDao {
      * @return 查询vo集合
      */
     List<ProductInfoVO> queryProductInfoByPage(PageInfo<ProductInfoVO> page, ProductInfoVO productInfoVO);
+
+
 }

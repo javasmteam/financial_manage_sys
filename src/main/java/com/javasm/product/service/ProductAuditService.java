@@ -1,21 +1,17 @@
-package com.javasm.product.dao;
+package com.javasm.product.service;
 
 import com.javasm.product.bean.ProductAudit;
-import com.javasm.product.bean.ProductInfo;
 import com.javasm.product.bean.vo.ProductInfoVO;
 
-
 /**
- * <h4>Financial_manage_sys</h4>
- * <p>产品审批dao</p>
- *
- * @Author : zhao Yuanming
- * @Date : 2022-05-15 20:46
- * @Version : 1.0
- **/
-public interface ProductAuditDao {
-
-
+ * @author: zhaoyuanming
+ * @License: (C) Copyright 2022, wtl Corporation Limited.
+ * @Contact: 2448429318@qq.com
+ * @Date: 2022/5/21 22:52
+ * @Version: 1.0
+ * @Description:
+ */
+public interface ProductAuditService {
     /**
      * 添加产品审核信息
      *
@@ -33,7 +29,6 @@ public interface ProductAuditDao {
      */
     Boolean updateProductAuditInfo(ProductAudit productAudit);
 
-
     /**
      * 修改产品审核
      *
@@ -41,6 +36,4 @@ public interface ProductAuditDao {
      * @return
      */
     boolean updateProductAudit(ProductInfoVO productInfoVO);
-
-
 }
