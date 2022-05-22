@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(filterName = "LoginFilter", urlPatterns = {"*.do", "*.jsp"})
+@WebFilter(filterName = "LoginFilter", urlPatterns = {"*.html", "*.jsp"})
 public class LoginFilter implements Filter {
     public void init(FilterConfig config) throws ServletException {
     }
@@ -26,17 +26,17 @@ public class LoginFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         //session对象中的userLogin
-        Object userLogin = httpServletRequest.getSession().getAttribute("userLogin");
+        Object userLogin = httpServletRequest.getSession().getAttribute("login");
         String requestURI = httpServletRequest.getRequestURI();
 
         //获取项目发送到服务期的根目录
         String contextPath = httpServletRequest.getContextPath();
 
-        if (userLogin != null || requestURI.contains("login.do") || requestURI.contains("login.jsp")) {
+        if (userLogin != null || requestURI.contains("login.html") || requestURI.contains("login.jsp")) {
             chain.doFilter(request, response);
         } else {
             //没有登录，就跳转到登陆的页面
-            chain.doFilter(request, response);
+            httpServletResponse.sendRedirect(contextPath+"/login.html");
         }
 
     }

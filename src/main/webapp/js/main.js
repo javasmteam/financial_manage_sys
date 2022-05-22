@@ -26,6 +26,7 @@ var app = new Vue({
                     this.$message.error('网络有误,请刷新后重新尝试')
                 } else {
                     this.userRole = resp.data
+                    this.reqRoleMenu(obj);
                 }
             })
         },
@@ -34,8 +35,6 @@ var app = new Vue({
         changeRole(role) {
             //更新角色
             this.reqUserRole(new SimpleJSON(role.roleId));
-            //更新菜单
-            this.reqRoleMenu(new SimpleJSON(0));
             this.userRole.nowRole = role;
         },
         //切换菜单
@@ -46,6 +45,5 @@ var app = new Vue({
     created: function () {
         //请求用户角色信息
         this.reqUserRole(new SimpleJSON(0));
-        this.reqRoleMenu(new SimpleJSON(0));
     }
 })

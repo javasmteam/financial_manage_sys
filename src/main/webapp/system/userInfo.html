@@ -17,6 +17,8 @@
             <el-descriptions class="margin-top" title="个人信息" :column="1" :size="size" border>
                 <template slot="extra">
                     <el-button type="primary" size="small" @click="setUserFlag=true">修改用户信息</el-button>
+                    <el-button type="primary" size="small" @click="setPwdFlag=true">修改密码</el-button>
+                    <el-button type="primary" size="small" @click="uploadAvatarFlag=true">上传头像</el-button>
                 </template>
                 <el-descriptions-item>
                     <template slot="label">
@@ -45,14 +47,14 @@
                         <i class="el-icon-tickets"></i>
                         用户名
                     </template>
-                    {{userInfo.userName == '' ? '还没有用户名':userInfo.userName}}
+                    {{userInfo.userName == '' ? '还没有用户名' : userInfo.userName}}
                 </el-descriptions-item>
                 <el-descriptions-item>
                     <template slot="label">
                         <i class="el-icon-tickets"></i>
                         用户签名
                     </template>
-                    {{userInfo.des == '' ? '还没有用户签名':userInfo.des}}
+                    {{userInfo.des == '' ? '还没有用户签名' : userInfo.des}}
                 </el-descriptions-item>
                 <el-descriptions-item>
                     <template slot="label">
@@ -66,21 +68,21 @@
                         <i class="el-icon-office-building"></i>
                         用户生日
                     </template>
-                    {{userInfo.birthday==''?'2000-01-01':userInfo.birthday}}
+                    {{userInfo.birthday == '' ? '2000-01-01' : userInfo.birthday}}
                 </el-descriptions-item>
                 <el-descriptions-item>
                     <template slot="label">
                         <i class="el-icon-office-building"></i>
                         用户爱好
                     </template>
-                    {{userInfo.avatarColor == '' ? '用户没有爱好':userInfo.avatarColor}}
+                    {{userInfo.avatarColor == '' ? '用户没有爱好' : userInfo.avatarColor}}
                 </el-descriptions-item>
                 <el-descriptions-item>
                     <template slot="label">
                         <i class="el-icon-office-building"></i>
                         用户手机
                     </template>
-                    {{userInfo.phone == '' ? '用户还没有设置联系方式':userInfo.avatarColor}}
+                    {{userInfo.phone == '' ? '用户还没有设置联系方式' : userInfo.avatarColor}}
                 </el-descriptions-item>
                 <el-descriptions-item>
                     <template slot="label">
@@ -103,7 +105,7 @@
             title="用户修改"
             :visible.sync="setUserFlag"
             width="30%">
-        <el-form :model="setUserInfo" rules="vriSetUser" ref="setUserInfo" label-width="100px">
+        <el-form :model="setUserInfo" label-width="100px">
             <el-form-item label="用户名">
                 <el-input v-model="setUserInfo.userName" placeholder="请输入内容"></el-input>
             </el-form-item>
@@ -139,6 +141,25 @@
              <el-button type="primary" @click="setUser(true)">确 定</el-button>
         </span>
     </el-dialog>
+
+    <el-dialog title="修改密码"
+               :visible.sync="setPwdFlag"
+               width="30%">
+        <el-form :model="setPwdInfo" label-width="100px">
+            <el-form-item label="原密码">
+                <el-input v-model="setPwdInfo.oldPwd" show-password placeholder="请输入原密码"></el-input>
+            </el-form-item>
+            <el-form-item label="新密码">
+                <el-input v-model="setPwdInfo.newPwd" show-password placeholder="请输入新密码"></el-input>
+            </el-form-item>
+
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="setPwd(false)">取 消</el-button>
+             <el-button type="primary" @click="setPwd(true)">确 定</el-button>
+        </span>
+    </el-dialog>
+
 </div>
 <script src="../js/userInfo.js"></script>
 </body>

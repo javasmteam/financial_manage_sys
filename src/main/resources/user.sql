@@ -43,3 +43,6 @@ where permission_id >0 and permission_id = ?;
 select permission_id id,permission_name label
 from user_permission
 where permission_id>0 and parent_id = ?;
+
+insert into m_user_role
+values (?,?);

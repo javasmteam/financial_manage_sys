@@ -30,8 +30,8 @@ var app = new Vue({
 
         permissions: [],
         setRolePermissions: {
-            roleId:'',
-            permissions:[],
+            roleId: '',
+            permissions: [],
         },
 
         roleList: [new RoleInfo()],
@@ -45,8 +45,8 @@ var app = new Vue({
         roleDetailsFlag: false,
         setRoleFlag: false,
 
-        addRoleRule:{
-            roleName:[{required: true, message: "请输入角色名", trigger: 'change'}],
+        addRoleRule: {
+            roleName: [{required: true, message: "请输入角色名", trigger: 'change'}],
         }
 
     },
@@ -66,24 +66,38 @@ var app = new Vue({
         },
         //请求删除角色
         reqDelRole(role) {
-            axios.post(projectPath + "/roleManage?type=reqDelRole&id=" + role.roleId).then(resp => {
-                if (data == "-1") {
-                    this.$message.error("删除失败");
-                } else {
-                    this.$message.success("删除成功");
-                    this.queryPageSelect();
-                }
-            })
+
+            this.$confirm('此操作将删除角色, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                axios.post(projectPath + "/roleManage?type=reqDelRole&id=" + role.roleId).then(resp => {
+                    if (data == "-1") {
+                        this.$message.error("删除失败");
+                    } else {
+                        this.$message.success("删除成功");
+                        this.queryPageSelect();
+                    }
+                })
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });
+            });
+
+
         },
         //请求全部权限
-        reqPermissions(){
-          axios.post(projectPath +"/roleManage?type=reqPermissions").then(resp=>{
-              if(resp.data=="-1"){
-                  this.$message.error("网络请求有误");
-              }else {
-                  this.permissions = resp.data;
-              }
-          })
+        reqPermissions() {
+            axios.post(projectPath + "/roleManage?type=reqPermissions").then(resp => {
+                if (resp.data == "-1") {
+                    this.$message.error("网络请求有误");
+                } else {
+                    this.permissions = resp.data;
+                }
+            })
         },
 
         //请求修改角色
@@ -163,32 +177,32 @@ var app = new Vue({
             this.authorizeFlag = true;
         },
         //设置角色
-        setRole(flag){
-            if(flag){
+        setRole(flag) {
+            if (flag) {
                 this.reqSetRole();
-            }else {
+            } else {
                 this.setRoleInfo = new RoleInfo();
                 this.setRoleFlag = false;
             }
         },
         //添加角色
-        addRole(flag){
-            if(flag){
+        addRole(flag) {
+            if (flag) {
                 this.reqAddRoleInfo();
-            }else {
+            } else {
                 this.addRoleInfo = new RoleInfo();
                 this.addRoleFlag = false;
             }
         },
         //授权
-        authorize(flag){
-          if(flag){
-              this.setRolePermissions.permissions = this.$refs.roleTree.getCheckedKeys();
-              this.reqSetRolePermissions();
-          }else {
-              this.authorizeFlag = false;
-              this.setRolePermissions = {};
-          }
+        authorize(flag) {
+            if (flag) {
+                this.setRolePermissions.permissions = this.$refs.roleTree.getCheckedKeys();
+                this.reqSetRolePermissions();
+            } else {
+                this.authorizeFlag = false;
+                this.setRolePermissions = {};
+            }
         },
         //请求设置每页数据
         SetPageCount(pageCount) {

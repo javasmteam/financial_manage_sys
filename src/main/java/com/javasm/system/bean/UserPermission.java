@@ -29,11 +29,11 @@ public class UserPermission {
         private Integer permissionState;
 
     public UserPermission(PermissionInfo permissionInfo) {
-        this.permissionId = permissionInfo.getPermissionId();
+        this.permissionId = null;
         this.permissionName = permissionInfo.getPermissionName();
         this.permissionPath = permissionInfo.getPermissionPath();
         this.permissionImage = permissionInfo.getPermissionImage();
         this.parentId = permissionInfo.getParentId();
-        this.permissionState = permissionInfo.getPermissionState();
+        this.permissionState = 1;
     }
 }

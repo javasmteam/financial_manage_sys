@@ -45,7 +45,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Integer addUserRole(Connection conn, UserRoleMiddle ur) {
-        return JDBCUtils.insert(conn, "m_user_role", ur);
+        String sql = JDBCUtils.getSql("ADD_USER_ROLE_MIDDLE");
+        return JDBCUtils.update(conn, sql,ur.getUserId(),ur.getRoleId());
     }
 
     @Override

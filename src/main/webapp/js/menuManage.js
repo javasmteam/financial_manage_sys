@@ -5,6 +5,14 @@ function MenuInfo() {
     this.permissionImage = '';
     this.parentId = '';
     this.parentName = '';
+    this.copy=function (menuInfo) {
+        this.permissionId=menuInfo.permissionId;
+        this.permissionName=menuInfo.permissionName;
+        this.permissionPath =menuInfo.permissionPath;
+        this.permissionImage =menuInfo.permissionImage;
+        this.parentId =menuInfo.parentId;
+        this.parentName =menuInfo.parentName;
+    }
 }
 
 function ParentMenu() {
@@ -52,14 +60,9 @@ var app = new Vue({
     },
     methods: {
         //请求修改菜单数据
-        reqSetMenuInfo(id) {
-            axios.post(projectPath + "/menuManage?type=reqSetMenuInfo&permissionId=" + id).then(resp => {
-                if (resp.data == "-1") {
-                    this.$message.error("网络请求有误");
-                } else {
-                    this.setMenuInfo = resp.data;
-                }
-            })
+        reqSetMenuInfo(menu) {
+            this.setMenuInfo = new MenuInfo();
+            this.setMenuInfo.copy(menu);
         },
         //请求修改菜单数据
         reqSetMenu() {
@@ -70,7 +73,7 @@ var app = new Vue({
                     this.$message.success("修改成功");
                     this.setMenuInfo = new MenuInfo();
                     this.setMenuFlag = false;
-                    this.reqPageSelect();
+                    this.ini();
                 }
             })
         },
@@ -84,7 +87,7 @@ var app = new Vue({
                     this.regUser = new MenuInfo();
                     this.addFlag = false;
                     this.$refs[rules].resetFields();
-                    this.reqPageSelect();
+                    this.ini();
                 }
             })
         },
@@ -104,14 +107,28 @@ var app = new Vue({
 
         //请求删除菜单
         reqDelMenu(menu) {
-            axios.post(projectPath + "/menuManage?type=reqDelMenu", menu).then(resp => {
-                if (resp.data == "-1") {
-                    this.$message.error("删除失败")
-                } else {
-                    this.$message({message: "删除成功", type: "success"})
-                    this.reqPageSelect();
-                }
-            })
+
+                this.$confirm('此操作将删除菜单, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    axios.post(projectPath + "/menuManage?type=reqDelMenu", menu).then(resp => {
+                        if (resp.data == "-1") {
+                            this.$message.error("删除失败")
+                        } else {
+                            this.$message({message: "删除成功", type: "success"})
+                            this.ini();
+                        }
+                    })
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+
+
         },
         //请求一级菜单
         reqParentMenu() {
@@ -135,7 +152,7 @@ var app = new Vue({
         },
         showSetMenuInfo(menu){
             this.reqParentMenu();
-            this.reqSetMenuInfo(menu.permissionId);
+            this.reqSetMenuInfo(menu);
             this.setMenuFlag=true;
         },
         setMenu(flag){
@@ -151,6 +168,7 @@ var app = new Vue({
                 this.reqAddMenu();
             }else {
                 this.addMenuInfo = new MenuInfo();
+                this.addFlag = flag;
             }
         },
         //请求设置每页数据
@@ -163,11 +181,14 @@ var app = new Vue({
             this.pageSelect.nowPage = nowPage;
             this.reqPageSelect();
         },
+        ini(){
+            this.reqParentMenu();
+            this.reqPageSelect();
+        }
 
 
     },
     created() {
-        this.reqParentMenu();
-        this.reqPageSelect();
+        this.ini();
     }
 })
