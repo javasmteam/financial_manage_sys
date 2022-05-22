@@ -1,9 +1,6 @@
 package com.javasm.unicom.bean;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
@@ -68,4 +65,173 @@ public class CompanyInfo {
      * 最新挂牌价
      */
     private Float newMakerAmount;
+
+
+
+    private Float buyPriceOne ;
+    private Float buyNumberOne  ;
+    private Float buyPriceTwo   ;
+    private Float buyNumberTwo   ;
+    private Float buyPriceThree    ;
+    private Float buyNumberThree  ;
+
+    public Integer getComId() {
+        return comId;
+    }
+
+    public void setComId(Integer comId) {
+        this.comId = comId;
+    }
+
+    public String getComName() {
+        return comName;
+    }
+
+    public void setComName(String comName) {
+        this.comName = comName;
+    }
+
+    public String getTradeCode() {
+        return tradeCode;
+    }
+
+    public void setTradeCode(String tradeCode) {
+        this.tradeCode = tradeCode;
+    }
+
+    public String getComLogo() {
+        return comLogo;
+    }
+
+    public void setComLogo(String comLogo) {
+        this.comLogo = comLogo;
+    }
+
+    public String getAppLogo() {
+        return appLogo;
+    }
+
+    public void setAppLogo(String appLogo) {
+        this.appLogo = appLogo;
+    }
+
+    public String getComIndustry() {
+        return comIndustry;
+    }
+
+    public void setComIndustry(String comIndustry) {
+        this.comIndustry = comIndustry;
+    }
+
+    public String getComCreateYear() {
+        return comCreateYear;
+    }
+
+    public void setComCreateYear(String comCreateYear) {
+        this.comCreateYear = comCreateYear;
+    }
+
+    public String getComCeo() {
+        return comCeo;
+    }
+
+    public void setComCeo(String comCeo) {
+        this.comCeo = comCeo;
+    }
+
+    public String getComLocation() {
+        return comLocation;
+    }
+
+    public void setComLocation(String comLocation) {
+        this.comLocation = comLocation;
+    }
+
+    public Float getComRate() {
+        return comRate;
+    }
+
+    public void setComRate(Float comRate) {
+        this.comRate = comRate;
+    }
+
+    public Integer getComSeqCode() {
+        return comSeqCode;
+    }
+
+    public void setComSeqCode(Integer comSeqCode) {
+        this.comSeqCode = comSeqCode;
+    }
+
+    public String getComIntro() {
+        return comIntro;
+    }
+
+    public void setComIntro(String comIntro) {
+        this.comIntro = comIntro;
+    }
+
+    public Integer getComInfoState() {
+        return comInfoState;
+    }
+
+    public void setComInfoState(Integer comInfoState) {
+        this.comInfoState = comInfoState;
+    }
+
+    public Float getNewMakerAmount() {
+        return newMakerAmount;
+    }
+
+    public void setNewMakerAmount(Float newMakerAmount) {
+        this.newMakerAmount = newMakerAmount;
+    }
+
+    public Float getBuyPriceOne() {
+        return buyPriceOne;
+    }
+
+    public void setBuyPriceOne(Float buyPriceOne) {
+        this.buyPriceOne = buyPriceOne;
+    }
+
+    public Float getBuyNumberOne() {
+        return buyNumberOne;
+    }
+
+    public void setBuyNumberOne(Float buyNumberOne) {
+        this.buyNumberOne = buyNumberOne;
+    }
+
+    public Float getBuyPriceTwo() {
+        return buyPriceTwo;
+    }
+
+    public void setBuyPriceTwo(Float buyPriceTwo) {
+        this.buyPriceTwo = buyPriceTwo;
+    }
+
+    public Float getBuyNumberTwo() {
+        return buyNumberTwo;
+    }
+
+    public void setBuyNumberTwo(Float buyNumberTwo) {
+        this.buyNumberTwo = buyNumberTwo;
+    }
+
+    public Float getBuyPriceThree() {
+        return buyPriceThree;
+    }
+
+    public void setBuyPriceThree(Float buyPriceThree) {
+        this.buyPriceThree = buyPriceThree;
+    }
+
+    public Float getBuyNumberThree() {
+        return buyNumberThree;
+    }
+
+    public void setBuyNumberThree(Float buyNumberThree) {
+        this.buyNumberThree = buyNumberThree;
+    }
 }

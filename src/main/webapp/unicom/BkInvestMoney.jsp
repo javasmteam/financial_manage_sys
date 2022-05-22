@@ -27,6 +27,9 @@
         <el-form-item label="姓名：">
             <el-input v-model="selectParams.userName"></el-input>
         </el-form-item>
+        <el-form-item label="电话：">
+            <el-input v-model="selectParams.iphone"></el-input>
+        </el-form-item>
         <el-form-item label="交易类型：">
             <el-select v-model="selectParams.investmoneytype" placeholder="请选择" style="width: 150px">
                 <el-option label="充值" value="0"></el-option>
@@ -45,7 +48,7 @@
 
     <el-table :data="investList" height="330">
         <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column prop="userid" label="客户编号" width="130"></el-table-column>
+        <el-table-column prop="userCode" label="客户编号" width="130"></el-table-column>
         <el-table-column prop="userName" label="客户名称" width="150"></el-table-column>
         <el-table-column  label="交易类型" width="150">
             <template slot-scope="scope">
@@ -84,6 +87,7 @@
             selectParams:{
                 type:"showInvest",
                 userName:"",
+                iphone:"",
                 investmoneytype:"",
                 state:"",
                 nowPage: 1,

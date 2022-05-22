@@ -25,17 +25,21 @@ public class BkInvestMoneyDaoImpl implements BkInvestMoneyDao {
 
     @Override
     public Integer count(BkInvestMoney bkInvestMoney) {
-        String sql = "select count(investmoneyid) from bk_invest_money";
+        String sql = "select count(i.investmoneyid) from bk_invest_money i,bk_user_info u where i.userid=u.userid";
         return JDBCUtils.size(sql);
     }
 
     @Override
     public List<BkInvestMoney> selectBkInvestMoney(PageInfo<BkInvestMoney> page, BkInvestMoney bkInvestMoney) {
-        StringBuilder sql = new StringBuilder("select i.userid,i.userName,i.investmoneytype,i.investmoney,i.investrequesttime,\n" +
-                "       i.investhandletime,i.investbankcode,i.state from bk_invest_money i where 1=1");
+        StringBuilder sql = new StringBuilder("select i.userid,i.userCode,i.userName,i.investmoneytype,u.iphone,i.investmoney,i.investrequesttime,\n" +
+                "       i.investhandletime,i.investbankcode,i.state from bk_invest_money i,bk_user_info u where i.userid = u.userid ");
         if (bkInvestMoney!=null){
+
             if (bkInvestMoney.getUserName() != null && "".equals(bkInvestMoney.getUserName())){
                 sql.append("  and i.userName  like '%"+bkInvestMoney.getUserName() +"%'");
+            }
+            if (bkInvestMoney.getIphone() != null && "".equals(bkInvestMoney.getIphone())){
+                sql.append("  and u.iphone  like '%"+bkInvestMoney.getIphone() +"%'");
             }
             if (bkInvestMoney.getInvestmoneytype() !=null && !"".equals(bkInvestMoney.getInvestmoneytype())){
                 sql.append(" and i.investmoneytype like '%"+bkInvestMoney.getInvestmoneytype()+"%'");

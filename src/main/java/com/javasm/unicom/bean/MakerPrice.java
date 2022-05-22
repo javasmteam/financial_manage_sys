@@ -20,16 +20,12 @@ public class MakerPrice {
      * 企业编号
      */
     private Integer comId;
-    /**
-     * 挂单金额
-     */
-    private Float makerAmount;
-    /**
-     * 交易数量
-     */
-    private Integer tradeAmount;
-    /**
-     * 挂单表状态  0：买入  1：卖出
-     */
-    private Integer makerState;
+
+    private Integer buyPriceOne ;
+    private Integer buyNumberOne  ;
+    private Integer buyPriceTwo   ;
+    private Integer buyNumberTwo   ;
+    private Integer buyPriceThree    ;
+    private Integer buyNumberThree  ;
+
 }
