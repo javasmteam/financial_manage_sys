@@ -1,14 +1,15 @@
 package com.javasm.unicom.bean;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Getter
+@Setter
 public class HistoryFunding {
 
     //历史融资表
@@ -23,7 +24,7 @@ public class HistoryFunding {
     /**
      * 投资日期
      */
-    private String funDate;
+    private Date funDate;
     /**
      * 投资方式
      */
@@ -48,4 +49,9 @@ public class HistoryFunding {
      * 历史融资表状态
      */
     private Integer hyFunState;
+
+    /**
+     * 企业名称
+     */
+    private String comName;
 }

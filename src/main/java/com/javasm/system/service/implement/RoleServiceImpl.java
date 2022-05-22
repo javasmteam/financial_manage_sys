@@ -1,7 +1,5 @@
 package com.javasm.system.service.implement;
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.db.Db;
 import com.javasm.system.bean.PageInfo;
 import com.javasm.system.bean.UserRole;
 import com.javasm.system.bean.vo.PageSelectRole;
@@ -16,8 +14,6 @@ import com.javasm.util.JDBCUtils;
 import org.apache.commons.dbutils.DbUtils;
 
 import java.sql.Connection;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,12 +57,8 @@ public class RoleServiceImpl implements RoleService {
     public Integer setRolePermissions(SetRolePermissions setRolePermissions) {
         Connection conn = JDBCUtils.getConn();
         Integer m = userRoleDao.delRolePermissions(conn,setRolePermissions.getRoleId());
-        if(m<1){
-            DbUtils.rollbackAndCloseQuietly(conn);
-            return -1;
-        }
-        for (Integer rolePermission : setRolePermissions.getRolePermissions()) {
-            Integer n = userRoleDao.addRolepermission(conn,setRolePermissions.getRoleId(),rolePermission);
+        for (Integer rolePermission : setRolePermissions.getPermissions()) {
+            Integer n = userRoleDao.addRolePermission(conn,setRolePermissions.getRoleId(),rolePermission);
             if(n<1){
                 DbUtils.rollbackAndCloseQuietly(conn);
                 return -1;
@@ -97,7 +89,7 @@ public class RoleServiceImpl implements RoleService {
             for (TreeNode treeNode : list) {
                 List<TreeNode> list1 = queryChildPermissions(treeNode.getId());
                 if (list1 != null) {
-                    treeNode.setTreeNodes(list1);
+                    treeNode.setChildren(list1);
                 }
             }
             return list;

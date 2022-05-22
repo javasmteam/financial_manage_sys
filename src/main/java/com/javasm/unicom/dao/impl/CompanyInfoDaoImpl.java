@@ -24,17 +24,25 @@ public class CompanyInfoDaoImpl implements CompanyInfoDao {
 
     @Override
     public Integer count(CompanyInfo companyInfo) {
-        StringBuilder sql = new StringBuilder("select count(com_id) from company_info ");
+        StringBuilder sql = new StringBuilder("select count(c.com_id) " +
+                " from company_info as c, maker_price as p\n" +
+                " where  c.com_id =  p.com_id " +
+                " and c.com_info_state =1  ");
         return  JDBCUtils.size(sql.toString());
     }
 
     @Override
     public List<CompanyInfo> selectCompanyInfoByPage(PageInfo<CompanyInfo> page, CompanyInfo companyInfo) {
-        StringBuilder sql = new StringBuilder("select c.com_id comId,c.com_name comName,c.trade_code tradeCode,c.com_seq_code comSeqCode,\n" +
-                "       c.new_maker_amount newMakerAmount from company_info c ");
+        StringBuilder sql = new StringBuilder("select c.com_id comId,c.com_name comName,c.trade_code tradeCode,\n" +
+                "       c.com_logo comLogo,c.app_logo appLogo,c.com_industry comIndustry,\n" +
+                "       c.com_create_year comCreateYear,c.com_ceo comCeo,c.com_location comLocation,\n" +
+                "       c.com_rate comRate,c.new_maker_amount newMakerAmount,c.com_seq_code comSeqCode,\n" +
+                "       c.com_intro comIntro,m.buyPriceOne,m.buyNumberOne,m.buyPriceTwo,m.buyNumberTwo,\n" +
+                "       m.buyPriceThree,m.buyNumberThree\n" +
+                " from company_info c,maker_price m where c.com_id = m.com_id and c.com_info_state =1");
         if (companyInfo != null ){
             if (companyInfo.getComName()!=null && !"".equals(companyInfo.getComName())){
-                sql.append(" where c.com_name  like '%"+companyInfo.getComName() +"%' ");
+                sql.append(" and c.com_name  like '%"+companyInfo.getComName() +"%' ");
             }
         }
         sql.append(" limit ?,? ");

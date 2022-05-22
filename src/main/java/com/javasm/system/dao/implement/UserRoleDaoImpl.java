@@ -49,10 +49,10 @@ public class UserRoleDaoImpl implements UserRoleDao {
     @Override
     public Integer selectSize(PageSelectRole pageSelect) {
         StringBuilder sql = new StringBuilder("select count(role_id)\n" +
-                "from user_role\n");
+                "from user_role where role_state>0 \n");
         String roleName = pageSelect.getRoleName();
-        if(roleName!=null&&roleName.equals("")){
-            sql.append("where role_name = ?;");
+        if(roleName!=null&&!roleName.equals("")){
+            sql.append("and role_name = ?;");
             return JDBCUtils.size(sql.toString(),roleName);
         }
         sql.append(";");
@@ -62,18 +62,18 @@ public class UserRoleDaoImpl implements UserRoleDao {
     @Override
     public List<UserRole> queryPageSelect(PageSelectRole pageSelect) {
         StringBuilder sql = new StringBuilder("select user_role.*\n" +
-                "from user_info");
+                "from user_role where role_state>0 ");
         String roleName = pageSelect.getRoleName();
         List<Object> param = new ArrayList<>();
-        if(roleName!=null&&roleName.equals("")){
-            sql.append("where role_name = ?");
+        if(roleName!=null&&!roleName.equals("")){
+            sql.append(" and role_name = ? ");
             param.add(roleName);
         }
         sql.append(" limit ?,?;");
         Integer index = (pageSelect.getNowPage() - 1) * pageSelect.getPageCount();
         param.add(index);
         param.add(pageSelect.getPageCount());
-        return JDBCUtils.query(sql.toString(),UserRole.class,param);
+        return JDBCUtils.query(sql.toString(),UserRole.class,param.toArray());
     }
 
     @Override
@@ -103,7 +103,7 @@ public class UserRoleDaoImpl implements UserRoleDao {
     }
 
     @Override
-    public Integer addRolepermission(Connection conn, Integer roleId, Integer rolePermission) {
+    public Integer addRolePermission(Connection conn, Integer roleId, Integer rolePermission) {
         String sql = JDBCUtils.getSql("ADD_ROLE_PERMISSIONS");
         return JDBCUtils.update(conn,sql,roleId,rolePermission);
     }

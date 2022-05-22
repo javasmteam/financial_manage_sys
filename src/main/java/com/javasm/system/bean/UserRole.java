@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
  * @description:
  */
 @AllArgsConstructor
-@NoArgsConstructor
 @Data
 public class UserRole {
     /**
@@ -21,4 +20,8 @@ public class UserRole {
     private Integer roleId;
     private String roleName;
     private Integer roleState;
+
+    public UserRole() {
+        this.roleState = 1;
+    }
 }

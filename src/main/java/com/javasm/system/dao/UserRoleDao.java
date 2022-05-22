@@ -80,7 +80,7 @@ public interface UserRoleDao {
 
     Integer delRolePermissions(Connection conn, Integer roleId);
 
-    Integer addRolepermission(Connection conn, Integer roleId, Integer rolePermission);
+    Integer addRolePermission(Connection conn, Integer roleId, Integer rolePermission);
 
     Integer addUserRole(UserRole userRole);
 

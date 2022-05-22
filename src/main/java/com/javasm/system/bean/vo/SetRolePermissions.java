@@ -16,5 +16,5 @@ import java.util.List;
 @NoArgsConstructor
 public class SetRolePermissions {
     private Integer roleId;
-    private List<Integer> RolePermissions;
+    private List<Integer> permissions;
 }

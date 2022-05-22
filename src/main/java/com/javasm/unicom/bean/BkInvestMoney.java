@@ -58,6 +58,11 @@ public class BkInvestMoney {
 
     private String userCode;
 
+    /**
+     *手机号
+     */
+    private String iphone;
+
 
 
 }

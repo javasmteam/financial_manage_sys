@@ -2,8 +2,12 @@ package com.javasm.unicom.service;
 
 import com.javasm.unicom.bean.CompanyInfo;
 import com.javasm.unicom.bean.HistoryFunding;
+import com.javasm.unicom.bean.MakerPrice;
 import com.javasm.unicom.bean.PageInfo;
 import com.javasm.unicom.bean.vo.HistoryFundingVo;
+import com.javasm.unicom.bean.vo.MakerPriceVo;
+
+import java.util.List;
 
 /**
  * <h4>financial_manage_sys</h4>
@@ -49,7 +53,7 @@ public interface CompanyInfoService {
      * @param comId
      * @return
      */
-    HistoryFundingVo selectHistory(Integer comId);
+    List<HistoryFunding> selectHistory(Integer comId);
 
 
     /**
@@ -67,5 +71,21 @@ public interface CompanyInfoService {
      * @return
      */
     CompanyInfo selectCompanyById(Integer comId);
+
+    /**
+     * 添加
+     *
+     * @param makerPrice
+     * @return
+     */
+//    List<MakerPrice> addMaker(MakerPrice makerPrice);
+
+    /**
+     * 修改挂单价
+     *
+     * @param makerPriceVo
+     * @return
+     */
+    Boolean updatePrice (MakerPriceVo makerPriceVo);
 
 }
