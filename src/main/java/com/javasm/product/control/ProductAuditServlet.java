@@ -7,20 +7,32 @@ package com.javasm.product.control; /**
  * @Version : 1.0
  **/
 
+import com.javasm.controlUtil.BaseServlet;
+import com.javasm.product.bean.ProductAudit;
+import com.javasm.product.service.ProductAuditService;
+import com.javasm.product.service.impl.ProductAuditServiceImpl;
+import com.javasm.util.ServletUtil;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "ProductAuditServlet", value = "/ProductAuditServlet")
-public class ProductAuditServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+@WebServlet("/ProductAuditServlet.do")
+public class ProductAuditServlet extends BaseServlet<ProductAudit> {
+    private final ProductAuditService productAuditService = new ProductAuditServiceImpl();
 
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    /**
+     * 审核产品
+     *
+     * @param request
+     * @return
+     */
+    public String productAudit(HttpServletRequest request) {
+        ProductAudit productAudit = ServletUtil.jsonConvertToEntity(request, ProductAudit.class);
+        if (productAuditService.updateProductAuditInfo(productAudit)) {
+            return "1";
+        }
+        return "-1";
     }
 }

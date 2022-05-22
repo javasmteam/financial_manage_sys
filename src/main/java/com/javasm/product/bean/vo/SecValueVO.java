@@ -1,4 +1,4 @@
-package com.javasm.product.bean;
+package com.javasm.product.bean.vo;
 
 import lombok.*;
 
@@ -15,6 +15,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Value<T> {
-    private T value;
+public class SecValueVO {
+    private Integer secId;
+    private String secName;
 }

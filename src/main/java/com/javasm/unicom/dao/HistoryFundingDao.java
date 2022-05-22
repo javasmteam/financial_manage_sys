@@ -3,6 +3,8 @@ package com.javasm.unicom.dao;
 import com.javasm.unicom.bean.HistoryFunding;
 import com.javasm.unicom.bean.vo.HistoryFundingVo;
 
+import java.util.List;
+
 public interface HistoryFundingDao {
 
 
@@ -12,5 +14,5 @@ public interface HistoryFundingDao {
      * @param comId
      * @return
      */
-    HistoryFundingVo selectHistory(Integer comId);
+    List<HistoryFunding> selectHistory(Integer comId);
 }

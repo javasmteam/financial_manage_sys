@@ -2,9 +2,10 @@ package com.javasm.product.dao;
 
 import com.javasm.product.bean.PageInfo;
 import com.javasm.product.bean.ProductType;
-import com.javasm.product.bean.Value;
+
 import com.javasm.product.bean.vo.ProductTypeIdVO;
 import com.javasm.product.bean.vo.ProductTypeVO;
+import com.javasm.product.bean.vo.SecValueVO;
 
 import java.util.List;
 
@@ -86,6 +87,6 @@ public interface ProductTypeDao {
     List<ProductTypeIdVO> findProductTypeId();
 
 
-    List<Value> queryAllProductSeries();
+    List<ProductTypeIdVO> queryAllProductSeries();
 
 }

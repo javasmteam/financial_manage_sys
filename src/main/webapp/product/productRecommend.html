@@ -2,9 +2,233 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>产品基础管理</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <link rel="stylesheet" href="../css/productType.css">
+    <script src="../js/constant.js"></script>
 </head>
 <body>
+<div id="app" class="content-container" direction="vertical">
+    <!--    导航-->
+    <el-descriptions title="产品管理>产品推荐"></el-descriptions>
+    <!--    input-->
+    <div>
+        <el-container class="content-row">
+            <div class="input-tip">系列名称：</div>
+            <div class="input-field">
+                <el-select v-model="queryParams.productSeriesId" placeholder="请选择">
+                    <el-option
+                            v-for="item in productSeriesList"
+                            :label="item.productTypeChName"
+                            :value="item.productSeriesId">
+                    </el-option>
+                </el-select>
+            </div>
+            <div class="input-tip">产品名称：</div>
+            <div class="input-field">
+                <el-input v-model="queryParams.productChName"></el-input>
+            </div>
+        </el-container>
+    </div>
+    <!--    button-->
+    <div class="content-row">
+        <el-container>
+            <el-button type="primary" icon="el-icon-search" @click="search">查询</el-button>
+            <el-button type="primary" icon="el-icon-edit-outline" @click="saveFlag2 = true">添加</el-button>
+            <el-button type="primary" icon="el-icon-delete" @click="clearQueryParams">清空查询条件</el-button>
+        </el-container>
+    </div>
+    <!--    list -->
+    <div>
+        <el-table
+                :data="productRecommendVOList"
+                tooltip-effect="dark"
+                style="width: 100%">
+            <el-table-column
+                    prop="productChName"
+                    label="产品名称"
+                    width="150">
+            </el-table-column>
+            <el-table-column
+                    prop="recommendLv"
+                    label="推荐度"
+                    width="150">
+                <template slot-scope="scope">
+                    {{scope.row.recommendLv == 0 ? "下架" : scope.row.recommendLv == 1 ? "一般推荐" : scope.row.recommendLv == 2 ? "中等推荐" : scope.row.recommendLv == 3 ? "超级推荐" : "显示错误"}}
+                </template>
+            </el-table-column>
+            <el-table-column
+                    prop="isIpo"
+                    label="是否首发"
+                    width="150">
+                <template slot-scope="scope">
+                    {{scope.row.isIpo == 0 ? "否" : "是"}}
+                </template>
+            </el-table-column>
+            <el-table-column
+                    prop="isOnlinePurchase"
+                    label="线上申购" width="150">
+                <template slot-scope="scope">
+                    {{scope.row.isOnlinePurchase == 0 ? "否" : "是"}}
+                </template>
+            </el-table-column>
+            <el-table-column label="操作" width="250">
+                <template slot-scope="scope">
+                    <el-button
+                            size="mini"
+                            @click="showProductRecommend(scope.row)">修改
+                    </el-button>
+                    <el-button
+                            size="mini"
+                            @click="showProductNetValue(scope.row)">关联申购
+                    </el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+    </div>
+    <div>
+        <el-row>
+            <el-col span="20" offset="5">
+                <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="pageInfo.currentPage"
+                        :page-sizes="[5,10,15,20]"
+                        :page-size="pageInfo.pageSize"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="pageInfo.total">
+                </el-pagination>
+            </el-col>
+        </el-row>
+    </div>
 
+    <!--    添加产品推荐信息-->
+    <el-dialog title="编辑产品推荐" :visible.sync="saveFlag2" id="ProductRecommend" width="50%">
+        <el-form :model="productRecommend" :rules="rules" ref="productTypeVO">
+            <el-form-item label="推荐产品">
+                <el-select v-model="productRecommend.productId" placeholder="请选择">
+                    <el-option
+                            v-for="item in productNotRecommends"
+                            :label="item.productChName"
+                            :value="item.productId">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="推荐度">
+                <el-select v-model="productRecommend.recommendLv" placeholder="请选择">
+                    <el-option label="超级推荐" :value="3"></el-option>
+                    <el-option label="中等推荐" :value="2"></el-option>
+                    <el-option label="一般推荐" :value="1"></el-option>
+                    <el-option label="下架" :value="0"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="是否投顾端可见">
+                <el-radio v-model="productRecommend.isVisible" label="1">是</el-radio>
+                <el-radio v-model="productRecommend.isVisible" label="0">否</el-radio>
+            </el-form-item>
+            <el-form-item label="是否首发">
+                <el-radio v-model="productRecommend.isIpo" label="1">是</el-radio>
+                <el-radio v-model="productRecommend.isIpo" label="0">否</el-radio>
+            </el-form-item>
+            <el-form-item label="线上申购">
+                <el-radio v-model="productRecommend.isOnlinePurchase" label="1">是</el-radio>
+                <el-radio v-model="productRecommend.isOnlinePurchase" label="0">否</el-radio>
+            </el-form-item>
+            <el-form-item label="推荐理由">
+                <el-input v-model="productRecommend.recommendReason" prop="annualYield" autocomplete="off"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="saveFlag2 = false">取 消</el-button>
+            <el-button type="primary" @click="addProductRecommend">确 定</el-button>
+        </div>
+    </el-dialog>
+
+
+    <!--    修改产品推荐信息-->
+    <el-dialog title="编辑产品推荐" :visible.sync="saveFlag3" id="changeProductRecommend" width="50%">
+        <el-form :model="productRecommend" :rules="rules" ref="productRecommendData">
+            <el-form-item label="推荐产品">
+                <el-input v-model="productChName" prop="annualYield" autocomplete="off"></el-input>
+
+                <!--                <el-select v-model="productRecommend.productId" placeholder="请选择">-->
+                <!--                    <el-option-->
+                <!--                            v-for="item in productNotRecommends"-->
+                <!--                            :label="item.productChName"-->
+                <!--                            :value="item.productId">-->
+                <!--                    </el-option>-->
+                <!--                </el-select>-->
+            </el-form-item>
+            <el-form-item label="推荐度">
+                <el-select v-model="productRecommend.recommendLv" placeholder="请选择">
+                    <el-option label="超级推荐" :value="3"></el-option>
+                    <el-option label="中等推荐" :value="2"></el-option>
+                    <el-option label="一般推荐" :value="1"></el-option>
+                    <el-option label="下架" :value="0"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="是否投顾端可见">
+                <el-radio v-model="productRecommend.isVisible" label="1">是</el-radio>
+                <el-radio v-model="productRecommend.isVisible" label="0">否</el-radio>
+            </el-form-item>
+            <el-form-item label="是否首发">
+                <el-radio v-model="productRecommend.isIpo" label="1">是</el-radio>
+                <el-radio v-model="productRecommend.isIpo" label="0">否</el-radio>
+            </el-form-item>
+            <el-form-item label="线上申购">
+                <el-radio v-model="productRecommend.isOnlinePurchase" label="1">是</el-radio>
+                <el-radio v-model="productRecommend.isOnlinePurchase" label="0">否</el-radio>
+            </el-form-item>
+            <el-form-item label="推荐理由">
+                <el-input v-model="productRecommend.recommendReason" prop="annualYield" autocomplete="off"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="saveFlag3 = false">取 消</el-button>
+            <el-button type="primary" @click="changeProductRecommend">确 定</el-button>
+        </div>
+    </el-dialog>
+
+
+    <!--    &lt;!&ndash;    关联申购&ndash;&gt;-->
+    <!--    <el-dialog title="编辑关联申购" :visible.sync="saveFlag4" id="productInfo" width="50%">-->
+    <!--        <el-form :model="productInfoVO" :rules="rules" ref="productTypeVO">-->
+    <!--            <el-form-item label="未关联">-->
+    <!--                <el-select v-model="productInfoVO.productSeriesId" placeholder="请选择">-->
+    <!--                    <el-option-->
+    <!--                            v-for="item in productSeriesList"-->
+    <!--                            :label="item.productTypeChName"-->
+    <!--                            :value="item.productSeriesId">-->
+    <!--                    </el-option>-->
+    <!--                </el-select>-->
+    <!--            </el-form-item>-->
+    <!--            <el-form-item label="未关联">-->
+    <!--                <el-button @click="saveFlag3 = false">关 联</el-button>-->
+    <!--                <el-button type="primary" @click="changeProductInfo">取 消</el-button>-->
+    <!--                </el-select>-->
+    <!--            </el-form-item>-->
+    <!--            <el-form-item label="已关联">-->
+    <!--                <el-select v-model="productInfoVO.productSeriesId" placeholder="请选择">-->
+    <!--                    <el-option-->
+    <!--                            v-for="item in productSeriesList"-->
+    <!--                            :label="item.productTypeChName"-->
+    <!--                            :value="item.productSeriesId">-->
+    <!--                    </el-option>-->
+    <!--                </el-select>-->
+    <!--            </el-form-item>-->
+    <!--        </el-form>-->
+    <!--        <div slot="footer" class="dialog-footer">-->
+    <!--            <el-button @click="saveFlag4 = false">取 消</el-button>-->
+    <!--            <el-button type="primary" @click="changeProductInfo">保 存</el-button>-->
+    <!--        </div>-->
+    <!--    </el-dialog>-->
+
+
+</div>
 </body>
+<script src="../js/productRecommend.js"></script>
 </html>

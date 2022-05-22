@@ -43,6 +43,7 @@ public class CompanyInfoServlet extends BaseServlet<CompanyInfo> {
 
         PageInfo<CompanyInfo> pageInfo = companyInfoService.getCompanyInfoByPage(nowPage,pageNum,companyInfo);
         String jsonString = JSONObject.toJSONString(pageInfo);
+        System.out.println(jsonString);
         return jsonString;
     }
 
@@ -82,21 +83,7 @@ public class CompanyInfoServlet extends BaseServlet<CompanyInfo> {
 
     }
 
-    /**
-     * 根据ID查询历史融资
-     *
-     * @param request
-     * @return
-     */
-    public String showHistory(HttpServletRequest request){
-        String comIdStr = request.getParameter("comId");
 
-        Integer comId = DataUtil.stringConvertToInteger(comIdStr);
-
-        HistoryFundingVo history = companyInfoService.selectHistory(comId);
-        String toJSONString = JSONObject.toJSONString(history);
-        return toJSONString;
-    }
 
 
     /**
@@ -111,7 +98,7 @@ public class CompanyInfoServlet extends BaseServlet<CompanyInfo> {
         if (companyInfoService.deleteCompany(comId)){
             return "1";
         }
-        return "-1";
+        return "0";
     }
 
 

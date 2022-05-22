@@ -2,9 +2,283 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>产品基础管理</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <link rel="stylesheet" href="../css/productType.css">
+    <script src="../js/constant.js"></script>
 </head>
 <body>
+<div id="app" class="content-container" direction="vertical">
+    <!--    导航-->
+    <el-descriptions title="产品管理>产品审核"></el-descriptions>
+    <!--    input-->
+    <div>
+        <el-container class="content-row">
+            <div class="input-tip">产品名称：</div>
+            <div class="input-field">
+                <el-input v-model="queryParams.productChName"></el-input>
+            </div>
+            <div class="input-tip">产品类型：</div>
+            <div class="input-field">
+                <el-select v-model="queryParams.secId" placeholder="请选择">
+                    <el-option
+                            v-for="item in productSecondTypeList"
+                            :label="item.secName"
+                            :value="item.secId">
+                    </el-option>
+                </el-select>
+            </div>
+            <div class="input-tip">审核状态：</div>
+            <div class="input-field">
+                <el-select v-model="queryParams.auditType" placeholder="请选择">
+                    <el-option label="审核通过" :value="1"></el-option>
+                    <el-option label="审核未通过" :value="0"></el-option>
+                </el-select>
+            </div>
+        </el-container>
+    </div>
+    <!--    button-->
+    <div class="content-row">
+        <el-container>
+            <el-button type="primary" icon="el-icon-search" @click="search">查询</el-button>
+            <el-button type="primary" icon="el-icon-delete" @click="clearQueryParams">清空查询条件</el-button>
+        </el-container>
+    </div>
+    <!--    list -->
+    <div>
+        <el-table
+                :data="productInfoVOList"
+                tooltip-effect="dark"
+                style="width: 100%">
+            <el-table-column
+                    prop="productChName"
+                    label="产品名称"
+                    width="150">
+            </el-table-column>
+            <el-table-column
+                    prop="productTypeChName"
+                    label="产品系列"
+                    width="150">
+            </el-table-column>
+            <el-table-column
+                    prop="secName"
+                    label="二级分类"
+                    width="150">
+            </el-table-column>
+            <el-table-column
+                    prop="regulateBody"
+                    label="机构名称" width="150">
+            </el-table-column>
+            <el-table-column
+                    prop="openTime"
+                    label="开放时间" width="150">
+            </el-table-column>
+            <el-table-column
+                    prop="currencyType"
+                    label="币种" width="150">
+                <template slot-scope="scope">
+                    {{scope.row.currencyType == 1 ? "美元" : scope.row.currencyType == 2 ? "人民币" : "日元"}}
+                </template>
+            </el-table-column>
+            <el-table-column
+                    prop="auditType"
+                    label="审核状态" width="150">
+                <template slot-scope="scope">
+                    {{scope.row.auditType == 0 ? "未审核" : scope.row.auditType == 1 ? "审核通过" : scope.row.auditType == 2 ? "审核未通过" : "显示错误!"
+                    }}
+                </template>
+            </el-table-column>
+            <el-table-column label="操作" width="250">
+                <template slot-scope="scope">
+                    <el-button
+                            size="mini"
+                            @click="showProductAudit(scope.row)">审批
+                    </el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+    </div>
+    <div>
+        <el-row>
+            <el-col span="20" offset="5">
+                <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="pageInfo.currentPage"
+                        :page-sizes="[5,10,15,20]"
+                        :page-size="pageInfo.pageSize"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="pageInfo.total">
+                </el-pagination>
+            </el-col>
+        </el-row>
+    </div>
 
+
+    <!--    审批信息-->
+    <el-dialog title="修改产品基础" :visible.sync="saveFlag3" id="productInfo" width="40%">
+        <el-form :model="productInfoVO" :rules="rules" ref="productTypeVO" label-width="120px">
+            <el-divider content-position="left">基本信息</el-divider>
+            <el-row :gutters="100">
+                <el-col :span="48">
+                    <el-form-item label="产品系列">
+                        <el-select v-model="productInfoVO.productSeriesId" placeholder="请选择" :disabled="true">
+                            <el-option
+                                    v-for="item in productSeriesList"
+                                    :label="item.productTypeChName"
+                                    :value="item.productSeriesId" :disabled="true">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="48">
+                    <el-form-item label="管理机构">
+                        <el-input v-model="productInfoVO.regulateBody" prop="regulateBody"
+                                  autocomplete="off" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutters="100">
+                <el-col :span="48">
+                    <el-form-item label="产品名称">
+                        <el-input v-model="productInfoVO.productChName" prop="productChName"
+                                  autocomplete="off" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="48">
+                    <el-form-item label="二级分类">
+                        <el-select v-model="productInfoVO.secId" placeholder="请选择" :disabled="true">
+                            <el-option
+                                    v-for="item in productSecondTypeList"
+                                    :label="item.secName"
+                                    :value="item.secId">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutters="100">
+                <el-col :span="48">
+                    <el-form-item label="年化收益率" :disabled="true">
+                        <el-input v-model="productInfoVO.annualYield" prop="annualYield" autocomplete="off"
+                                  :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="48">
+                    <el-form-item label="货币类型">
+                        <el-select v-model="productInfoVO.currencyType" placeholder="请选择" :disabled="true">
+                            <el-option label="美元" :value="1"></el-option>
+                            <el-option label="人民币" :value="2"></el-option>
+                            <el-option label="日元" :value="3"></el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-divider content-position="left">认购属性</el-divider>
+            <el-row :gutters="100">
+                <el-col :span="48">
+                    <el-form-item label="开发时间">
+                        <el-input v-model="productInfoVO.openTime" prop="openTime" autocomplete="off"
+                                  :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="48">
+                    <el-form-item label="认购周期">
+                        <el-input v-model="productInfoVO.subCycle" prop="subCycle" autocomplete="off"
+                                  :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutters="100">
+                <el-col :span="48">
+                    <el-form-item label="基金管理费率">
+                        <el-input v-model="productInfoVO.fundManageFeeRate" prop="recBankName"
+                                  autocomplete="off" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="48">
+                    <el-form-item label="认购费率">
+                        <el-input v-model="productInfoVO.subRate" prop="recBankName" autocomplete="off"
+                                  :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutters="100">
+                <el-col :span="48">
+                    <el-form-item label="起投金额">
+                        <el-input v-model="productInfoVO.initInvestAmount" prop="recBankName"
+                                  autocomplete="off" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="48">
+                    <el-form-item label="认购费收取方式">
+                        <el-select v-model="productInfoVO.subFeeCollectMethod" placeholder="请选择" :disabled="true">
+                            <el-option label="前端收费" :value="1"></el-option>
+                            <el-option label="后端收费" :value="2"></el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-divider content-position="left">赎回属性</el-divider>
+            <el-row :gutters="100">
+                <el-col :span="48">
+                    <el-form-item label="赎回周期">
+                        <el-input v-model="productInfoVO.redCycle" prop="recBankName" autocomplete="off"
+                                  :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="48">
+                    <el-form-item label="赎回起始金额">
+                        <el-input v-model="productInfoVO.redInitAmount" prop="recBankName"
+                                  autocomplete="off" :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutters="100">
+                <el-col :span="48">
+                    <el-form-item label="赎回费">
+                        <el-input v-model="productInfoVO.redAmount" prop="recBankName" autocomplete="off"
+                                  :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="48">
+                    <el-form-item label="锁定期">
+                        <el-input v-model="productInfoVO.lockPeriod" prop="recBankName" autocomplete="off"
+                                  :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-divider content-position="left">审核</el-divider>
+            <el-row :gutters="100">
+                <el-col :span="48">
+                    <el-form-item label="审核人">
+                        <el-input v-model="productInfoVO.auditor" prop="recBankName" autocomplete="off"
+                                  :disabled="true"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutters="100">
+                <el-col :span="48">
+                    <el-form-item label="审核意见">
+                        <el-input v-model="productAudit.auditorOpinion" prop="auditorOpinion"
+                                  autocomplete="off"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="saveFlag3 = false">取 消</el-button>
+            <el-button type="primary" @click="passAudit">通 过</el-button>
+            <el-button type="danger" @click="rejectAudit">驳 回</el-button>
+        </div>
+    </el-dialog>
+
+
+</div>
 </body>
+<script src="../js/productAudit.js"></script>
 </html>

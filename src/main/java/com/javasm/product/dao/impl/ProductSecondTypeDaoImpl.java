@@ -1,6 +1,6 @@
 package com.javasm.product.dao.impl;
 
-import com.javasm.product.bean.Value;
+import com.javasm.product.bean.vo.SecValueVO;
 import com.javasm.product.dao.ProductSecondTypeDao;
 import com.javasm.util.JDBCUtils;
 
@@ -17,8 +17,8 @@ import java.util.List;
 public class ProductSecondTypeDaoImpl implements ProductSecondTypeDao {
 
     @Override
-    public List<Value> queryAllSecondType() {
+    public List<SecValueVO> queryAllSecondType() {
         String sql = JDBCUtils.getSql("findAllProductSecondType");
-        return JDBCUtils.query(sql, Value.class);
+        return JDBCUtils.query(sql, SecValueVO.class);
     }
 }

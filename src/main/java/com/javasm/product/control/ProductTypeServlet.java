@@ -15,7 +15,7 @@ import com.javasm.myEnum.ResponseEnum;
 import com.javasm.product.bean.PageInfo;
 import com.javasm.product.bean.ProductType;
 import com.javasm.product.bean.RemitInfo;
-import com.javasm.product.bean.Value;
+
 import com.javasm.product.bean.vo.ProductTypeVO;
 import com.javasm.product.service.ProductTypeService;
 import com.javasm.product.service.RemitInfoService;
@@ -77,8 +77,9 @@ public class ProductTypeServlet extends BaseServlet<ProductType> {
             Integer count = productTypeService.count();
             RemitInfo remitInfo = new RemitInfo();
             remitInfo.setProductSeriesId(count);
-            remitInfoService.addRemitInfo(remitInfo);
-            return "1";
+            if (remitInfoService.addRemitInfo(remitInfo)) {
+                return "1";
+            }
         }
         return "-1";
     }

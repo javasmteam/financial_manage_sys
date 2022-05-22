@@ -1,6 +1,7 @@
 package com.javasm.product.bean;
 
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.*;
 
 import java.util.Date;

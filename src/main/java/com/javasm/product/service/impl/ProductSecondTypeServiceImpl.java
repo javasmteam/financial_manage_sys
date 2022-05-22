@@ -1,6 +1,7 @@
 package com.javasm.product.service.impl;
 
-import com.javasm.product.bean.Value;
+
+import com.javasm.product.bean.vo.SecValueVO;
 import com.javasm.product.dao.ProductSecondTypeDao;
 import com.javasm.product.dao.impl.ProductSecondTypeDaoImpl;
 import com.javasm.product.service.ProductSecondTypeService;
@@ -21,7 +22,7 @@ public class ProductSecondTypeServiceImpl implements ProductSecondTypeService {
      * @return
      */
     @Override
-    public List<Value> getAllSecondType() {
+    public List<SecValueVO> getAllSecondType() {
         return productSecondTypeDao.queryAllSecondType();
     }
 }

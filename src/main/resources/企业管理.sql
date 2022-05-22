@@ -103,7 +103,9 @@ select c.com_id comId,c.com_name comName,c.trade_code tradeCode,
        c.com_logo comLoge,c.app_logo appLogo,c.com_industry comIndustry,
        c.com_create_year comCreateYear,c.com_ceo comCeo,c.com_location comLocation,
        c.com_rate comRate,c.new_maker_amount newMakerAmount,c.com_seq_code comSeqCode,
-       c.com_intro comIntro from company_info c where c.com_id = 1;
+       c.com_intro comIntro,m.buyPriceOne,m.buyNumberOne,m.buyPriceTwo,m.buyNumberTwo,
+       m.buyPriceThree,m.buyNumberThree
+from company_info c,maker_price m where c.com_id = m.com_id and c.com_info_state =1;
 
 
 
@@ -175,10 +177,36 @@ create table maker_price
 (
     maker_id     int(10) primary key auto_increment comment '主键',
     com_id       int(10) comment '企业编号',
-    maker_amount float(10, 2) comment '挂单金额',      -- 单价
-    trade_amount int(10) comment '交易数量',
-    maker_state  int(10) default 1 comment '挂单表状态' -- 1:买入  0：卖出
+    buyPriceOne  float(10,2),
+    buyNumberOne  float(10,2),
+    buyPriceTwo   float(10,2),
+    buyNumberTwo   float(10,2),
+    buyPriceThree    float(10,2),
+    buyNumberThree   float(10,2)
+
 );
+
+update maker_price set buyPriceOne=?,buyNumberOne=?,buyPriceTwo=?,buyNumberTwo=?,
+                       buyPriceThree=?,buyNumberThree=? where com_id = ?;
+
+
+insert into maker_price values (maker_id, 1, 161.51, 11, 161.54, 19, 161.55, 24);
+insert into maker_price values (maker_id, 2, 161.45, 35, 161.44, 49, 161.40, 5);
+insert into maker_price values (maker_id, 3, 61.51, 12, 61.54, 19, 61.55, 25);
+insert into maker_price values (maker_id, 4, 16.41, 11, 16.54, 17, 16.65, 10);
+insert into maker_price values (maker_id, 5, 9.45, 94, 9.46, 959, 9.48, 61);
+insert into maker_price values (maker_id, 6, 9.44, 354, 9.43, 692, 9.42, 56);
+insert into maker_price values (maker_id, 7, 14.92, 174, 14.93, 1332, 14.94, 175);
+insert into maker_price values (maker_id, 8, 14.91, 26, 14.90, 132, 14.88, 6);
+insert into maker_price values (maker_id, 9, 41.71, 34, 41.73, 1, 41.74, 7);
+insert into maker_price values (maker_id, 10, 41.70, 2, 41.67, 45, 41.66, 172);
+insert into maker_price values (maker_id, 11, 23.55, 631, 23.56, 50, 23.57, 51);
+insert into maker_price values (maker_id, 12, 23.53, 56, 23.51, 30, 23.57, 51);
+insert into maker_price values (maker_id, 13, 10.53, 110, 10.55, 50, 10.59, 20);
+insert into maker_price values (maker_id, 14, 43.71, 20, 43.74, 4, 43.75, 3);
+insert into maker_price values (maker_id, 15, 78.21, 100, 78.24, 50, 78.25, 60);
+
+
 insert into maker_price
 values (maker_id, 5, 161.51, 11, 0);
 insert into maker_price
@@ -343,13 +371,22 @@ select c.com_name comName,c.trade_code tradeCode,c.com_seq_code comSeqCode,
        c.new_maker_amount newMakerAmount from company_info c where c.com_name  like '%步长制药%';
 
 
+select * from  maker_price;
+select count(c.com_id) from company_info as c, maker_price as p
+ where  c.com_id =  p.com_id and c.com_info_state =1;
+
+select c.com_id comId,c.com_name comName,c.trade_code tradeCode,
+          c.com_logo comLogo,c.app_logo appLogo,c.com_industry comIndustry,
+          c.com_create_year comCreateYear,c.com_ceo comCeo,c.com_location comLocation,
+          c.com_rate comRate,c.new_maker_amount newMakerAmount,c.com_seq_code comSeqCode,
+          c.com_intro comIntro,m.buyPriceOne,m.buyNumberOne,m.buyPriceTwo,m.buyNumberTwo,
+          m.buyPriceThree,m.buyNumberThree
+   from company_info c,maker_price m where c.com_id = m.com_id and c.com_info_state =1
 
 
 
+select i.userid,i.userName,i.investmoneytype,u.iphone,i.investmoney,i.investrequesttime,
+                     i.investhandletime,i.investbankcode,i.state from bk_invest_money i, bk_user_info u where i.userid=u.userid
 
 
-
-
-
-
-
+select count(i.investmoneyid) from bk_invest_money i,bk_user_info u where i.userid=u.userid

@@ -1,43 +1,16 @@
 var vue = new Vue({
     el: "#app", data: {
         queryParams: {
-            productChName: "", secId: "", auditType: "", nowPage: 1, pageSize: 5, type: "showProductInfo"
+            productSeriesId: "", productChName: "", nowPage: 1, pageSize: 5, type: "showProductRecommend"
         },
-        productInfo: {
+        productRecommend: {
             productId: "",
-            productSeriesId: "",
-            secId: "",
-            regulateBody: "",
-            productChName: "",
-            recBankName: "",
-            annualYield: "",
-            currencyType: "",
-            openTime: "",
-            subCycle: "",
-            fundManageFeeRate: "",
-            subRate: "",
-            initInvestAmount: "",
-            subFeeCollectMethod: "",
-            redCycle: "",
-            redInitAmount: "",
-            redAmount: "",
-            lockPeriod: "",
-            proInfoState: 1,
-        },
-        productNetValue: {
-            productId: "", unitNet: "", unitDate: "", sumIncreaseRate: "", netValueState: 1,
-        },
-        productAudit: {
-            productId: "",
-            auditor: "",
-            auditorOpinion: "",
-            firstCreateTime: "",
-            latestModifyTime: "",
-            auditType: 0,
-            auditState: 1,
-        },
-        productSecondType: {
-            secId: "", secName: "", productSeriesId: "",
+            recommendLv: "",
+            isVisible: "",
+            isIpo: "",
+            isOnlinePurchase: "",
+            recommendReason: "",
+            recommendState: 1
         },
         pageInfo: {
             nowPage: 1, pageNum: 5, allCount: 0
@@ -46,23 +19,24 @@ var vue = new Vue({
         saveFlag1: false,
         saveFlag3: false,
         saveFlag4: false,//产品系列数据
-        productInfoVOList: [],
-        productSecondTypeList: [],
+        productRecommendVOList: [],
         productSeriesList: [],
-        productInfoVO: {},
+        productNotRecommends: [],
+        productRecommendData: {},
         rules: {},
         deleteId: "",
+        productChName: "",
     }, methods: {
         search() {
-            axios.get(projectPath + "/ProductInfoServlet.do?showProductInfo", {params: this.queryParams}).then(response => {
-                this.productInfoVOList = response.data.dataList;
+            axios.get(projectPath + "/ProductRecommendServlet?showProductRecommend", {params: this.queryParams}).then(response => {
+                this.productRecommendVOList = response.data.dataList;
                 this.pageInfo.nowPage = response.data.nowPage;
                 this.pageInfo.pageSize = response.data.pageNum;
                 this.pageInfo.allCount = response.data.allCount;
             })
         }, clearQueryParams() {
-            this.queryParams.secId = "";
-            this.queryParams.auditType = "";
+            this.queryParams.productSeriesId = "";
+            this.queryParams.productChName = "";
         }, handleSizeChange(pageSize) {
             //改变每页数据
             this.queryParams.pageSize = pageSize;
@@ -87,26 +61,32 @@ var vue = new Vue({
                 this.saveFlag4 = false;
                 this.search();
             })
-        }, showProductInfo(obj) {
-            //数据回填
-            // this.remitInfo.productSeriesId = obj.productSeriesId;
-            this.productInfoVO = obj;
+        },
+        showProductRecommend(obj) {
+            this.productRecommend.productId = obj.productId;
+            this.productChName = obj.productChName;
+            axios.get(projectPath + "/ProductRecommendServlet?type=findProductRecommendById", {params: {productId: obj.productId}}).then(response => {
+                this.productRecommend.recommendLv = response.data.recommendLv;
+                this.productRecommend.isVisible = response.data.isVisible;
+                this.productRecommend.isIpo = response.data.isIpo;
+                this.productRecommend.isOnlinePurchase = response.data.isOnlinePurchase;
+                this.productRecommend.recommendReason = response.data.recommendReason;
+            })
             this.saveFlag3 = true;
         },
-        resetProductInfo() {
-            this.productInfoVO = "";
-            this.saveFlag1 = false;
+        changeProductRecommend() {
+            axios.post(projectPath + "/ProductRecommendServlet?type=updateProductRecommendById&productChName=" + this.productChName, this.productRecommend).then(response => {
+                if (response.data == "1") {
+                    this.$message.success("修改成功！")
+                } else {
+                    this.$message.error("修改失败!")
+                }
+                this.saveFlag3 = false;
+                this.search();
+            },)
         },
-        showProductNetValue(obj) {
-            this.productNetValue = obj;
-            // this.productNetValue.productId = obj.productId;
-            // this.productNetValue.unitNet = obj.unitNet;
-            // this.productNetValue.unitDate = obj.unitDate;
-            // this.productNetValue.sumIncreaseRate = obj.sumIncreaseRate;
-            this.saveFlag1 = true;
-        },
-        addProductInfo() {
-            axios.post(projectPath + "/ProductInfoServlet.do?type=addProductInfo&auditor=" + this.productAudit.auditor, this.productInfo).then(response => {
+        addProductRecommend() {
+            axios.post(projectPath + "/ProductRecommendServlet?type=addProductRecommend", this.productRecommend).then(response => {
                 if (response.data == "1") {
                     this.$message.success("添加成功！")
                 } else {
@@ -117,6 +97,7 @@ var vue = new Vue({
             },)
         }, handleEdit(obj) {
             this.productType.productSeriesId = obj.productSeriesId;
+
             axios.get(projectPath + "/productType.do?type=findProductTypeById", {params: {addProductType: obj.productSeriesId}}).then(response => {
                 // if (response.data.productChannel == "1") {
                 //     this.productType.productChannel = "香港资管"
@@ -130,53 +111,29 @@ var vue = new Vue({
                 // } else if (response.data.productParentId == "3") {
                 //     this.productType.productParentId = "证券"
                 // }
+
                 this.productType.productParentId = response.data.productParentId;
                 this.productType.productChannel = response.data.productChannel;
                 this.productType.productTypeChName = response.data.productTypeChName
                 this.productType.productTypeEngName = response.data.productTypeEngName
             })
             this.saveFlag3 = true;
-        }, changeProductInfo() {
-            axios.post(projectPath + "/ProductInfoServlet.do?type=updateProductInfo", this.productInfoVO).then(response => {
-                if (response.data == "1") {
-                    this.$message.success("修改成功！")
-                } else {
-                    this.$message.error("修改失败!")
-                }
-                this.saveFlag3 = false;
-                this.search();
-            },)
         },
-        changeProductNetValue() {
-            axios.post(projectPath + "/ProductNetValueServlet?type=updateProductNetValueById", this.productNetValue).then(response => {
-                if (response.data == "1") {
-                    this.search();
-                    this.$message.success("修改成功!")
-                } else {
-                    this.$message.error("修改失败!")
-                }
-                this.saveFlag3 = false;
-                this.search();
-            })
-        }
-        ,
-        getProductSecondType() {
-            axios.get(projectPath + "/ProductSecondTypeServlet?type=showAllProductSecondTypes").then(response => {
-                this.productSecondTypeList = response.data;
-            })
-        }
-        ,
         getProductSeries() {
             axios.get(projectPath + "/productType.do?type=queryAllProductSeries").then(response => {
                 this.productSeriesList = response.data;
             })
+        },
+        getProductNotRecommends() {
+            axios.get(projectPath + "/ProductRecommendServlet?type=getProductNotRecommends").then(response => {
+                this.productNotRecommends = response.data;
+            })
         }
-        ,
     },
     created() {
         this.search();
-        this.getProductSecondType();
         this.getProductSeries();
+        this.getProductNotRecommends();
         // axios.get(projectPath + "/productType.do", {params: {type: "showProductInfo"}}).then(response => {
         //     this.productInfoVOList = response.data;
         // })

@@ -1,22 +1,22 @@
-package com.javasm.product.bean;
+package com.javasm.product.bean.vo;
 
 import lombok.*;
 
 /**
- * <h4>Financial_manage_sys</h4>
- * <p>产品推荐</p>
- *
- * @Author : zhao Yuanming
- * @Date : 2022-05-15 18:27
- * @Version : 1.0
- **/
-@Getter
+ * @author: zhaoyuanming
+ * @License: (C) Copyright 2022, wtl Corporation Limited.
+ * @Contact: 2448429318@qq.com
+ * @Date: 2022/5/22 8:26
+ * @Version: 1.0
+ * @Description:
+ */
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ProductRecommend {
-    private Integer recommendId;
+public class ProductRecommendVO {
+    private String productChName;
     private Integer productId;
     private Integer recommendLv;
     private Integer isVisible;
@@ -25,3 +25,4 @@ public class ProductRecommend {
     private String recommendReason;
     private Integer recommendState;
 }
+
