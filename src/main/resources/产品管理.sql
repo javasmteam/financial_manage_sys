@@ -318,8 +318,7 @@ drop table if exists m_product;
 create table m_product
 (
     product_id_a int(10) comment '关联产品a',
-    product_id_b int(10) comment '关联产品b',
-    primary key (`product_id_b`, `product_id_a`)
+    product_id_b int(10) comment '关联产品b'
 );
 
 
@@ -1075,6 +1074,62 @@ with C as (select product_id, product_ch_name
 select C.product_id, C.product_ch_name
 from C;
 
+select product_series_id
+from product_info
+where product_id = ?;
+
+
+
+select product_id, product_ch_name, product_id_b, pro_info_state
+from product_info,
+     m_product
+where product_series_id = (select product_series_id
+                           from product_info
+                           where product_id = 1)  and product_id = product_id_a;
+
+
+select product_id, product_ch_name, pro_info_state
+from product_info
+where product_series_id = (select product_series_id
+                           from product_info
+                           where product_id = 44)
+  and product_id != 44;
+
+
+
+select product_id, product_ch_name
+from product_info,
+     product_type
+where product_info.product_series_id = product_type.product_series_id
+  and product_id = 4;
+
+
+
+with C as (select product_id, product_ch_name, product_id_b,pro_info_state
+           from (select product_id, product_ch_name, pro_info_state,product_id_b
+                 from product_info,m_product
+                 where product_series_id = (select product_series_id
+                                            from product_info
+                                            where product_id = 1) group by product_id)A
+           where NOT exists(
+#                    select 1
+#                    from product_info B,m_product D
+#                    where A.product_id = B.product_id and A.product_id = 1
+#                    and A.product_id = D.product_id_a and D.product_id_a = 1
+#                    group by B.product_id
+               )
+             and A.pro_info_state = 1
+           group by A.product_id)
+select C.product_id, C.product_ch_name
+from C;
+
+
+select
+select * from product_info pi where not exists(
+    select pi.product_id from m_product mp  where pi.product_id = mp.product_id_a and pi.product_id=1
+    );
+
+
 
 update product_audit
 set audit_type         = ?,
@@ -1233,6 +1288,9 @@ from product_recommend
 where product_id = 16
   and recommend_state > 0
   and recommend_state = 1;
+
+insert into m_product
+values (?, ?);
 
 
 

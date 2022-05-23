@@ -23,6 +23,7 @@ public class ProductNetValue {
     private Integer proNetValueId;
     private Integer productId;
     private Float unitNet;
+    @JSONField(format="yyyy-MM-dd")
     private Date unitDate;
     private Float sumIncreaseRate;
     private Integer netValueState;

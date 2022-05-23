@@ -8,6 +8,7 @@
     <script src="https://unpkg.com/vue@next"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/qs/6.10.1/qs.js"></script>
     <link rel="stylesheet" href="../css/productType.css">
     <script src="../js/constant.js"></script>
 </head>
@@ -51,7 +52,7 @@
             <el-table-column
                     prop="productChName"
                     label="产品名称"
-                    width="150">
+                    width="300">
             </el-table-column>
             <el-table-column
                     prop="recommendLv"
@@ -84,7 +85,7 @@
                     </el-button>
                     <el-button
                             size="mini"
-                            @click="showProductNetValue(scope.row)">关联申购
+                            @click="showAssociate(scope.row)">关联申购
                     </el-button>
                 </template>
             </el-table-column>
@@ -194,38 +195,39 @@
     </el-dialog>
 
 
-    <!--    &lt;!&ndash;    关联申购&ndash;&gt;-->
-    <!--    <el-dialog title="编辑关联申购" :visible.sync="saveFlag4" id="productInfo" width="50%">-->
-    <!--        <el-form :model="productInfoVO" :rules="rules" ref="productTypeVO">-->
-    <!--            <el-form-item label="未关联">-->
-    <!--                <el-select v-model="productInfoVO.productSeriesId" placeholder="请选择">-->
-    <!--                    <el-option-->
-    <!--                            v-for="item in productSeriesList"-->
-    <!--                            :label="item.productTypeChName"-->
-    <!--                            :value="item.productSeriesId">-->
-    <!--                    </el-option>-->
-    <!--                </el-select>-->
-    <!--            </el-form-item>-->
-    <!--            <el-form-item label="未关联">-->
-    <!--                <el-button @click="saveFlag3 = false">关 联</el-button>-->
-    <!--                <el-button type="primary" @click="changeProductInfo">取 消</el-button>-->
-    <!--                </el-select>-->
-    <!--            </el-form-item>-->
-    <!--            <el-form-item label="已关联">-->
-    <!--                <el-select v-model="productInfoVO.productSeriesId" placeholder="请选择">-->
-    <!--                    <el-option-->
-    <!--                            v-for="item in productSeriesList"-->
-    <!--                            :label="item.productTypeChName"-->
-    <!--                            :value="item.productSeriesId">-->
-    <!--                    </el-option>-->
-    <!--                </el-select>-->
-    <!--            </el-form-item>-->
-    <!--        </el-form>-->
-    <!--        <div slot="footer" class="dialog-footer">-->
-    <!--            <el-button @click="saveFlag4 = false">取 消</el-button>-->
-    <!--            <el-button type="primary" @click="changeProductInfo">保 存</el-button>-->
-    <!--        </div>-->
-    <!--    </el-dialog>-->
+    <!--    关联申购-->
+    <el-dialog title="编辑关联申购" :visible.sync="saveFlag4" id="productInfo" width="50%">
+        <el-form :model="mProduct" :rules="rules" ref="productTypeVO">
+
+            <el-form-item label="未关联">
+                <el-select v-model="mProduct.productIdB" multiple placeholder="请选择">
+                    <el-option
+                            v-for="item in withoutProductList"
+                            :key="item.productId"
+                            :label="item.productChName"
+                            :value="item.productId">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+
+            <el-form-item label="未关联">
+                <el-button type="primary" @click="associateProduct">关 联</el-button>
+                <el-button type="primary" @click="saveFlag4 = false">取 消</el-button>
+                </el-select>
+            </el-form-item>
+
+            <el-form-item label="已关联">
+                <el-select placeholder="请选择">
+                    <el-option
+                            v-for="item in productSeriesList"
+                            :label="item.productTypeChName"
+                            :value="item.productSeriesId">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+
+        </el-form>
+    </el-dialog>
 
 
 </div>

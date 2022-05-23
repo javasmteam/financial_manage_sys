@@ -22,7 +22,6 @@ import java.util.List;
 public interface ProductRecommendDao {
 
 
-
     /**
      * 查询商品推荐总条数
      *
@@ -50,16 +49,32 @@ public interface ProductRecommendDao {
     List<ProductNotRecommendVO> queryProductNotRecommends();
 
 
-
+    /**
+     * 添加产品推荐
+     *
+     * @param productRecommend
+     * @return
+     */
     boolean addProductRecommend(ProductRecommend productRecommend);
 
 
+    /**
+     * 更新产品推荐
+     *
+     * @param productRecommend
+     * @param productChName
+     * @return
+     */
+    boolean updateProductRecommend(ProductRecommend productRecommend, String productChName);
 
-    boolean updateProductRecommend(ProductRecommend productRecommend,String productChName);
 
-
+    /**
+     * 根据id查询产品推荐
+     *
+     * @param productId
+     * @return
+     */
     ProductRecommend queryProductRecommendById(Integer productId);
-
 
 
 }

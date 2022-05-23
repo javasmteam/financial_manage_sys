@@ -12,6 +12,10 @@ var vue = new Vue({
             recommendReason: "",
             recommendState: 1
         },
+        mProduct: {
+            id: "",
+            productIdB: []// 关联的其他的产品ID
+        },
         pageInfo: {
             nowPage: 1, pageNum: 5, allCount: 0
         },
@@ -21,6 +25,7 @@ var vue = new Vue({
         saveFlag4: false,//产品系列数据
         productRecommendVOList: [],
         productSeriesList: [],
+        withoutProductList: [],
         productNotRecommends: [],
         productRecommendData: {},
         rules: {},
@@ -128,12 +133,35 @@ var vue = new Vue({
             axios.get(projectPath + "/ProductRecommendServlet?type=getProductNotRecommends").then(response => {
                 this.productNotRecommends = response.data;
             })
+        },
+        showAssociate(obj) {
+            this.mProduct.id = obj.productId;
+            this.getWithoutProductList();
+            this.saveFlag4 = true;
+        },
+        associateProduct() {
+            let json = window.Qs.stringify(this.mProduct, {"arrayFormat": "repeat"});// connectID=1&connectID=2
+            axios.get(projectPath + "/ProductRecommendServlet?type=associateProductRecommend&"+json).then(response => {
+                if (response.data == "1") {
+                    this.$message.success("添加成功！")
+                } else {
+                    this.$message.error("添加失败!")
+                }
+                this.saveFlag4 = false;
+                this.search();
+            })
+        },
+        getWithoutProductList() {
+            axios.get(projectPath + "/ProductRecommendServlet?type=findProductWithoutId&id=" + this.mProduct.id).then(response => {
+                this.withoutProductList = response.data;
+            })
         }
     },
     created() {
         this.search();
         this.getProductSeries();
         this.getProductNotRecommends();
+
         // axios.get(projectPath + "/productType.do", {params: {type: "showProductInfo"}}).then(response => {
         //     this.productInfoVOList = response.data;
         // })

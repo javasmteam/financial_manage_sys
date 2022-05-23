@@ -16,7 +16,9 @@ import com.javasm.product.bean.vo.ProductInfoVO;
 import com.javasm.product.bean.vo.ProductRecommendVO;
 import com.javasm.product.bean.vo.ProductTypeIdVO;
 import com.javasm.product.bean.vo.SecValueVO;
+import com.javasm.product.service.MiddleProductService;
 import com.javasm.product.service.ProductRecommendService;
+import com.javasm.product.service.impl.MiddleProductServiceImpl;
 import com.javasm.product.service.impl.ProductRecommendServiceImpl;
 import com.javasm.util.DataUtil;
 import com.javasm.util.ServletUtil;
@@ -29,6 +31,7 @@ import java.io.IOException;
 @WebServlet("/ProductRecommendServlet")
 public class ProductRecommendServlet extends BaseServlet<ProductTypeIdVO> {
     private final ProductRecommendService productRecommendService = new ProductRecommendServiceImpl();
+    private final MiddleProductService middleProductService = new MiddleProductServiceImpl();
 
 
     /**
@@ -40,7 +43,7 @@ public class ProductRecommendServlet extends BaseServlet<ProductTypeIdVO> {
      */
     public String showProductRecommend(ProductTypeIdVO productTypeIdVO, HttpServletRequest request) {
         String nowPage = request.getParameter("nowPage");
-        String pageNum = request.getParameter("pagStreSize");
+        String pageNum = request.getParameter("pageSize");
         String productSeriesIdStr = request.getParameter("productSeriesId");
         String productChName = request.getParameter("productChName");
         Integer productSeriesId = DataUtil.stringConvertToInteger(productSeriesIdStr);
@@ -85,6 +88,29 @@ public class ProductRecommendServlet extends BaseServlet<ProductTypeIdVO> {
     public String findProductRecommendById(HttpServletRequest request) {
         String id = request.getParameter("productId");
         return JSONObject.toJSONString(productRecommendService.getProductRecommendById(Integer.valueOf(id)));
+    }
+
+
+    /**
+     * @param request
+     * @return
+     */
+    public String associateProductRecommend(HttpServletRequest request) {
+        String idStr = request.getParameter("id");
+        String[] productIdBS = request.getParameterValues("productIdB");
+        Integer id = DataUtil.stringConvertToInteger(idStr);
+        if (middleProductService.addMiddleProduct(id, productIdBS)) {
+            return "1";
+        }
+        return "-1";
+    }
+
+
+    @ResponseTypeAnnotation(ResponseEnum.AJAX)
+    public String findProductWithoutId(HttpServletRequest request) {
+        String idStr = request.getParameter("id");
+        Integer id = DataUtil.stringConvertToInteger(idStr);
+        return JSONObject.toJSONString(middleProductService.getProductWithoutId(id));
     }
 
 
