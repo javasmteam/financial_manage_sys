@@ -81,4 +81,12 @@ public interface UserService {
      * @return
      */
     Integer setPwd(Integer userId, String newPwd);
+
+    /**
+     * 保存用户上传的头像
+     * @param userId
+     * @param uploadPath
+     * @return
+     */
+    Integer saveImage(Integer userId, String uploadPath);
 }

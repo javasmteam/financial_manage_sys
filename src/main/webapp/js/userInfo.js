@@ -38,7 +38,14 @@ var app = new Vue({
             oldPwd: '',
             newPwd: '',
         },
+        //上传位置路径
+        uploadPath:'',
 
+    },
+    computed:{
+        reqUploadPath:function (){
+            return projectPath+"/userInfo?type=reqUpload&id="+this.userInfo.userId;
+        }
     },
     methods: {
         reqUserInfoVo() {
@@ -84,6 +91,38 @@ var app = new Vue({
                     this.setPwdFlag = false;
                 }
             })
+        },
+        //是否保存图片
+        reqSaveImage(code){
+            axios.post(projectPath+"/userInfo?type=reqSaveImage&code="+code).then(resp=>{
+                if(resp.data=="-1"){
+                    this.$message.error("上传失败");
+                }else {
+                    this.$message.success("上传成功");
+                }
+                this.uploadAvatarFlag = false;
+            })
+        },
+
+        //上传成功回调,获取保存路径
+        setUploadPath(resp){
+            if(resp=="-1"){
+                this.$message.error("上传失败");
+            }else {
+                this.uploadPath = resp;
+            }
+        },
+        //显示上传图像弹框
+        showUploadAvatarFlag(){
+            this.uploadAvatarFlag = true
+        },
+        //是否保存上传的图片
+        saveImage(flag){
+            if(flag){
+                this.reqSaveImage("1");
+            }else {
+                this.reqSaveImage("-1");
+            }
         },
 
         setUser(flag) {

@@ -10,6 +10,7 @@ import com.javasm.util.DataUtil;
 import com.javasm.util.JDBCUtils;
 
 import java.sql.Connection;
+import java.sql.JDBCType;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -165,6 +166,12 @@ public class UserDaoImpl implements UserDao {
     public void delUserAllRole(Connection conn, Integer userId) {
         String sql = JDBCUtils.getSql("DEL_USER_ALL_ROLE");
         JDBCUtils.update(sql,userId);
+    }
+
+    @Override
+    public Integer saveImage(Integer userId, String uploadPath) {
+        String sql = JDBCUtils.getSql("SAVE_USER_IMAGE");
+        return JDBCUtils.update(sql,uploadPath,userId);
     }
 
 

@@ -113,4 +113,9 @@ public class UserServiceImpl implements UserService {
     public Integer setPwd(Integer userId, String newPwd) {
         return userDao.setPwd(userId, newPwd);
     }
+
+    @Override
+    public Integer saveImage(Integer userId, String uploadPath) {
+        return userDao.saveImage(userId,uploadPath);
+    }
 }

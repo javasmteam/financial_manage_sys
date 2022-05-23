@@ -130,4 +130,12 @@ public interface UserDao {
      * @param userId
      */
     void delUserAllRole(Connection conn, Integer userId);
+
+    /**
+     * 保存用户上传的头像
+     * @param userId
+     * @param uploadPath
+     * @return
+     */
+    Integer saveImage(Integer userId, String uploadPath);
 }

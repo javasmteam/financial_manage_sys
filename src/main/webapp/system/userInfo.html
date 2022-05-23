@@ -17,7 +17,7 @@
             <el-descriptions class="margin-top" title="个人信息" :column="1" :size="size" border>
                 <template slot="extra">
                     <el-button type="primary" size="small" @click="setUserFlag=true">修改用户信息</el-button>
-                    <el-button type="primary" size="small" @click="setPwdFlag=true">修改密码</el-button>
+                    <el-button type="primary" size="small" @click="showSetPwd">修改密码</el-button>
                     <el-button type="primary" size="small" @click="showUploadAvatarFlag()">上传头像</el-button>
                 </template>
                 <el-descriptions-item>
@@ -165,8 +165,14 @@
                 width="30%">
         <el-upload
             class="avatar-uploader"
-            :action="uploadPath"
-            :on-success=""
+            :action="reqUploadPath"
+            :on-success="setUploadPath">
+            <img v-if="uploadPath" :src="uploadPath" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+        <el-button @click="saveImage(false)">取 消</el-button>
+        <el-button type="primary" @click="saveImage(true)">确 定</el-button>
+
     </el-dialog>
 </div>
 <script src="../js/userInfo.js"></script>
