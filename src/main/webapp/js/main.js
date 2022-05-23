@@ -27,6 +27,7 @@ var app = new Vue({
                 } else {
                     this.userRole = resp.data
                     this.reqRoleMenu(obj);
+                    this.pageSrc = projectPath +"/default.html";
                 }
             })
         },
