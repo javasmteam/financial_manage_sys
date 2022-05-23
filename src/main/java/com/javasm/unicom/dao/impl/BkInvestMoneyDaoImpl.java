@@ -32,7 +32,7 @@ public class BkInvestMoneyDaoImpl implements BkInvestMoneyDao {
     @Override
     public List<BkInvestMoney> selectBkInvestMoney(PageInfo<BkInvestMoney> page, BkInvestMoney bkInvestMoney) {
         StringBuilder sql = new StringBuilder("select i.userid,i.userCode,i.userName,i.investmoneytype,i.investmoney,i.investrequesttime,\n" +
-                "       i.investhandletime,i.investbankcode,i.state,u.iphone from bk_invest_money i,bk_user_info u where i.userid = u.userid ");
+                "       i.investhandletime,i.investbankcode,i.investstate,u.iphone from bk_invest_money i,bk_user_info u where i.userid = u.userid ");
         if (bkInvestMoney!=null){
 
             if (bkInvestMoney.getUserName() != null && !"".equals(bkInvestMoney.getUserName())){

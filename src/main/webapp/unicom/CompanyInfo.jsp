@@ -71,14 +71,14 @@
 
 
 <%--      删除当前企业相关信息（改变状态）  ----------------------------------------------------------%>
-    <el-dialog id="deleteEnterprise" title="确认删除" :visible.sync="deleteFlag" width="50%"
-               :before-close="handleClose">
-        <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="deleteFlag = false">取 消</el-button>
-                <el-button type="primary" @click="deleteFlag = true">确 定</el-button>
-        </span>
+<%--    <el-dialog id="deleteEnterprise" title="确认删除" :visible.sync="deleteFlag" width="50%"--%>
+<%--               :before-close="handleClose">--%>
+<%--        <span slot="footer" class="dialog-footer">--%>
+<%--                <el-button type="primary" @click="deleteFlag = false">取 消</el-button>--%>
+<%--                <el-button type="primary" @click="deleteFlag = true">确 定</el-button>--%>
+<%--        </span>--%>
 
-    </el-dialog>
+<%--    </el-dialog>--%>
 
     <%--添加企业信息--%>
     <el-dialog id="editCompany" title="编辑企业信息" :visible.sync="addFlag" width="35%">
