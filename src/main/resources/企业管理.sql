@@ -390,3 +390,11 @@ select i.userid,i.userName,i.investmoneytype,u.iphone,i.investmoney,i.investrequ
 
 
 select count(i.investmoneyid) from bk_invest_money i,bk_user_info u where i.userid=u.userid
+
+
+
+
+
+select i.userid,i.userCode,i.userName,i.investmoneytype,i.investmoney,i.investrequesttime,
+       i.investhandletime,i.investbankcode,i.state,u.iphone from bk_invest_money i,bk_user_info u where i.userid = u.userid  limit 0,5;
+

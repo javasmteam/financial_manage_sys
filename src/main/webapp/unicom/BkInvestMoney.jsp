@@ -37,7 +37,7 @@
             </el-select>
         </el-form-item>
         <el-form-item label="交易状态：">
-            <el-select v-model="selectParams.state" placeholder="请选择" style="width: 150px">
+            <el-select v-model="selectParams.investstate" placeholder="请选择" style="width: 150px">
                 <el-option label="未汇款" value="0"></el-option>
                 <el-option label="已汇款到用户" value="1"></el-option>
                 <el-option label="已到PTN账号" value="2"></el-option>
@@ -61,9 +61,9 @@
         <el-table-column prop="investbankcode" label="银行交易编号" width="150"></el-table-column>
         <el-table-column  label="状态" width="150">
             <template slot-scope="scope">
-                {{scope.row.state == 0 ? "未汇款":""}}
-                {{scope.row.state == 1 ? "已汇款到用户":""}}
-                {{scope.row.state == 2 ? "已到PTN账号":""}}
+                {{scope.row.investstate == 0 ? "未汇款":""}}
+                {{scope.row.investstate == 1 ? "已汇款到用户":""}}
+                {{scope.row.investstate == 2 ? "已到PTN账号":""}}
             </template>
         </el-table-column>
 
@@ -89,7 +89,7 @@
                 userName:"",
                 iphone:"",
                 investmoneytype:"",
-                state:"",
+                investstate:"",
                 nowPage: 1,
                 pageNum: 5,
             },
