@@ -51,7 +51,7 @@
             <template slot-scope="scope">
                 <el-button @click="showCompanyInfo(scope.row)" type="text" size="small">详情</el-button>
                 <el-button @click="initUpdate(scope.row)" type="text" size="small">修改</el-button>
-                <el-button type="text" size="small" @click="deleteCompany(scope.$index)">删除</el-button>
+                <el-button type="text" size="small" @click="deleteCompany(scope.row)">删除</el-button>
                 <el-button type="text" size="small" @click="initPrice(scope.row)">编辑挂单</el-button>
                 <el-button type="text" size="small" @click="initHistory(scope.row)">历史融资</el-button>
             </template>
@@ -70,12 +70,12 @@
     </el-pagination>
 
 
-    <%--  删除当前企业相关信息（改变状态）  ----------------------------------------------------------%>
+<%--      删除当前企业相关信息（改变状态）  ----------------------------------------------------------%>
     <el-dialog id="deleteEnterprise" title="确认删除" :visible.sync="deleteFlag" width="50%"
                :before-close="handleClose">
         <span slot="footer" class="dialog-footer">
                 <el-button type="primary" @click="deleteFlag = false">取 消</el-button>
-                <el-button type="primary" @click="deleteCom()">确 定</el-button>
+                <el-button type="primary" @click="deleteFlag = true">确 定</el-button>
         </span>
 
     </el-dialog>
@@ -366,6 +366,7 @@
             deleteFlag: false,
             restFlag:false,//挂单价
             deleteId: {
+                type:"deleteCompany",
                 comId:""
             },
             historyList: [],
@@ -454,12 +455,18 @@
                 this.addFlag = true;
             },
             deleteCompany(deleteId) {
-                this.deleteId = deleteId.comId
+
+                this.deleteId = {
+                    type:"deleteCompany",
+                    comId:deleteId.comId
+                }
                 this.deleteFlag = true
+
+                this.deleteCom()
             },
             deleteCom() {
                 axios.get("http://localhost:8088/Financial_manage_sys_war_exploded/companyInfo.do", {
-                    params: {id: this.deleteId}
+                    params:this.deleteId
                 }).then(response => {
                     if (response.data == "1") {
                         this.queryCompany();
@@ -497,6 +504,17 @@
                 });
 
             },
+            // //请求删除用户
+            // deleteCom(companyInfo) {
+            //     axios.post(projectPath + "/history.do?type=deleteCompany", companyInfo).then(resp => {
+            //         if (resp.data == "-1") {
+            //             this.$message.error("删除失败")
+            //         } else {
+            //             this.$message({message: "删除成功", type: "success"});
+            //             this.queryCompany();
+            //         }
+            //     })
+            // },
             initHistory(history) {
                 this.history = {
                     type:"showHistory",

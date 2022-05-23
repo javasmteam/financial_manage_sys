@@ -72,7 +72,7 @@ public class CompanyInfoDaoImpl implements CompanyInfoDao {
 
     @Override
     public Boolean deleteCompany(Integer comId) {
-        String sql = JDBCUtils.getSql("deleteCompany");
+        String sql = "update company_info set com_info_state= 0 where com_id = ?";
         return JDBCUtils.update(sql,comId)>0;
     }
 }

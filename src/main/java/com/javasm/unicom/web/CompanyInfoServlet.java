@@ -94,11 +94,14 @@ public class CompanyInfoServlet extends BaseServlet<CompanyInfo> {
      */
     public String deleteCompany(HttpServletRequest request){
         String comIdStr = request.getParameter("comId");
+        if (comIdStr ==null ||comIdStr.equals("")){
+            return "-1";
+        }
         Integer comId = DataUtil.stringConvertToInteger(comIdStr);
-        if (companyInfoService.deleteCompany(comId)){
+        if (companyInfoService.deleteCompany(comId)!=null){
             return "1";
         }
-        return "0";
+        return "-1";
     }
 
 
