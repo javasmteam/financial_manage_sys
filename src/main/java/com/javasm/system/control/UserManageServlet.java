@@ -6,9 +6,7 @@ import com.javasm.controlUtil.BaseServlet;
 import com.javasm.myEnum.ResponseEnum;
 import com.javasm.system.bean.PageInfo;
 import com.javasm.system.bean.UserInfo;
-import com.javasm.system.bean.vo.PageSelectUser;
-import com.javasm.system.bean.vo.SetUserInfo;
-import com.javasm.system.bean.vo.UserInfoVo;
+import com.javasm.system.bean.vo.*;
 import com.javasm.system.service.UserService;
 import com.javasm.system.service.implement.UserServiceImpl;
 import com.javasm.util.BaseUtil;
@@ -16,6 +14,7 @@ import com.javasm.util.DataUtil;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author: 云勇
@@ -23,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
  * @description:
  */
 @WebServlet("/userManage")
-public class UserManageSeevlet extends BaseServlet<UserInfo> {
+public class UserManageServlet extends BaseServlet<UserInfo> {
     private UserService userService = new UserServiceImpl();
 
     /**
@@ -65,17 +64,18 @@ public class UserManageSeevlet extends BaseServlet<UserInfo> {
 
     /**
      * 请求分页查询
+     *
      * @param req
      * @return
      */
     @ResponseTypeAnnotation(ResponseEnum.AJAX)
     public String reqPageSelect(HttpServletRequest req) {
         PageSelectUser pageSelect = BaseUtil.readBean(req, PageSelectUser.class);
-        if(pageSelect==null){
+        if (pageSelect == null) {
             return "-1";
         }
         PageInfo<UserInfoVo> userInfoVoPage = userService.queryPageUser(pageSelect);
-        if(userInfoVoPage==null){
+        if (userInfoVoPage == null) {
             return "-1";
         }
         return JSON.toJSONString(userInfoVoPage);
@@ -85,14 +85,44 @@ public class UserManageSeevlet extends BaseServlet<UserInfo> {
     @ResponseTypeAnnotation(ResponseEnum.AJAX)
     public String reqDelUser(HttpServletRequest req) {
         String userId = req.getParameter("userId");
-        if(userId==null||userId.equals("")){
+        if (userId == null || userId.equals("")) {
             return "-1";
         }
         Integer integer = DataUtil.stringConvertToInteger(userId);
         Integer i = userService.delUser(userId);
-        if(i>0){
+        if (i > 0) {
             return "1";
         }
         return "-1";
+    }
+
+    @ResponseTypeAnnotation(ResponseEnum.AJAX)
+    public String reqAllRole(HttpServletRequest req) {
+        List<TreeNode> treeNode = userService.queryAllRole();
+        if (treeNode == null) {
+            return "-1";
+        }
+        return JSON.toJSONString(treeNode);
+    }
+
+    @ResponseTypeAnnotation(ResponseEnum.AJAX)
+    public String reqUserAllRoleId(HttpServletRequest req) {
+        String id = req.getParameter("id");
+        if(id==null||id.equals("")){
+            return "-1";
+        }
+        Integer userId = DataUtil.stringConvertToInteger(id);
+        List<Integer> roleIds = userService.findUserAllRoleId(userId);
+        if(roleIds==null){
+            return "-1";
+        }
+        SetUserRole setUserRole = new SetUserRole(userId,roleIds);
+        return JSON.toJSONString(setUserRole);
+    }
+
+    @ResponseTypeAnnotation(ResponseEnum.AJAX)
+    public String reqSetUserRole(HttpServletRequest req) {
+        SetUserRole setUserRole = BaseUtil.readBean(req, SetUserRole.class);
+        return userService.setUserRole(setUserRole);
     }
 }

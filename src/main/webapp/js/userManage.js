@@ -68,10 +68,19 @@ var app = new Vue({
         },
         //请求注册对象
         regUser: new RegUserF(),
+        //全部角色
+        roles: [],
+
+        //用户当前拥有的全部角色id
+        setUserRole:{
+            userId:'',
+            userAllRoleId:[],
+        },
 
         regFlag: false,
         userDetailsFlag: false,
         setUserFlag: false,
+        authorizeFlag: false,
 
 
         //添加用户验证规则
@@ -158,6 +167,41 @@ var app = new Vue({
             })
         },
 
+        //请求全部角色
+        reqAllRole() {
+            axios.post(projectPath + "/userManage?type=reqAllRole").then(resp => {
+                if (resp.data == "-1") {
+                    this.$message.error("网络数据有误");
+                } else {
+                    this.roles = resp.data;
+                }
+            })
+        },
+
+        //请求用户全部角色id
+        reqUserAllRoleId(id) {
+            axios.post(projectPath + "/userManage?type=reqUserAllRoleId&id=" + id).then(resp => {
+                if (resp.data == "-1") {
+                    this.$message.error("网络数据有误");
+                } else {
+                    this.setUserRole = resp.data;
+                    this.$refs.userTree.setCheckedKeys(this.setUserRole.userAllRoleId);
+                }
+            })
+        },
+        //请求授权角色给用户
+        reqSetUserRole(){
+            axios.post(projectPath+"/userManage?type=reqSetUserRole",this.setUserRole).then(resp=>{
+                if(resp.data=="-1"){
+                    this.$message.error("修改失败");
+                }else {
+                    this.$message.success("修改成功");
+                    this.setUserRole ={};
+                    this.authorizeFlag = false;
+                }
+            })
+        },
+
         //请求设置每页数据
         SetPageCount(pageCount) {
             this.pageSelect.pageCount = pageCount;
@@ -203,9 +247,26 @@ var app = new Vue({
             this.reqSetUserInfo(user.userId);
             this.setUserFlag = true;
         },
+        //显示授权弹窗
+        showAuthorize(user){
+            this.reqUserAllRoleId(user.userId);
+            this.authorizeFlag = true;
+        },
+
+        //授权
+        authorize(flag) {
+            if (flag) {
+                this.setUserRole.userAllRoleId = this.$refs.userTree.getCheckedKeys();
+                this.reqSetUserRole();
+            } else {
+                this.authorizeFlag = false;
+                this.setUserRole = {};
+            }
+        },
 
     },
     created() {
         this.reqPageSelect();
+        this.reqAllRole();
     },
 });

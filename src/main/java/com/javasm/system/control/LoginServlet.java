@@ -1,15 +1,13 @@
 package com.javasm.system.control;
 
+import cn.hutool.core.codec.Base64;
 import com.alibaba.fastjson.JSON;
 import com.javasm.annotation.ResponseTypeAnnotation;
 import com.javasm.controlUtil.BaseServlet;
 import com.javasm.myEnum.ResponseEnum;
 import com.javasm.system.bean.SimpleJSON;
 import com.javasm.system.bean.UserInfo;
-import com.javasm.system.bean.vo.LoginUser;
-import com.javasm.system.bean.vo.RegUser;
-import com.javasm.system.bean.vo.RoleMenu;
-import com.javasm.system.bean.vo.UserRoleVo;
+import com.javasm.system.bean.vo.*;
 import com.javasm.system.service.LoginService;
 import com.javasm.system.service.implement.LoginServiceImpl;
 import com.javasm.util.BaseUtil;
@@ -73,6 +71,7 @@ public class LoginServlet extends BaseServlet<UserInfo> {
 
     /**
      * 请求角色
+     *
      * @param req
      * @return
      */
@@ -93,13 +92,21 @@ public class LoginServlet extends BaseServlet<UserInfo> {
         return JSON.toJSONString(userRoleVo);
     }
 
-    public String reqRoleMenu(HttpServletRequest req){
+    /**
+     * 请求用户当前角色菜单
+     *
+     * @param req
+     * @return
+     */
+    public String reqRoleMenu(HttpServletRequest req) {
         SimpleJSON simpleJSON = BaseUtil.readBean(req, SimpleJSON.class);
-        UserInfo userInfo = (UserInfo)req.getSession().getAttribute("login");
+        UserInfo userInfo = (UserInfo) req.getSession().getAttribute("login");
         List<RoleMenu> roleMenus = loginService.getRoleMenu(userInfo.getRoleId());
-        if(roleMenus==null){
+        if (roleMenus == null) {
             return "-1";
         }
         return JSON.toJSONString(roleMenus);
     }
+
+
 }

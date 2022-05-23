@@ -1,10 +1,12 @@
 package com.javasm.system.control;
 
+import cn.hutool.core.codec.Base64;
 import com.alibaba.fastjson.JSON;
 import com.javasm.annotation.ResponseTypeAnnotation;
 import com.javasm.controlUtil.BaseServlet;
 import com.javasm.myEnum.ResponseEnum;
 import com.javasm.system.bean.UserInfo;
+import com.javasm.system.bean.vo.SetPwdInfo;
 import com.javasm.system.bean.vo.SetUserInfo;
 import com.javasm.system.bean.vo.UserInfoVo;
 import com.javasm.system.service.UserService;
@@ -75,6 +77,25 @@ public class UserInfoServlet extends BaseServlet<UserInfo> {
             return "-1";
         }
 
+    }
+
+    public String reqSetPwd(HttpServletRequest req) {
+        SetPwdInfo setPwdInfo = BaseUtil.readBean(req, SetPwdInfo.class);
+        if (setPwdInfo.getNewPwd() == null || setPwdInfo.getOldPwd() == null) {
+            return "-1";
+        }
+        setPwdInfo.setOldPwd(Base64.encode(setPwdInfo.getOldPwd()));
+        setPwdInfo.setNewPwd(Base64.encode(setPwdInfo.getNewPwd()));
+        UserInfo userInfo = (UserInfo) req.getSession().getAttribute("login");
+        if (!userInfo.getUserPwd().equals(setPwdInfo.getOldPwd())){
+            return "-1";
+        }
+        Integer i = userService.setPwd(userInfo.getUserId(),setPwdInfo.getNewPwd());
+        if(i>0){
+            userInfo.setUserPwd(setPwdInfo.getNewPwd());
+            return "1";
+        }
+        return "-1";
     }
 
     private void updateLogin(UserInfo u,SetUserInfo setUserInfo){

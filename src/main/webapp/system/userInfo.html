@@ -18,7 +18,7 @@
                 <template slot="extra">
                     <el-button type="primary" size="small" @click="setUserFlag=true">修改用户信息</el-button>
                     <el-button type="primary" size="small" @click="setPwdFlag=true">修改密码</el-button>
-                    <el-button type="primary" size="small" @click="uploadAvatarFlag=true">上传头像</el-button>
+                    <el-button type="primary" size="small" @click="showUploadAvatarFlag()">上传头像</el-button>
                 </template>
                 <el-descriptions-item>
                     <template slot="label">
@@ -160,6 +160,14 @@
         </span>
     </el-dialog>
 
+    <el-dialog  title="上传图像"
+                :visible.sync="uploadAvatarFlag"
+                width="30%">
+        <el-upload
+            class="avatar-uploader"
+            :action="uploadPath"
+            :on-success=""
+    </el-dialog>
 </div>
 <script src="../js/userInfo.js"></script>
 </body>

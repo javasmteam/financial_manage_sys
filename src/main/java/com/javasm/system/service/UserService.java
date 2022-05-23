@@ -2,9 +2,9 @@ package com.javasm.system.service;
 
 import com.javasm.system.bean.PageInfo;
 import com.javasm.system.bean.UserInfo;
-import com.javasm.system.bean.vo.PageSelectUser;
-import com.javasm.system.bean.vo.SetUserInfo;
-import com.javasm.system.bean.vo.UserInfoVo;
+import com.javasm.system.bean.vo.*;
+
+import java.util.List;
 
 /**
  * @author: 云勇
@@ -53,4 +53,32 @@ public interface UserService {
      * @return
      */
     Integer delUser(String userId);
+
+    /**
+     * 查询全部角色
+     * @return
+     */
+    List<TreeNode> queryAllRole();
+
+    /**
+     * 查询用户拥有的全部角色
+     * @param userId
+     * @return
+     */
+    List<Integer> findUserAllRoleId(Integer userId);
+
+    /**
+     * 设置用户的角色
+     * @param setUserRole
+     * @return
+     */
+    String setUserRole(SetUserRole setUserRole);
+
+    /**
+     * 设置用户密码
+     * @param userId
+     * @param newPwd
+     * @return
+     */
+    Integer setPwd(Integer userId, String newPwd);
 }

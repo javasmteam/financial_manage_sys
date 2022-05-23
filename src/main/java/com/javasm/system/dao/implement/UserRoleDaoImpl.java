@@ -118,4 +118,10 @@ public class UserRoleDaoImpl implements UserRoleDao {
         String sql = JDBCUtils.getSql("QUERY_USER_INFO_SIMPLE_BY_ROLE_ID");
         return JDBCUtils.query(sql,UserInfoSimple.class,roleId);
     }
+
+    @Override
+    public List<TreeNode> queryAllRole() {
+        String sql = JDBCUtils.getSql("QUERY_ALL_ROLE_TREE");
+        return JDBCUtils.query(sql,TreeNode.class);
+    }
 }

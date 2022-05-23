@@ -155,5 +155,17 @@ public class UserDaoImpl implements UserDao {
         return JDBCUtils.size(sql.toString());
     }
 
+    @Override
+    public Integer setPwd(Integer userId, String newPwd) {
+        String sql = JDBCUtils.getSql("SET_USER_PWD");
+        return JDBCUtils.update(sql,newPwd,userId);
+    }
+
+    @Override
+    public void delUserAllRole(Connection conn, Integer userId) {
+        String sql = JDBCUtils.getSql("DEL_USER_ALL_ROLE");
+        JDBCUtils.update(sql,userId);
+    }
+
 
 }

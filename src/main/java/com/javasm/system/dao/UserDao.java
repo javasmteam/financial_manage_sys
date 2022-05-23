@@ -115,4 +115,19 @@ public interface UserDao {
      * @return
      */
     Integer selectSize(PageSelectUser pageSelect);
+
+    /**
+     * 设置用户密码
+     * @param userId
+     * @param newPwd
+     * @return
+     */
+    Integer setPwd(Integer userId, String newPwd);
+
+    /**
+     * 删除用户全部角色
+     * @param conn
+     * @param userId
+     */
+    void delUserAllRole(Connection conn, Integer userId);
 }

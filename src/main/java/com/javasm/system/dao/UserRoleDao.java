@@ -78,11 +78,40 @@ public interface UserRoleDao {
      */
     List<Integer> findRolePermissions(Integer roleId);
 
+    /**
+     * 删除角色全部权限
+     * @param conn
+     * @param roleId
+     * @return
+     */
     Integer delRolePermissions(Connection conn, Integer roleId);
 
+    /**
+     * 添加角色权限
+     * @param conn
+     * @param roleId
+     * @param rolePermission
+     * @return
+     */
     Integer addRolePermission(Connection conn, Integer roleId, Integer rolePermission);
 
+    /**
+     * 添加角色
+     * @param userRole
+     * @return
+     */
     Integer addUserRole(UserRole userRole);
 
+    /**
+     * 查询拥有角色的全部用户
+     * @param roleId
+     * @return
+     */
     List<UserInfoSimple> queryUserInfoSimpleByRoleId(Integer roleId);
+
+    /**
+     * 查询全部角色
+     * @return
+     */
+    List<TreeNode> queryAllRole();
 }

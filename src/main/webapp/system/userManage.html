@@ -76,7 +76,8 @@
                     <el-button-group>
                         <el-button type="primary" icon="el-icon-orange" @click="showUserInfo(scope.row)"></el-button>
                         <el-button type="primary" icon="el-icon-edit" @click="showSetUserInfo(scope.row)"></el-button>
-                        <el-button type="primary" icon="el-icon-delete" @click="reqDelUser(scope.row)"></el-button>
+                        <el-button type="danger" icon="el-icon-delete" @click="reqDelUser(scope.row)"></el-button>
+                        <el-button type="primary" icon="el-icon-link" @click="showAuthorize(scope.row)"></el-button>
                     </el-button-group>
                 </template>
             </el-table-column>
@@ -254,6 +255,16 @@
                 </el-form-item>
 
             </el-form>
+        </el-dialog>
+
+        <!-- 授权弹窗 -->
+        <el-dialog title="授权" :visible.sync="authorizeFlag">
+            <el-tree :data="roles" show-checkbox node-key="id" ref="userTree">
+            </el-tree>
+            <div class="reg-button">
+                <el-button @click="authorize(false)">取 消</el-button>
+                <el-button type="primary" @click="authorize(true)">确 定</el-button>
+            </div>
         </el-dialog>
     </el-card>
 </div>

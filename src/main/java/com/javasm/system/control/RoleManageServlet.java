@@ -31,6 +31,11 @@ import java.util.List;
 public class RoleManageServlet extends BaseServlet<UserInfo> {
     private RoleService roleService = new RoleServiceImpl();
 
+    /**
+     * 分页查询角色
+     * @param req
+     * @return
+     */
     @ResponseTypeAnnotation(ResponseEnum.AJAX)
     public String reqPageSelect(HttpServletRequest req) {
         PageSelectRole pageSelect = BaseUtil.readBean(req, PageSelectRole.class);
@@ -42,6 +47,11 @@ public class RoleManageServlet extends BaseServlet<UserInfo> {
         }
     }
 
+    /**
+     * 删除角色
+     * @param req
+     * @return
+     */
     @ResponseTypeAnnotation(ResponseEnum.AJAX)
     public String reqDelRole(HttpServletRequest req) {
         String id = req.getParameter("id");
@@ -56,6 +66,11 @@ public class RoleManageServlet extends BaseServlet<UserInfo> {
         }
     }
 
+    /**
+     * 设置角色信息
+     * @param req
+     * @return
+     */
     @ResponseTypeAnnotation(ResponseEnum.AJAX)
     public String reqSetRole(HttpServletRequest req) {
         UserRole userRole = BaseUtil.readBean(req, UserRole.class);
@@ -70,6 +85,11 @@ public class RoleManageServlet extends BaseServlet<UserInfo> {
         }
     }
 
+    /**
+     * 请求角色拥有的权限
+     * @param req
+     * @return
+     */
     @ResponseTypeAnnotation(ResponseEnum.AJAX)
     public String reqRolePermissions(HttpServletRequest req) {
         String id = req.getParameter("id");
@@ -86,6 +106,11 @@ public class RoleManageServlet extends BaseServlet<UserInfo> {
 
     }
 
+    /**
+     * 设置角色权限
+     * @param req
+     * @return
+     */
     @ResponseTypeAnnotation(ResponseEnum.AJAX)
     public String reqSetRolePermissions(HttpServletRequest req) {
         SetRolePermissions setRolePermissions = BaseUtil.readBean(req, SetRolePermissions.class);
@@ -98,6 +123,11 @@ public class RoleManageServlet extends BaseServlet<UserInfo> {
 
     }
 
+    /**
+     * 添加角色
+     * @param req
+     * @return
+     */
     @ResponseTypeAnnotation(ResponseEnum.AJAX)
     public String reqAddRoleInfo(HttpServletRequest req) {
         UserRole userRole = BaseUtil.readBean(req, UserRole.class);
@@ -110,6 +140,11 @@ public class RoleManageServlet extends BaseServlet<UserInfo> {
 
     }
 
+    /**
+     * 请求拥有此角色的全部用户
+     * @param req
+     * @return
+     */
     @ResponseTypeAnnotation(ResponseEnum.AJAX)
     public String reqUserListByRoleId(HttpServletRequest req) {
         String id = req.getParameter("id");
@@ -123,6 +158,11 @@ public class RoleManageServlet extends BaseServlet<UserInfo> {
         return JSON.toJSONString(list);
     }
 
+    /**
+     * 请求全部的权限
+     * @param req
+     * @return
+     */
     @ResponseTypeAnnotation(ResponseEnum.AJAX)
     public String reqPermissions(HttpServletRequest req){
         List<TreeNode> list = roleService.queryAllPermissions();
