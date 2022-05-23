@@ -31,21 +31,21 @@ public class BkInvestMoneyDaoImpl implements BkInvestMoneyDao {
 
     @Override
     public List<BkInvestMoney> selectBkInvestMoney(PageInfo<BkInvestMoney> page, BkInvestMoney bkInvestMoney) {
-        StringBuilder sql = new StringBuilder("select i.userid,i.userCode,i.userName,i.investmoneytype,u.iphone,i.investmoney,i.investrequesttime,\n" +
-                "       i.investhandletime,i.investbankcode,i.state from bk_invest_money i,bk_user_info u where i.userid = u.userid ");
+        StringBuilder sql = new StringBuilder("select i.userid,i.userCode,i.userName,i.investmoneytype,i.investmoney,i.investrequesttime,\n" +
+                "       i.investhandletime,i.investbankcode,i.state,u.iphone from bk_invest_money i,bk_user_info u where i.userid = u.userid ");
         if (bkInvestMoney!=null){
 
-            if (bkInvestMoney.getUserName() != null && "".equals(bkInvestMoney.getUserName())){
+            if (bkInvestMoney.getUserName() != null && !"".equals(bkInvestMoney.getUserName())){
                 sql.append("  and i.userName  like '%"+bkInvestMoney.getUserName() +"%'");
             }
-            if (bkInvestMoney.getIphone() != null && "".equals(bkInvestMoney.getIphone())){
+            if (bkInvestMoney.getIphone() != null && !"".equals(bkInvestMoney.getIphone())){
                 sql.append("  and u.iphone  like '%"+bkInvestMoney.getIphone() +"%'");
             }
             if (bkInvestMoney.getInvestmoneytype() !=null && !"".equals(bkInvestMoney.getInvestmoneytype())){
                 sql.append(" and i.investmoneytype like '%"+bkInvestMoney.getInvestmoneytype()+"%'");
             }
             if (bkInvestMoney.getInveststate() != null && !"".equals(bkInvestMoney.getInveststate())){
-                sql.append(" and i.investstate like '%"+bkInvestMoney.getInveststate()+"%'");
+                sql.append(" and i.investstate ="+bkInvestMoney.getInveststate());
             }
         }
         sql.append(" limit ?,? ");
