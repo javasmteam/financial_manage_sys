@@ -1094,8 +1094,7 @@ from m_product,
 where m_product.product_id_a = product_info.product_id
 
 select product_id, product_ch_name
-from product_info,
-     m_product
+from product_info
 where product_series_id = (select product_series_id
                            from product_info
 
