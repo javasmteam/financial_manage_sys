@@ -100,7 +100,7 @@
             <el-row>
                 <el-col :span="12">
                     <el-form-item label="企业logo" prop="comLogo">
-                        <el-upload class="upload-demo" action="http://localhost:8088/Financial_manage_sys_war_exploded/fileUpload.do" multiple
+                        <el-upload class="upload-demo" action="http://192.168.6.55:8088/Financial_manage_sys_war_exploded/fileUpload.do" multiple
                                    :limit="3" :on-success="getFileName1">
                             <el-button size="small" type="primary">点击上传</el-button>
                         </el-upload>
@@ -108,7 +108,7 @@
                 </el-col>
                 <el-col :span="12">
                     <el-form-item label="APP端logo" prop="appLogo">
-                        <el-upload class="upload-demo" action="http://localhost:8088/Financial_manage_sys_war_exploded/fileUpload.do" multiple
+                        <el-upload class="upload-demo" action="http://192.168.6.55:8088/Financial_manage_sys_war_exploded/fileUpload.do" multiple
                                    :limit="3" :on-success="getFileName2">
                             <el-button size="small" type="primary">点击上传</el-button>
                         </el-upload>
@@ -377,7 +377,7 @@
         },
         methods: {
             queryCompany() {
-                axios.get("http://localhost:8088/Financial_manage_sys_war_exploded/companyInfo.do", {
+                axios.get("http://192.168.6.55:8088/Financial_manage_sys_war_exploded/companyInfo.do", {
                     params: this.selectParams
                 }).then(response => {
                     this.companyList = response.data.dataList;
@@ -403,7 +403,7 @@
             editCompany() {
                 console.log(this.company)
                 let string = window.Qs.stringify(this.company);
-                axios.post("http://localhost:8088/Financial_manage_sys_war_exploded/companyInfo.do", string).then(response => {
+                axios.post("http://192.168.6.55:8088/Financial_manage_sys_war_exploded/companyInfo.do", string).then(response => {
                     this.$message({
                         message: response.data,
                         type: 'success'
@@ -430,7 +430,7 @@
                 })
             },
             getLogo(url) {
-                return "http://localhost:8088/Financial_manage_sys_war_exploded" + url;
+                return "http://192.168.6.55:8088/Financial_manage_sys_war_exploded" + url;
             },
             getFileName(fileName, file, fileList) {
                 this.company.comLogo = "img/" + fileName
@@ -465,7 +465,7 @@
                 this.deleteCom()
             },
             deleteCom() {
-                axios.get("http://localhost:8088/Financial_manage_sys_war_exploded/companyInfo.do", {
+                axios.get("http://192.168.6.55:8088/Financial_manage_sys_war_exploded/companyInfo.do", {
                     params:this.deleteId
                 }).then(response => {
                     if (response.data == "1") {
@@ -497,7 +497,7 @@
                 this.showCompanyFlag = true;
             },
             showHistory() {
-                axios.get("http://localhost:8088/Financial_manage_sys_war_exploded/history.do", {
+                axios.get("http://192.168.6.55:8088/Financial_manage_sys_war_exploded/history.do", {
                     params: this.history,
                 }).then(response => {
                     this.historyList = response.data;
@@ -534,7 +534,7 @@
                 this.$refs["unitPrice"].validate((valid) => {
                     if (valid) {
                         let string = window.Qs.stringify(this.unitPrice);
-                        axios.post("http://localhost:8088/Financial_manage_sys_war_exploded/maker.do", string).then(response => {
+                        axios.post("http://192.168.6.55:8088/Financial_manage_sys_war_exploded/maker.do", string).then(response => {
                             this.$message({
                                 message: response.data,
                                 type: "success"
