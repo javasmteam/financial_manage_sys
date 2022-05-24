@@ -114,4 +114,12 @@ public class ProductRecommendServlet extends BaseServlet<ProductTypeIdVO> {
     }
 
 
+    @ResponseTypeAnnotation(ResponseEnum.AJAX)
+    public String findProductId(HttpServletRequest request) {
+        String idStr = request.getParameter("id");
+        Integer id = DataUtil.stringConvertToInteger(idStr);
+        return JSONObject.toJSONString(middleProductService.getProductId(id));
+    }
+
+
 }

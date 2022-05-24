@@ -1080,20 +1080,52 @@ where product_id = ?;
 
 
 
-select product_id, product_ch_name, product_id_b, pro_info_state
+select product_id, product_ch_name, product_id_b
 from product_info,
      m_product
 where product_series_id = (select product_series_id
                            from product_info
-                           where product_id = 1)  and product_id = product_id_a;
+                           where product_id = 1)
+  and product_id = product_id_a;
 
+select product_id_b
+from m_product,
+     product_info
+where m_product.product_id_a = product_info.product_id
 
-select product_id, product_ch_name, pro_info_state
-from product_info
+select product_id, product_ch_name
+from product_info,
+     m_product
 where product_series_id = (select product_series_id
                            from product_info
-                           where product_id = 44)
-  and product_id != 44;
+
+                           where product_id = 1)
+
+  and product_id != 1
+  and product_info.pro_info_state = 1
+  and product_id not in (select product_id_b
+                         from m_product,
+                              product_info
+                         where m_product.product_id_a = product_info.product_id)
+group by product_id;
+
+
+
+select product_id, product_ch_name
+from product_info,
+     m_product
+where product_series_id = (select product_series_id
+                           from product_info
+
+                           where product_id = 1)
+
+  and product_id != 1
+  and product_info.pro_info_state = 1
+  and product_id in (select product_id_b
+                     from m_product,
+                          product_info
+                     where m_product.product_id_a = product_info.product_id)
+group by product_id;
 
 
 
@@ -1105,14 +1137,16 @@ where product_info.product_series_id = product_type.product_series_id
 
 
 
-with C as (select product_id, product_ch_name, product_id_b,pro_info_state
-           from (select product_id, product_ch_name, pro_info_state,product_id_b
-                 from product_info,m_product
+with C as (select product_id, product_ch_name, product_id_b, pro_info_state
+           from (select product_id, product_ch_name, pro_info_state, product_id_b
+                 from product_info,
+                      m_product
                  where product_series_id = (select product_series_id
                                             from product_info
-                                            where product_id = 1) group by product_id)A
+                                            where product_id = 1)
+                 group by product_id) A
            where NOT exists(
-#                    select 1
+               #                    select 1
 #                    from product_info B,m_product D
 #                    where A.product_id = B.product_id and A.product_id = 1
 #                    and A.product_id = D.product_id_a and D.product_id_a = 1
@@ -1125,8 +1159,10 @@ from C;
 
 
 select
-select * from product_info pi where not exists(
-    select pi.product_id from m_product mp  where pi.product_id = mp.product_id_a and pi.product_id=1
+select *
+from product_info pi
+where not exists(
+        select pi.product_id from m_product mp where pi.product_id = mp.product_id_a and pi.product_id = 1
     );
 
 

@@ -26,6 +26,7 @@ var vue = new Vue({
         productRecommendVOList: [],
         productSeriesList: [],
         withoutProductList: [],
+        productSelectedList: [],
         productNotRecommends: [],
         productRecommendData: {},
         rules: {},
@@ -137,23 +138,34 @@ var vue = new Vue({
         showAssociate(obj) {
             this.mProduct.id = obj.productId;
             this.getWithoutProductList();
+            this.getSelectProductList();
             this.saveFlag4 = true;
         },
         associateProduct() {
             let json = window.Qs.stringify(this.mProduct, {"arrayFormat": "repeat"});// connectID=1&connectID=2
-            axios.get(projectPath + "/ProductRecommendServlet?type=associateProductRecommend&"+json).then(response => {
+            axios.get(projectPath + "/ProductRecommendServlet?type=associateProductRecommend&" + json).then(response => {
                 if (response.data == "1") {
                     this.$message.success("添加成功！")
                 } else {
                     this.$message.error("添加失败!")
                 }
                 this.saveFlag4 = false;
+                this.mProduct.productIdB = [];
                 this.search();
             })
+        },
+        deleSelect() {
+            this.mProduct.productIdB = [];
+            this.saveFlag4 = false;
         },
         getWithoutProductList() {
             axios.get(projectPath + "/ProductRecommendServlet?type=findProductWithoutId&id=" + this.mProduct.id).then(response => {
                 this.withoutProductList = response.data;
+            })
+        },
+        getSelectProductList() {
+            axios.get(projectPath + "/ProductRecommendServlet?type=findProductId&id=" + this.mProduct.id).then(response => {
+                this.productSelectedList = response.data;
             })
         }
     },
@@ -161,7 +173,6 @@ var vue = new Vue({
         this.search();
         this.getProductSeries();
         this.getProductNotRecommends();
-
         // axios.get(projectPath + "/productType.do", {params: {type: "showProductInfo"}}).then(response => {
         //     this.productInfoVOList = response.data;
         // })

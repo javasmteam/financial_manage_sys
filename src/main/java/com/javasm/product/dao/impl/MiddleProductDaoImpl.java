@@ -26,7 +26,7 @@ public class MiddleProductDaoImpl implements MiddleProductDao {
     @Override
     public Boolean addMiddleProduct(Connection conn, MiddleProduct middleProduct) {
         String sql = JDBCUtils.getSql("addMiddleProduct");
-        return JDBCUtils.update(conn, sql, middleProduct.getProductIdA(),middleProduct.getProductIdB()) > 0;
+        return JDBCUtils.update(conn, sql, middleProduct.getProductIdA(), middleProduct.getProductIdB()) > 0;
     }
 
     /**
@@ -38,6 +38,18 @@ public class MiddleProductDaoImpl implements MiddleProductDao {
     @Override
     public List<ProductNotRecommendVO> getProductWithoutId(Integer id) {
         String sql = JDBCUtils.getSql("getProductId");
+        return JDBCUtils.query(sql, ProductNotRecommendVO.class, id, id);
+    }
+
+    /**
+     * 获得选中的id
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public List<ProductNotRecommendVO> getProductId(Integer id) {
+        String sql = JDBCUtils.getSql("getSelectProductId");
         return JDBCUtils.query(sql, ProductNotRecommendVO.class, id, id);
     }
 

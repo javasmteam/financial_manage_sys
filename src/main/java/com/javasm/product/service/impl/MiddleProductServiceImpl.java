@@ -36,6 +36,7 @@ public class MiddleProductServiceImpl implements MiddleProductService {
     }
 
     /**
+     * 添加关联产品
      * @param id
      * @param productBS
      * @return
@@ -73,5 +74,16 @@ public class MiddleProductServiceImpl implements MiddleProductService {
         }
 
         return true;
+    }
+
+    /**
+     * 获得选中的id
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public List<ProductNotRecommendVO> getProductId(Integer id) {
+        return middleProductDao.getProductId(id);
     }
 }

@@ -23,7 +23,7 @@ public interface MiddleProductDao {
      * @param middleProduct
      * @return
      */
-    Boolean addMiddleProduct(Connection conn ,MiddleProduct middleProduct);
+    Boolean addMiddleProduct(Connection conn, MiddleProduct middleProduct);
 
 
     /**
@@ -33,4 +33,13 @@ public interface MiddleProductDao {
      * @return
      */
     public List<ProductNotRecommendVO> getProductWithoutId(Integer id);
+
+
+    /**
+     * 获得选中的id
+     *
+     * @param id
+     * @return
+     */
+    public List<ProductNotRecommendVO> getProductId(Integer id);
 }

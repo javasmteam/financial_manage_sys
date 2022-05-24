@@ -16,12 +16,6 @@ import java.util.List;
 public interface MiddleProductService {
 
 
-
-
-
-
-
-
     /**
      * 获得除了选中的id之外的产品列表
      *
@@ -30,5 +24,21 @@ public interface MiddleProductService {
      */
     public List<ProductNotRecommendVO> getProductWithoutId(Integer id);
 
+    /**
+     * 添加关联产品
+     * @param id
+     * @param productBS
+     * @return
+     */
     Boolean addMiddleProduct(Integer id, String[] productBS);
+
+
+
+    /**
+     * 获得选中的id
+     *
+     * @param id
+     * @return
+     */
+    public List<ProductNotRecommendVO> getProductId(Integer id);
 }
