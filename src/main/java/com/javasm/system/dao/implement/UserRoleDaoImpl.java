@@ -85,7 +85,7 @@ public class UserRoleDaoImpl implements UserRoleDao {
     @Override
     public Integer updateRole(UserRole userRole) {
         String sql = JDBCUtils.getSql("UPDATE_ROLE");
-        return JDBCUtils.update(sql,userRole.getRoleName());
+        return JDBCUtils.update(sql,userRole.getRoleName(),userRole.getRoleId());
     }
 
     @Override

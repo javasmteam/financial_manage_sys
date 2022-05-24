@@ -38,7 +38,7 @@ var app = new Vue({
         pageSelect: {
             nowPage: 1,
             pageCount: 5,
-            menuName: '',
+            permissionName: '',
             permissionId: '',
         },
         //分页数据

@@ -157,7 +157,7 @@ var app = new Vue({
 
         //请求删除用户
         reqDelUser(user) {
-            axios.post(projectPath + "/userManage?type=reqDelUser", user).then(resp => {
+            axios.post(projectPath + "/userManage?type=reqDelUser&userId="+user.userId).then(resp => {
                 if (resp.data == "-1") {
                     this.$message.error("删除失败")
                 } else {
