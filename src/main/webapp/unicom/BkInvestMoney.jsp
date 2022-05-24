@@ -102,7 +102,7 @@
         },
         methods: {
             queryInvest() {
-                axios.get("http://localhost:8088/Financial_manage_sys_war_exploded/invest.do", {
+                axios.get("http://192.168.6.55:8088/Financial_manage_sys_war_exploded/invest.do", {
                     params: this.selectParams
                 }).then(response => {
                     this.investList = response.data.dataList;
